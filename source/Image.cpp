@@ -53,7 +53,7 @@ void Halib::Image::Draw(VecI2 position)
 	Hall::SetExcerpt(0, 0, width, height);
 	Hall::SetScale(1, 1);
 	Hall::SetFlip(false, false);
-	Hall::SetColor(Hall::NONE);
+	Hall::SetColorTable(Hall::NONE);
 	Hall::SetColorSource(Hall::MEMORY);
 	Hall::SetShape(Hall::RECTANGLE);
 	Hall::SetScreenPosition(position.x, position.y);

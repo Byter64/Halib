@@ -20,3 +20,18 @@ void Halib::Misc::ShowFrame()
 	
 	Hall::SetCommandSwapBuffers();
 }
+
+void Halib::Misc::ClearFrame(Hall::Color color)
+{
+	Misc::WaitForGPU();
+
+	Hall::SetScale(1, 1);
+	Hall::SetFlip(false, false);
+	Hall::SetColor(color);
+	Hall::SetColorTable(Hall::NONE);
+	Hall::SetColorSource(Hall::COLOR);
+	Hall::SetShape(Hall::RECTANGLE);
+	Hall::SetRectangle(0, 0, Hall::SCREEN_WIDTH, Hall::SCREEN_HEIGHT);
+
+	Hall::Draw();
+}

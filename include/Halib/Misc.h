@@ -1,4 +1,5 @@
 #pragma once
+#include <Hall/Hall.h>
 
 namespace Halib
 {
@@ -8,5 +9,7 @@ namespace Halib
 
 		/// @brief Makes the image appear on screen and blocks until vSync happened
 		void ShowFrame();
+
+		void ClearFrame(Hall::Color color);
 	}
 }
