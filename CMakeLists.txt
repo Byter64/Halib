@@ -11,6 +11,7 @@ FetchContent_Declare(Hall
 	GIT_REPOSITORY https://github.com/byter64/Hall.git
 	GIT_TAG main
 )
+FetchContent_MakeAvailable(Hall)
 
 set(SOURCES
 	#Add the .cpp files here
