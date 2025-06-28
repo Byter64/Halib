@@ -37,7 +37,7 @@ Halib::Image::Image(const char* path)
 		color |= (red   >> 11) & 0b11111;
 		color |= (green >> 6)  & 0b11111;
 		color |= (blue  >> 1)  & 0b11111;
-		color |= alpha >= 128 ? 1 : 0;
+		color |= alpha >= 192 ? 1 : 0;
 
 		data[i] = color;
 	}
