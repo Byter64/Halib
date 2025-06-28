@@ -40,6 +40,8 @@ if(DESKTOPBUILD)
 		PUBLIC "include"
 		${INCLUDE_DIRS}
 	)
+
+	target_compile_definitions(Halib_Desktop PRIVATE DESKTOP)
 else()
 
 	#This library cointains the bare metal implementation of Halib for wueHans
@@ -75,5 +77,7 @@ else()
 	target_include_directories(Halib
 		PUBLIC "include"
 		${INCLUDE_DIRS}
-	)	
+	)
+
+	target_compile_definitions(Halib PRIVATE WUEHANS)
 endif()
