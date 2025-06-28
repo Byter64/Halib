@@ -33,7 +33,7 @@ if(DESKTOPBUILD)
 	)
 
 	target_link_libraries(Halib_Desktop
-		Hall
+		Hall_Desktop
 	)
 
 	target_include_directories(Halib_Desktop
@@ -65,6 +65,10 @@ else()
 	  	PUBLIC -ffreestanding
 	  	PUBLIC -Bstatic
 	  	PUBLIC -nostdlib
+	)
+
+	target_link_libraries(Halib_Desktop
+		Hall
 	)
 
 	target_include_directories(Halib
