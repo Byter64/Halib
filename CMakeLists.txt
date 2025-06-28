@@ -14,9 +14,9 @@ FetchContent_Declare(Hall
 FetchContent_MakeAvailable(Hall)
 
 set(SOURCES
-	#Add the .cpp files here
-	"source/Filesystem.cpp"
+	#Add the .c/.cpp files here
 	"external/libbmpread/libbmpread/bmpread.c"
+	"source/Image.cpp"
 )
 
 set(INCLUDE_DIRS
