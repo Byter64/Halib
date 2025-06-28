@@ -34,9 +34,9 @@ Halib::Image::Image(const char* path)
 		blue = blue >> 3;
 		
 		Hall::Color color = 0;
-		color |= (red   >> 11) & 0b11111;
-		color |= (green >> 6)  & 0b11111;
-		color |= (blue  >> 1)  & 0b11111;
+		color |= ((unsigned short)red   << 11);
+		color |= ((unsigned short)green << 6) ;
+		color |= ((unsigned short)blue  << 1) ;
 		color |= alpha >= 192 ? 1 : 0;
 
 		data[i] = color;
