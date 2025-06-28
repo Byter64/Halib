@@ -1,25 +1,22 @@
 #include "Image.h"
 #include "bmpread.h"
+#include <cstdlib>
 
-Halib::Image::Image()
+Halib::Image::Image() : width(0), height(0), data(nullptr)
 {
-	width = 0;
-	height = 0;
-	data = 0;
+
 }
 
-Halib::Image::Image(short width, short height, Hall::Color* data)
+Halib::Image::Image(short width, short height, Hall::Color* data) : width(width), height(height), data(data)
 {
-	this->width = width;
-	this->height = height;
-	this->data = data;
+
 }
 
 Halib::Image::Image(const char* path)
 {
 	bmpread_t bmp;
-	int result = bmpread(path, BMPREAD_TOP_DOWN | BMPREAD_ANY_SIZE | BMPREAD_ALPHA, &bmpread);
-	data = malloc(sizeof(Hall::Color) * bmp.width * bmp.height);;
+	int result = bmpread(path, BMPREAD_TOP_DOWN | BMPREAD_ANY_SIZE | BMPREAD_ALPHA, &bmp);
+	data = (Hall::Color*)malloc(sizeof(Hall::Color) * bmp.width * bmp.height);
 	width = bmp.width;
 	height = bmp.height;
 
@@ -35,7 +32,7 @@ Halib::Image::Image(const char* path)
 		color |= (red   >> 11) & 0b11111;
 		color |= (green >> 6)  & 0b11111;
 		color |= (blue  >> 1)  & 0b11111;
-		color |= alpha >= 128 ? 1 : 0;
+		color |= alpha >= 0 ? 1 : 0;
 
 		data[i] = color;
 	}
