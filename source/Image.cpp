@@ -49,6 +49,13 @@ void Halib::Image::Draw(VecI2 position)
 {
 	Misc::WaitForGPU();
 
+#ifdef DESKTOP
+	if(wasDataRequested)
+	{
+		Hall::UpdateRaylibTexture(data.get());
+	}
+#endif
+
 	Hall::SetImage(data.get(), width);
 	Hall::SetExcerpt(0, 0, width, height);
 	Hall::SetScale(1, 1);
@@ -73,6 +80,9 @@ short Halib::Image::GetHeight()
 
 Hall::Color* Halib::Image::GetData()
 {
+#ifdef DESKTOP
+	wasDataRequested = true;
+#endif
 	return data.get();
 }
 

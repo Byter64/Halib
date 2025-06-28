@@ -11,6 +11,9 @@ namespace Halib
 		short width; //In pixels
 		short height; //In pixels
 		std::unique_ptr<Hall::Color[]> data; //pixel array
+#ifdef DESKTOP
+		bool wasDataRequested = false;
+#endif
 
 public:
 		Image();
