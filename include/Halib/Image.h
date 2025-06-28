@@ -15,6 +15,9 @@ public:
 		Image(short width, short height, Hall::Color* data);
 		Image(const char* path);
 
+		short GetWidth();
+		short GetHeight();
+
 		~Image();
 	};
 }

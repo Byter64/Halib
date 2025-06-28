@@ -40,6 +40,17 @@ Halib::Image::Image(const char* path)
 	bmpread_free(&bmp);
 }
 
+short Halib::Image::GetWidth()
+{
+	return width;
+}
+
+short Halib::Image::GetHeight()
+{
+	return height;
+}
+
+
 Halib::Image::~Image()
 {
 	free(data);
