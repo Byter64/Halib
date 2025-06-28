@@ -8,7 +8,7 @@ Halib::Image::Image() : width(0), height(0), data(nullptr)
 
 }
 
-Halib::Image::Image(short width, short height, Hall::Color* data) : width(width), height(height), data(data)
+Halib::Image::Image(short width, short height, std::unique_ptr<Hall::Color[]> data) : width(width), height(height), data(std::move(data))
 {
 
 }
@@ -17,17 +17,21 @@ Halib::Image::Image(const char* path)
 {
 	bmpread_t bmp;
 	int result = bmpread(path, BMPREAD_TOP_DOWN | BMPREAD_ANY_SIZE | BMPREAD_ALPHA, &bmp);
-	data = (Hall::Color*)malloc(sizeof(Hall::Color) * bmp.width * bmp.height);
+	data = std::make_unique<Hall::Color[]>(bmp.width * bmp.height);
 	width = bmp.width;
 	height = bmp.height;
 
 	//This is stupid, but changing bmpread to directly output R5G5B5A1 did not seem so straight forward
 	for(int i = 0; i < bmp.width * bmp.height; i++)
 	{
-		char red   = bmp.data[4 * i + 0];
-		char green = bmp.data[4 * i + 1];
-		char blue  = bmp.data[4 * i + 2];
-		char alpha = bmp.data[4 * i + 3];
+		unsigned char red   = bmp.data[4 * i + 0];
+		unsigned char green = bmp.data[4 * i + 1];
+		unsigned char blue  = bmp.data[4 * i + 2];
+		unsigned char alpha = bmp.data[4 * i + 3];
+
+		red = red >> 3;
+		green = green >> 3;
+		blue = blue >> 3;
 		
 		Hall::Color color = 0;
 		color |= (red   >> 11) & 0b11111;
@@ -45,7 +49,7 @@ void Halib::Image::Draw(VecI2 position)
 {
 	Misc::WaitForGPU();
 
-	Hall::SetImage(data, width);
+	Hall::SetImage(data.get(), width);
 	Hall::SetExcerpt(0, 0, width, height);
 	Hall::SetScale(1, 1);
 	Hall::SetFlip(false, false);
@@ -67,8 +71,12 @@ short Halib::Image::GetHeight()
 	return height;
 }
 
+Hall::Color* Halib::Image::GetData()
+{
+	return data.get();
+}
 
 Halib::Image::~Image()
 {
-	free(data);
+	
 }
