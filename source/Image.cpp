@@ -1,6 +1,7 @@
 #include "Image.h"
 #include "bmpread.h"
 #include <cstdlib>
+#include "Misc.h"
 
 Halib::Image::Image() : width(0), height(0), data(nullptr)
 {
@@ -38,6 +39,22 @@ Halib::Image::Image(const char* path)
 	}
 
 	bmpread_free(&bmp);
+}
+
+void Halib::Image::Draw(VecI2 position)
+{
+	Misc::WaitForGPU();
+
+	Hall::SetImage(data, width);
+	Hall::SetExcerpt(0, 0, width, height);
+	Hall::SetScale(1, 1);
+	Hall::SetFlip(false, false);
+	Hall::SetColor(Hall::NONE);
+	Hall::SetColorSource(Hall::MEMORY);
+	Hall::SetShape(Hall::RECTANGLE);
+	Hall::SetScreenPosition(position.x, position.y);
+
+	Hall::Draw();
 }
 
 short Halib::Image::GetWidth()

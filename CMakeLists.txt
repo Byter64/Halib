@@ -17,6 +17,7 @@ set(SOURCES
 	#Add the .c/.cpp files here
 	"external/libbmpread/libbmpread/bmpread.c"
 	"source/Image.cpp"
+	"source/Misc.cpp"
 )
 
 set(INCLUDE_DIRS
