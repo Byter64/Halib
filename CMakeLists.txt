@@ -16,6 +16,11 @@ FetchContent_MakeAvailable(Hall)
 set(SOURCES
 	#Add the .cpp files here
 	"source/Filesystem.cpp"
+	"external/libbmpread/libbmpread/bmpread.c"
+)
+
+set(INCLUDE_DIRS
+	"external/libbmpread/libbmpread/include"
 )
 
 
@@ -31,6 +36,7 @@ if(DESKTOPBUILD)
 
 	target_include_directories(Halib_Desktop
 		PUBLIC SYSTEM include
+		PRIVATE ${INCLUDE_DIRS}
 	)
 else()
 
@@ -62,5 +68,6 @@ else()
 
 	target_include_directories(Halib
 	  	PUBLIC SYSTEM include
+		PRIVATE ${INCLUDE_DIRS}
 	)	
 endif()
