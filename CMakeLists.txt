@@ -68,7 +68,7 @@ else()
 	  	PUBLIC -nostdlib
 	)
 
-	target_link_libraries(Halib_Desktop
+	target_link_libraries(Halib
 		Hall
 	)
 
