@@ -20,7 +20,8 @@ set(SOURCES
 )
 
 set(INCLUDE_DIRS
-	"external/libbmpread/libbmpread/include"
+	PRIVATE "external/libbmpread/libbmpread/include"
+	PUBLIC include
 )
 
 
@@ -35,8 +36,7 @@ if(DESKTOPBUILD)
 	)
 
 	target_include_directories(Halib_Desktop
-		PUBLIC SYSTEM include
-		PRIVATE ${INCLUDE_DIRS}
+		${INCLUDE_DIRS}
 	)
 else()
 
@@ -67,7 +67,6 @@ else()
 	)
 
 	target_include_directories(Halib
-	  	PUBLIC SYSTEM include
-		PRIVATE ${INCLUDE_DIRS}
+		${INCLUDE_DIRS}
 	)	
 endif()
