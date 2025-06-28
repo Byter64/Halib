@@ -21,7 +21,8 @@ set(SOURCES
 
 set(INCLUDE_DIRS
 	PRIVATE "external/libbmpread/libbmpread/include"
-	PUBLIC include
+	PUBLIC "include"
+	PRIVATE "include/Halib"
 )
 
 
