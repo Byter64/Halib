@@ -11,5 +11,9 @@ namespace Halib
 		void ShowFrame();
 
 		void ClearFrame(Hall::Color color);
+
+		/// @brief 
+		/// @return Time since startup in seconds
+		float GetTimeSinceStartup();
 	}
 }

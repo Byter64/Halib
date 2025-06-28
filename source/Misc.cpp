@@ -35,3 +35,8 @@ void Halib::Misc::ClearFrame(Hall::Color color)
 
 	Hall::Draw();
 }
+
+float Halib::Misc::GetTimeSinceStartup()
+{
+	return Hall::GetSystemTime() / (float)Hall::SYSTEM_CLK_FREQUENCY;
+}
