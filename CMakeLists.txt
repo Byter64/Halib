@@ -13,17 +13,28 @@ FetchContent_Declare(Hall
 )
 FetchContent_MakeAvailable(Hall)
 
+FetchContent_Declare(freetype
+  URL https://download.savannah.gnu.org/releases/freetype/freetype-2.13.3.tar.gz
+)
+FetchContent_MakeAvailable(freetype)
+
 set(SOURCES
 	#Add the .c/.cpp files here
 	"external/libbmpread/libbmpread/bmpread.c"
-	"source/Image.cpp"
-	"source/Misc.cpp"
-	"source/Color.cpp"
+	"source/Graphic/Image.cpp"
+	"source/Graphic/Misc.cpp"
+	"source/Graphic/Color.cpp"
+	"source/Graphic/Font.cpp"
+	"source/System.cpp"
 )
 
 set(INCLUDE_DIRS
 	PRIVATE "external/libbmpread/libbmpread/include"
 	PRIVATE "include/Halib"
+)
+
+set(LINK_LIBS
+	freetype
 )
 
 
@@ -35,6 +46,7 @@ if(DESKTOPBUILD)
 
 	target_link_libraries(Halib_Desktop
 		Hall_Desktop
+		${LINK_LIBS}
 	)
 
 	target_include_directories(Halib_Desktop
@@ -73,6 +85,7 @@ else()
 
 	target_link_libraries(Halib
 		Hall
+		${LINK_LIBS}
 	)
 
 	target_include_directories(Halib
