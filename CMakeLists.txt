@@ -26,6 +26,7 @@ set(SOURCES
 	"source/Graphic/Color.cpp"
 	"source/Graphic/Font.cpp"
 	"source/System.cpp"
+	"source/Graphic/Render.cpp"
 )
 
 set(INCLUDE_DIRS

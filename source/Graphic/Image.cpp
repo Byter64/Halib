@@ -46,35 +46,12 @@ Halib::Image::Image(const char* path)
 	bmpread_free(&bmp);
 }
 
-void Halib::Image::Draw(VecI2 position)
-{
-	Misc::WaitForGPU();
-
-#ifdef DESKTOP
-	if(wasDataRequested)
-	{
-		Hall::UpdateRaylibTexture((Hall::Color*)data.get());
-	}
-#endif
-
-	Hall::SetImage((Hall::Color*)data.get(), width);
-	Hall::SetExcerpt(0, 0, width, height);
-	Hall::SetScale(1, 1);
-	Hall::SetFlip(false, false);
-	Hall::SetColorTable(Hall::NONE);
-	Hall::SetColorSource(Hall::MEMORY);
-	Hall::SetShape(Hall::RECTANGLE);
-	Hall::SetScreenPosition(position.x, position.y);
-
-	Hall::Draw();
-}
-
-short Halib::Image::GetWidth()
+short Halib::Image::GetWidth() const
 {
 	return width;
 }
 
-short Halib::Image::GetHeight()
+short Halib::Image::GetHeight() const
 {
 	return height;
 }
@@ -86,6 +63,13 @@ Halib::Color* Halib::Image::GetData()
 #endif
 	return data.get();
 }
+
+#ifdef DESKTOP
+bool Halib::Image::GetWasDataRequested() const
+{
+	return wasDataRequested;
+}
+#endif
 
 Halib::Image::~Image()
 {

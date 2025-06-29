@@ -16,5 +16,7 @@ public:
 		/// @brief Sets the size of the font. The result might not be exactly the given target size. See freetypes documentation for more
 		/// @param targetPixelSize
 		void SetSize(int targetPixelSize);
+
+		FT_Face GetFace() const;
 	};
 } // namespace Halib

@@ -9,6 +9,7 @@ namespace Halib
 		Hall::Color color;
 
 public:
+		static const Color BLACK;
 
 		Color();
 		Color(char red, char green, char blue, bool alpha = true);

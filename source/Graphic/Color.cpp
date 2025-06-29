@@ -1,5 +1,7 @@
 #include "Graphic/Color.h"
 
+const Halib::Color Halib::Color::BLACK = {0b0000000000000001};
+
 Halib::Color::Color()
 {
 	SetRed(0);

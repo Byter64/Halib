@@ -30,3 +30,8 @@ void Halib::Font::SetSize(int targetPixelSize)
 		printf("Errorcode: %i\n", error);
 	}
 }
+
+FT_Face Halib::Font::GetFace() const
+{
+	return face;
+}
