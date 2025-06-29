@@ -2,13 +2,14 @@
 #include "bmpread.h"
 #include <cstdlib>
 #include "Misc.h"
+#include <Hall/Hall.h>
 
 Halib::Image::Image() : width(0), height(0), data(nullptr)
 {
 
 }
 
-Halib::Image::Image(short width, short height, std::unique_ptr<Hall::Color[]> data) : width(width), height(height), data(std::move(data))
+Halib::Image::Image(short width, short height, std::unique_ptr<Halib::Color[]> data) : width(width), height(height), data(std::move(data))
 {
 
 }
@@ -17,7 +18,7 @@ Halib::Image::Image(const char* path)
 {
 	bmpread_t bmp;
 	int result = bmpread(path, BMPREAD_TOP_DOWN | BMPREAD_ANY_SIZE | BMPREAD_ALPHA, &bmp);
-	data = std::make_unique<Hall::Color[]>(bmp.width * bmp.height);
+	data = std::make_unique<Halib::Color[]>(bmp.width * bmp.height);
 	width = bmp.width;
 	height = bmp.height;
 
@@ -33,11 +34,11 @@ Halib::Image::Image(const char* path)
 		green = green >> 3;
 		blue = blue >> 3;
 		
-		Hall::Color color = 0;
-		color |= ((unsigned short)red   << 11);
-		color |= ((unsigned short)green << 6) ;
-		color |= ((unsigned short)blue  << 1) ;
-		color |= alpha >= 192 ? 1 : 0;
+		Halib::Color color = 0;
+		color.SetRed(red);
+		color.SetGreen(green);
+		color.SetBlue(blue);
+		color.SetAlpha(alpha >= 192);
 
 		data[i] = color;
 	}
@@ -52,11 +53,11 @@ void Halib::Image::Draw(VecI2 position)
 #ifdef DESKTOP
 	if(wasDataRequested)
 	{
-		Hall::UpdateRaylibTexture(data.get());
+		Hall::UpdateRaylibTexture((Hall::Color*)data.get());
 	}
 #endif
 
-	Hall::SetImage(data.get(), width);
+	Hall::SetImage((Hall::Color*)data.get(), width);
 	Hall::SetExcerpt(0, 0, width, height);
 	Hall::SetScale(1, 1);
 	Hall::SetFlip(false, false);
@@ -78,7 +79,7 @@ short Halib::Image::GetHeight()
 	return height;
 }
 
-Hall::Color* Halib::Image::GetData()
+Halib::Color* Halib::Image::GetData()
 {
 #ifdef DESKTOP
 	wasDataRequested = true;

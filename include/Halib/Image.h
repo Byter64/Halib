@@ -1,7 +1,7 @@
 #pragma once
-#include <Hall/Hall.h>
 #include "Veci2.h"
 #include <memory>
+#include "Color.h"
 
 namespace Halib
 {
@@ -10,7 +10,7 @@ namespace Halib
 	{
 		short width; //In pixels
 		short height; //In pixels
-		std::unique_ptr<Hall::Color[]> data; //pixel array
+		std::unique_ptr<Halib::Color[]> data; //pixel array
 #ifdef DESKTOP
 		bool wasDataRequested = false;
 #endif
@@ -18,7 +18,7 @@ namespace Halib
 public:
 		Image();
 		//Image is responsible for data and will free the data on destruction
-		Image(short width, short height, std::unique_ptr<Hall::Color[]> data);
+		Image(short width, short height, std::unique_ptr<Halib::Color[]> data);
 		Image(const char* path);
 		
 		/// @brief Draws the image. If you want to use advanced drawing features, check Halib::Sprite
@@ -27,7 +27,7 @@ public:
 
 		short GetWidth();
 		short GetHeight();
-		Hall::Color* GetData();
+		Halib::Color* GetData();
 
 		~Image();
 	};

@@ -18,6 +18,7 @@ set(SOURCES
 	"external/libbmpread/libbmpread/bmpread.c"
 	"source/Image.cpp"
 	"source/Misc.cpp"
+	"source/Color.cpp"
 )
 
 set(INCLUDE_DIRS
