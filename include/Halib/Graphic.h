@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Color.h"
-#include "Image.h"
-#include "Misc.h"
-#include "Text.h"
+#include "Graphic/Color.h"
+#include "Graphic/Image.h"
+#include "Graphic/Misc.h"
+#include "Graphic/Font.h"

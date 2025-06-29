@@ -1,7 +1,6 @@
 #include "Graphic/Image.h"
 #include "bmpread.h"
 #include <cstdlib>
-#include "Graphic/Misc.h"
 #include <Hall/Hall.h>
 
 Halib::Image::Image() : width(0), height(0), data(nullptr)

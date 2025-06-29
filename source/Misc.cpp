@@ -1,4 +1,4 @@
-#include "Graphic/Misc.h"
+#include "Misc.h"
 #include <Hall/Hall.h>
 
 float Halib::Misc::GetTimeSinceStartup()

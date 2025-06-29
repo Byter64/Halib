@@ -22,7 +22,7 @@ set(SOURCES
 	#Add the .c/.cpp files here
 	"external/libbmpread/libbmpread/bmpread.c"
 	"source/Graphic/Image.cpp"
-	"source/Graphic/Misc.cpp"
+	"source/Misc.cpp"
 	"source/Graphic/Color.cpp"
 	"source/Graphic/Font.cpp"
 	"source/System.cpp"
