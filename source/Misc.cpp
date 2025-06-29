@@ -21,13 +21,16 @@ void Halib::Misc::ShowFrame()
 	Hall::SetCommandSwapBuffers();
 }
 
-void Halib::Misc::ClearFrame(Hall::Color color)
+void Halib::Misc::ClearFrame(Halib::Color color)
 {
 	Misc::WaitForGPU();
 
+	//This is ugly but I want to hide color.color. I hope the compiler optimises this away
+	Hall::Color* hallColor = (Hall::Color*)(&color);
+
 	Hall::SetScale(1, 1);
 	Hall::SetFlip(false, false);
-	Hall::SetColor(color);
+	Hall::SetColor(*hallColor);
 	Hall::SetColorTable(Hall::NONE);
 	Hall::SetColorSource(Hall::COLOR);
 	Hall::SetShape(Hall::RECTANGLE);
