@@ -1,7 +1,7 @@
 #pragma once
-#include "VecI2.h"
+#include "Halib/VecI2.h"
 #include <memory>
-#include "Color.h"
+#include "Halib/Graphic/Color.h"
 
 namespace Halib
 {

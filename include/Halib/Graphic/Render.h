@@ -1,10 +1,10 @@
 #pragma once
-#include "Graphic/Color.h"
-#include "Graphic/Image.h"
-#include "VecI2.h"
+#include "Halib/Graphic/Color.h"
+#include "Halib/Graphic/Image.h"
+#include "Halib/VecI2.h"
 #include <string>
-#include "Rectangle.h"
-#include "Graphic/Font.h"
+#include "Halib/Rectangle.h"
+#include "Halib/Graphic/Font.h"
 
 namespace Halib
 {

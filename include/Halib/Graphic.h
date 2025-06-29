@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Graphic/Color.h"
-#include "Graphic/Image.h"
-#include "Graphic/Render.h"
-#include "Graphic/Font.h"
+#include "Halib/Graphic/Color.h"
+#include "Halib/Graphic/Image.h"
+#include "Halib/Graphic/Render.h"
+#include "Halib/Graphic/Font.h"
