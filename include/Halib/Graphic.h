@@ -2,5 +2,5 @@
 
 #include "Graphic/Color.h"
 #include "Graphic/Image.h"
-#include "Graphic/Misc.h"
+#include "Graphic/Render.h"
 #include "Graphic/Font.h"
