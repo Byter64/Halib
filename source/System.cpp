@@ -18,3 +18,8 @@ void Halib::Init()
 		printf("Error code: %i\n", error);
 	}
 }
+
+bool Halib::GetShouldClose()
+{
+	return Hall::ShouldClose();
+}

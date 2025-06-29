@@ -3,4 +3,5 @@
 namespace Halib
 {
 	void Init();
+	bool GetShouldClose();
 } // namespace Halib
