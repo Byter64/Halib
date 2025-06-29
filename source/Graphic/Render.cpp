@@ -30,6 +30,8 @@ void Halib::Draw(Image &image, VecI2 position)
 
 void Halib::Draw(const std::string &text, VecI2 position, Font& font, Color color)
 {
+	Hall::COLOR_TABLE_MEMORY[0] = Color::TRANSPARENT.GetHallColor();
+	Hall::COLOR_TABLE_MEMORY[1] = color.GetHallColor();
 	Hall::SetColorTable(Hall::BIT_1);
 	Hall::SetColorSource(Hall::MEMORY);
 	FT_Face face = font.GetFace();
@@ -52,12 +54,9 @@ void Halib::Draw(const Rectangle &rect, VecI2 position, Color color)
 {
 	WaitForGPU();
 
-	//This is ugly but I want to hide color.color. I hope the compiler optimises this away
-	Hall::Color* hallColor = (Hall::Color*)(&color);
-
 	Hall::SetScale(1, 1);
 	Hall::SetFlip(false, false);
-	Hall::SetColor(*hallColor);
+	Hall::SetColor(color.GetHallColor());
 	Hall::SetColorTable(Hall::NONE);
 	Hall::SetColorSource(Hall::COLOR);
 	Hall::SetShape(Hall::RECTANGLE);

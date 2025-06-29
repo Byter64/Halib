@@ -10,6 +10,7 @@ namespace Halib
 
 public:
 		static const Color BLACK;
+		static const Color TRANSPARENT;
 
 		Color();
 		Color(char red, char green, char blue, bool alpha = true);
@@ -46,5 +47,7 @@ public:
 		/// @brief 
 		/// @return true == visible, false == transparent
 		bool GetAlpha();
+
+		Hall::Color GetHallColor() const;
 	};
 } // namespace Halib

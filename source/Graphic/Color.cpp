@@ -1,6 +1,7 @@
 #include "Halib/Graphic/Color.h"
 
 const Halib::Color Halib::Color::BLACK = {0b0000000000000001};
+const Halib::Color Halib::Color::TRANSPARENT = {0b0000000000000000};
 
 Halib::Color::Color()
 {
@@ -62,4 +63,9 @@ char Halib::Color::GetBlue()
 bool Halib::Color::GetAlpha()
 {
 	return color & 0b1;
+}
+
+Hall::Color Halib::Color::GetHallColor() const
+{
+	return color;
 }
