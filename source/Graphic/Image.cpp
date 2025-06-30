@@ -3,12 +3,12 @@
 #include <cstdlib>
 #include <Hall/Hall.h>
 
-Halib::Image::Image() : width(0), height(0), data(nullptr)
+Halib::Image::Image() : width(0), height(0), data(nullptr), wasDataRequested(false)
 {
 
 }
 
-Halib::Image::Image(short width, short height, std::unique_ptr<Halib::Color[]> data) : width(width), height(height), data(std::move(data))
+Halib::Image::Image(short width, short height, std::unique_ptr<Halib::Color[]> data) : width(width), height(height), data(std::move(data)), wasDataRequested(false)
 {
 
 }
@@ -20,7 +20,8 @@ Halib::Image::Image(const char* path)
 	data = std::make_unique<Halib::Color[]>(bmp.width * bmp.height);
 	width = bmp.width;
 	height = bmp.height;
-
+	wasDataRequested = false;
+	
 	//This is stupid, but changing bmpread to directly output R5G5B5A1 did not seem so straight forward
 	for(int i = 0; i < bmp.width * bmp.height; i++)
 	{
@@ -43,6 +44,7 @@ Halib::Image::Image(const char* path)
 	}
 
 	bmpread_free(&bmp);
+	
 }
 
 short Halib::Image::GetWidth() const
@@ -69,8 +71,3 @@ bool Halib::Image::GetWasDataRequested() const
 	return wasDataRequested;
 }
 #endif
-
-Halib::Image::~Image()
-{
-	
-}
