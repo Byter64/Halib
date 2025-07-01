@@ -6,7 +6,7 @@
 struct GlyphID
 {
 	FT_Face face;
-	int glyphIndex;
+	unsigned int glyphIndex;
 	int size; //For now, take the x size only
 
 	bool operator==(const GlyphID &other) const

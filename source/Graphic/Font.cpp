@@ -17,10 +17,14 @@ Halib::Font::Font(const char* path, int face)
 	  printf("Could not load font: %s\n", path);
 	  printf("Errorcode: %i\n", error);
 	}
+
+	size = -1; //How the fuck does scaling work ?!?!?!?!
+	//I shoul probably read into dpi :(
 }
 
 void Halib::Font::SetSize(int targetPixelSize)
 {
+	int size = targetPixelSize;
 	int error = FT_Set_Pixel_Sizes(face, targetPixelSize, targetPixelSize);
 	if(error)
 	{
@@ -29,6 +33,11 @@ void Halib::Font::SetSize(int targetPixelSize)
 		printf("Attempted size: %i\n", targetPixelSize);
 		printf("Errorcode: %i\n", error);
 	}
+}
+
+int Halib::Font::GetSize()
+{
+	return size;
 }
 
 FT_Face Halib::Font::GetFace() const
