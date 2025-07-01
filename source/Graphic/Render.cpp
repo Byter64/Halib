@@ -39,35 +39,8 @@ struct std::hash<GlyphID>
 };
 
 static std::unordered_map<GlyphID, CacheEntry> glyphCache;
+static Halib::Camera camera;
 
-
-void Halib::WaitForGPU()
-{
-	while(Hall::GetIsGPUBusy());
-}
-
-void Halib::Draw(Image &image, VecI2 position)
-{
-	WaitForGPU();
-
-#ifdef DESKTOP
-	if(image.GetWasDataRequested())
-	{
-		Hall::UpdateRaylibTexture((Hall::Color*)image.GetData());
-	}
-#endif
-
-	Hall::SetImage((Hall::Color*)image.GetData(), image.GetWidth());
-	Hall::SetExcerpt(0, 0, image.GetWidth(), image.GetHeight());
-	Hall::SetScale(1, 1);
-	Hall::SetFlip(false, false);
-	Hall::SetColorTable(Hall::NONE);
-	Hall::SetColorSource(Hall::MEMORY);
-	Hall::SetShape(Hall::RECTANGLE);
-	Hall::SetScreenPosition(position.x, position.y);
-
-	Hall::Draw();
-}
 
 static std::shared_ptr<Hall::IndexContainer[]> GlyphToIndexContainer(FT_Bitmap& bitmap)
 {
@@ -109,6 +82,34 @@ static std::shared_ptr<Hall::IndexContainer[]> GlyphToIndexContainer(FT_Bitmap& 
 	*container = *container << (32 - bitCount);
 
 	return indexContainers;
+}
+
+void Halib::WaitForGPU()
+{
+	while(Hall::GetIsGPUBusy());
+}
+
+void Halib::Draw(Image &image, VecI2 position)
+{
+	WaitForGPU();
+
+#ifdef DESKTOP
+	if(image.GetWasDataRequested())
+	{
+		Hall::UpdateRaylibTexture((Hall::Color*)image.GetData());
+	}
+#endif
+
+	Hall::SetImage((Hall::Color*)image.GetData(), image.GetWidth());
+	Hall::SetExcerpt(0, 0, image.GetWidth(), image.GetHeight());
+	Hall::SetScale(1, 1);
+	Hall::SetFlip(false, false);
+	Hall::SetColorTable(Hall::NONE);
+	Hall::SetColorSource(Hall::MEMORY);
+	Hall::SetShape(Hall::RECTANGLE);
+	Hall::SetScreenPosition(position.x, position.y);
+
+	Hall::Draw();
 }
 
 void Halib::Draw(const std::string &text, VecI2 position, Font& font, Color color)
@@ -166,6 +167,21 @@ void Halib::Draw(const Rectangle &rect, VecI2 position, Color color)
 	Hall::SetRectangle(rect.x, rect.y, rect.width, rect.height);
 
 	Hall::Draw();
+}
+
+void Halib::Draw(Image &image, VecI2 position, const Camera& camera)
+{
+	Draw(image, position - camera.position);
+}
+
+void Halib::Draw(const std::string &text, VecI2 position, Font& font, const Camera& camera, Color color)
+{
+	Draw(text, position - camera.position, font, color);
+}
+
+void Halib::Draw(const Rectangle &rect, VecI2 position, Color color, const Camera& camera)
+{
+	Draw(rect, position - camera.position, color);
 }
 
 

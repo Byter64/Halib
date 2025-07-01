@@ -3,6 +3,7 @@
 #include <ft2build.h>
 #include FT_FREETYPE_H
 #include <cstdio>
+#include "Halib/Graphic.h"
 
 //Defined in Font.cpp
 extern FT_Library freetypeLibrary;
