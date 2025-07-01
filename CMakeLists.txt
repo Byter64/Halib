@@ -26,6 +26,8 @@ set(SOURCES
 	"source/Graphic/Font.cpp"
 	"source/System.cpp"
 	"source/Graphic/Render.cpp"
+	"source/Math/VecI2.cpp"
+	"source/Math/Rectangle.cpp"
 )
 
 set(INCLUDE_DIRS
