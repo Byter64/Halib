@@ -85,7 +85,7 @@ void Halib::Sprite::Draw(VecI2 position, float deltaTime)
 	if(!isPlaying) return;
 
 	timer += deltaTime * framesPerSecond;
-	if(timer >= framesPerSecond)
+	if(timer >= 1)
 	{
 		timer = 0;
 		animationCounter++;
