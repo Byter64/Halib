@@ -23,3 +23,8 @@ bool Halib::GetShouldClose()
 {
 	return Hall::ShouldClose();
 }
+
+float Halib::GetTimeSinceStartup()
+{
+	return Hall::GetSystemTime() / (float)Hall::SYSTEM_CLK_FREQUENCY;
+}
