@@ -40,6 +40,10 @@ public:
 		/// @param frameIndex The index of the active frame
 		Sprite(std::shared_ptr<Image> image, VecI2 frameCount, VecI2 frameIndex = VecI2{0});
 		
+		std::shared_ptr<Image> GetImage();
+		void SetFrameIndex(VecI2 index);
+		VecI2 GetFrameIndex();
+
 		/// @brief Sets up an animation. For starting the animation set isPlaying to true
 		/// @param startFrame the index of the first frame of the animation
 		/// @param length The number of frames of the animation

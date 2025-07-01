@@ -14,6 +14,22 @@ Halib::Sprite::Sprite(std::shared_ptr<Image> image, VecI2 frameCount, VecI2 fram
 	timer = 0;
 }
 
+std::shared_ptr<Halib::Image> Halib::Sprite::GetImage()
+{
+	return image;
+}
+
+void Halib::Sprite::SetFrameIndex(VecI2 index)
+{
+	frameIndex = index;
+}
+
+Halib::VecI2 Halib::Sprite::GetFrameIndex()
+{
+	return frameIndex;
+}
+
+
 void Halib::Sprite::SetupAnimation(VecI2 startFrame, short length, float secondsPerFrame, AnimationDirection direction = RIGHT)
 {
 	this->animationStartIndex = startFrame;
