@@ -9,6 +9,16 @@ namespace Halib
 	/// @brief Represents a sprite. The underlying image must have one animation per row/column
 	class Sprite
 	{
+		
+		std::shared_ptr<Image> image;
+		VecI2 size; //Size of the sprite. This also determines the total amount of frames in the image
+		VecI2 frameIndex; //index of the current frame
+		VecI2 frameCount; //Amount of frames in x and y direction
+		
+		float timer;
+		short animationCounter; //counter for the animation frames
+		
+public:
 		/// @brief Describes in which direction the next animation frame lies
 		enum AnimationDirection
 		{
@@ -17,20 +27,10 @@ namespace Halib
 			LEFT,
 			RIGHT
 		};
-
-		std::shared_ptr<Image> image;
-		VecI2 size; //Size of the sprite. This also determines the total amount of frames in the image
-		VecI2 frameIndex; //index of the current frame
-		VecI2 frameCount; //Amount of frames in x and y direction
-		
-		float timer;
-		short animationCounter; //counter for the animation frames
-
-public:
 		VecI2 animationStartIndex; //Index of the first frame of the animation
 		short animationFrameCount; //Number of frames in current animation
 		float framesPerSecond; //Animation speed
-		AnimationDirection animationDirection = RIGHT;
+		AnimationDirection animationDirection;
 		bool isPlaying;
 		VecI2 scale; //Negative values equel their absolute reciprocal. E.g. -5 == 1/5
 		bool flipX;
