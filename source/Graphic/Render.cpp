@@ -20,6 +20,8 @@ struct CacheEntry
 	std::shared_ptr<Hall::IndexContainer[]> indexContainers;
 	int width;
 	int height;
+	char offsetLeft;
+	char offsetTop;
 };
 
 template<>
@@ -95,7 +97,6 @@ static std::shared_ptr<Hall::IndexContainer[]> GlyphToIndexContainer(FT_Bitmap& 
 			x = 0;
 			rowStart += bitmap.pitch;
 		}
-
 		*container = (*container << 1) | pixel;
 		bitCount++;
 		if (bitCount == 32)
@@ -131,6 +132,8 @@ void Halib::Draw(const std::string &text, VecI2 position, Font& font, Color colo
 			cacheEntry.indexContainers = GlyphToIndexContainer(face->glyph->bitmap);
 			cacheEntry.width = face->glyph->bitmap.width;
 			cacheEntry.height = face->glyph->bitmap.rows;
+			cacheEntry.offsetLeft = face->glyph->bitmap_left;
+			cacheEntry.offsetTop = face->glyph->bitmap_top;
 			glyphCache[glyphID] = cacheEntry;
 		}
 
@@ -139,13 +142,14 @@ void Halib::Draw(const std::string &text, VecI2 position, Font& font, Color colo
 		Hall::SetColorSource(Hall::MEMORY);
 		Hall::SetImage(cacheEntry.indexContainers.get(), cacheEntry.width);
 		Hall::SetExcerpt(0, 0, cacheEntry.width, cacheEntry.height);
-		Hall::SetScreenPosition(position.x, position.y);
+		Hall::SetScreenPosition(position.x - cacheEntry.offsetLeft, position.y - cacheEntry.offsetTop);
 		Hall::SetScale(1, 1);
 		Hall::SetFlip(false, false);
 		Hall::SetShape(Hall::RECTANGLE);
 		Hall::Draw();
 
-		position.x += face->glyph->advance.x / 64; //??
+		position.x += face->glyph->advance.x / 64;
+		position.y += face->glyph->advance.y / 64;
 	}
 }
 
