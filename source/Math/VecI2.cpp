@@ -1,6 +1,6 @@
 #include "Halib/Math/VecI2.h"
 
-Halib::VecI2::VecI2(int x = 0, int y = 0)
+Halib::VecI2::VecI2(int x, int y)
 {
 	this->x = x;
 	this->y = y;
