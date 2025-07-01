@@ -28,7 +28,5 @@ public:
 #ifdef DESKTOP
 		bool GetWasDataRequested() const;
 #endif
-
-		~Image();
 	};
 }
