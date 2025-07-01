@@ -29,7 +29,7 @@ namespace Halib
 public:
 		VecI2 animationStartIndex; //Index of the first frame of the animation
 		short animationFrameCount; //Number of frames in current animation
-		float timePerFrame; //Animation speed
+		float framesPerSecond; //Animation speed
 		AnimationDirection animationDirection = RIGHT;
 		bool isPlaying;
 		VecI2 scale; //Negative values equel their absolute reciprocal. E.g. -5 == 1/5
@@ -61,9 +61,9 @@ public:
 		/// @brief Sets up an animation. For starting the animation set isPlaying to true
 		/// @param startFrame the index of the first frame of the animation
 		/// @param length The number of frames of the animation
-		/// @param secondsPerFrame Seconds per frame
+		/// @param framesPerSecond Animation speed
 		/// @param direction Into which direction the animation in the spritesheet progresses
-		void SetupAnimation(VecI2 startFrame, short length, float secondsPerFrame, AnimationDirection direction = RIGHT);
+		void SetupAnimation(VecI2 startFrame, short length, float framesPerSecond, AnimationDirection direction = RIGHT);
 
 		//This just calls Halib::Draw(...)
 		void Draw(VecI2 position);

@@ -21,7 +21,7 @@ Halib::Sprite::Sprite(std::shared_ptr<Image> image, VecI2 frameCount, VecI2 fram
 Halib::Sprite::Sprite(const char* path, VecI2 frameCount, VecI2 frameIndex)
 {
 	image = std::make_shared<Image>(path);
-	
+
 	this->frameCount = frameCount;
 	this->frameIndex = frameIndex;
 
@@ -60,11 +60,11 @@ Halib::VecI2 Halib::Sprite::GetFrameOffset()
 	return VecI2(frameIndex.x * size.x, frameIndex.y * size.y);
 }
 
-void Halib::Sprite::SetupAnimation(VecI2 startFrame, short length, float secondsPerFrame, AnimationDirection direction)
+void Halib::Sprite::SetupAnimation(VecI2 startFrame, short length, float framesPerSecond, AnimationDirection direction)
 {
 	this->animationStartIndex = startFrame;
 	this->animationFrameCount = length;
-	this->timePerFrame = secondsPerFrame;
+	this->framesPerSecond = framesPerSecond;
 	this->animationDirection = direction;
 
 	timer = 0;
@@ -84,8 +84,8 @@ void Halib::Sprite::Draw(VecI2 position, float deltaTime)
 	Halib::Draw(*this, position);
 	if(!isPlaying) return;
 
-	timer += deltaTime;
-	if(timer >= timePerFrame)
+	timer += deltaTime * framesPerSecond;
+	if(timer >= framesPerSecond)
 	{
 		timer = 0;
 		animationCounter++;
