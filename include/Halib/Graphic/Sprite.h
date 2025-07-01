@@ -43,6 +43,12 @@ public:
 		/// @param frameIndex The index of the active frame
 		Sprite(std::shared_ptr<Image> image, VecI2 frameCount, VecI2 frameIndex = VecI2{0});
 		
+		/// @brief Creates an Image object and assigns it to this sprite. You can use the same image data by calling Sprite.GetImage()
+		/// @param path A path to the image
+		/// @param frameCount The amount of frames in x and y direction
+		/// @param frameIndex The index of the active frame
+		Sprite(const char* path, VecI2 frameCount, VecI2 frameIndex = VecI2{0});
+		
 		std::shared_ptr<Image> GetImage();
 		void SetFrameIndex(VecI2 index);
 		VecI2 GetFrameIndex();

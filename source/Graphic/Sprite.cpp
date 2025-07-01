@@ -18,6 +18,23 @@ Halib::Sprite::Sprite(std::shared_ptr<Image> image, VecI2 frameCount, VecI2 fram
 	flipY = false;
 }
 
+Halib::Sprite::Sprite(const char* path, VecI2 frameCount, VecI2 frameIndex)
+{
+	image = std::make_shared<Image>(path);
+	
+	this->frameCount = frameCount;
+	this->frameIndex = frameIndex;
+
+	size = VecI2(image->GetWidth() / frameCount.x, image->GetHeight() /frameCount.y);
+
+	isPlaying = false;
+	timer = 0;
+
+	scale = VecI2(1, 1);
+	flipX = false;
+	flipY = false;
+}
+
 std::shared_ptr<Halib::Image> Halib::Sprite::GetImage()
 {
 	return image;
