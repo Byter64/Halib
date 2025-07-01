@@ -169,6 +169,32 @@ void Halib::Draw(const Rectangle &rect, VecI2 position, Color color)
 	Hall::Draw();
 }
 
+void Halib::Draw(Sprite &sprite, VecI2 position)
+{
+	auto image = sprite.GetImage();
+	VecI2 frameOffset = sprite.GetFrameOffset();
+	VecI2 frameSize = sprite.GetFrameSize();
+	WaitForGPU();
+
+#ifdef DESKTOP
+	if(image->GetWasDataRequested())
+	{
+		Hall::UpdateRaylibTexture((Hall::Color*)image->GetData());
+	}
+#endif
+
+	Hall::SetImage((Hall::Color*)image->GetData(), image->GetWidth());
+	Hall::SetExcerpt(frameOffset.x, frameOffset.y, frameSize.x, frameSize.y);
+	Hall::SetScale(sprite.scale.x, sprite.scale.y);
+	Hall::SetFlip(sprite.flipX, sprite.flipY);
+	Hall::SetColorTable(Hall::NONE);
+	Hall::SetColorSource(Hall::MEMORY);
+	Hall::SetShape(Hall::RECTANGLE);
+	Hall::SetScreenPosition(position.x, position.y);
+
+	Hall::Draw();
+}
+
 void Halib::Draw(Image &image, VecI2 position, const Camera& camera)
 {
 	Draw(image, position - camera.position);
@@ -184,6 +210,10 @@ void Halib::Draw(const Rectangle &rect, VecI2 position, Color color, const Camer
 	Draw(rect, position - camera.position, color);
 }
 
+void Halib::Draw(Sprite &sprite, VecI2 position, const Camera& camera)
+{
+	Draw(sprite, position - camera.position);
+}
 
 void Halib::Show()
 {

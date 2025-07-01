@@ -32,7 +32,10 @@ public:
 		float timePerFrame; //Animation speed
 		AnimationDirection animationDirection = RIGHT;
 		bool isPlaying;
-		
+		VecI2 scale; //Negative values equel their absolute reciprocal. E.g. -5 == 1/5
+		bool flipX;
+		bool flipY;
+
 
 		/// @brief 
 		/// @param image The underlying image
@@ -43,6 +46,11 @@ public:
 		std::shared_ptr<Image> GetImage();
 		void SetFrameIndex(VecI2 index);
 		VecI2 GetFrameIndex();
+		VecI2 GetFrameSize();
+		
+		/// @brief 
+		/// @return The offset of the active frame inside the image in pixels
+		VecI2 GetFrameOffset();
 
 		/// @brief Sets up an animation. For starting the animation set isPlaying to true
 		/// @param startFrame the index of the first frame of the animation

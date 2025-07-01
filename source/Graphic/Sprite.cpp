@@ -12,6 +12,10 @@ Halib::Sprite::Sprite(std::shared_ptr<Image> image, VecI2 frameCount, VecI2 fram
 
 	isPlaying = false;
 	timer = 0;
+
+	scale = VecI2(1, 1);
+	flipX = false;
+	flipY = false;
 }
 
 std::shared_ptr<Halib::Image> Halib::Sprite::GetImage()
@@ -29,6 +33,15 @@ Halib::VecI2 Halib::Sprite::GetFrameIndex()
 	return frameIndex;
 }
 
+Halib::VecI2 Halib::Sprite::GetFrameSize()
+{
+	return size;
+}
+
+Halib::VecI2 Halib::Sprite::GetFrameOffset()
+{
+	return VecI2(frameIndex.x * size.x, frameIndex.y * size.y);
+}
 
 void Halib::Sprite::SetupAnimation(VecI2 startFrame, short length, float secondsPerFrame, AnimationDirection direction = RIGHT)
 {
