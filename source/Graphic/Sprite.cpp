@@ -59,7 +59,7 @@ Halib::VecI2 Halib::Sprite::GetFrameOffset()
 {
 	return VecI2(frameIndex.x * size.x, frameIndex.y * size.y);
 }
-
+ 
 void Halib::Sprite::SetupAnimation(VecI2 startFrame, short length, float framesPerSecond, AnimationDirection direction)
 {
 	this->animationStartIndex = startFrame;

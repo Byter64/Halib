@@ -100,7 +100,7 @@ void Halib::Draw(Image &image, VecI2 position)
 	}
 #endif
 
-	Hall::SetImage((Hall::Color*)image.GetData(), image.GetWidth());
+	Hall::SetImage((Hall::Color*)image.GetData(), image.GetWidth(), image.GetHeight());
 	Hall::SetExcerpt(0, 0, image.GetWidth(), image.GetHeight());
 	Hall::SetScale(1, 1);
 	Hall::SetFlip(false, false);
@@ -141,7 +141,7 @@ void Halib::Draw(const std::string &text, VecI2 position, Font& font, Color colo
 		CacheEntry cacheEntry = glyphCache[glyphID];
 		Hall::SetColorTable(Hall::BIT_1, 0);
 		Hall::SetColorSource(Hall::MEMORY);
-		Hall::SetImage(cacheEntry.indexContainers.get(), cacheEntry.width);
+		Hall::SetImage(cacheEntry.indexContainers.get(), cacheEntry.width, cacheEntry.height);
 		Hall::SetExcerpt(0, 0, cacheEntry.width, cacheEntry.height);
 		Hall::SetScreenPosition(position.x - cacheEntry.offsetLeft, position.y - cacheEntry.offsetTop);
 		Hall::SetScale(1, 1);
@@ -183,7 +183,7 @@ void Halib::Draw(Sprite &sprite, VecI2 position)
 	}
 #endif
 
-	Hall::SetImage((Hall::Color*)image->GetData(), image->GetWidth());
+	Hall::SetImage((Hall::Color*)image->GetData(), image->GetWidth(), image->GetHeight());
 	Hall::SetExcerpt(frameOffset.x, frameOffset.y, frameSize.x, frameSize.y);
 	Hall::SetScale(sprite.scale.x, sprite.scale.y);
 	Hall::SetFlip(sprite.flipX, sprite.flipY);
