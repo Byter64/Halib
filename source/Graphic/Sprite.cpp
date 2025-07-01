@@ -43,7 +43,7 @@ Halib::VecI2 Halib::Sprite::GetFrameOffset()
 	return VecI2(frameIndex.x * size.x, frameIndex.y * size.y);
 }
 
-void Halib::Sprite::SetupAnimation(VecI2 startFrame, short length, float secondsPerFrame, AnimationDirection direction = RIGHT)
+void Halib::Sprite::SetupAnimation(VecI2 startFrame, short length, float secondsPerFrame, AnimationDirection direction)
 {
 	this->animationStartIndex = startFrame;
 	this->animationFrameCount = length;
@@ -92,5 +92,10 @@ void Halib::Sprite::Draw(VecI2 position, float deltaTime)
 
 void Halib::Sprite::Draw(VecI2 position, const Camera &camera)
 {
-	Halib::Draw(*this, position, camera);
+	Draw(position - camera.position);
+}
+
+void Halib::Sprite::Draw(VecI2 position, float deltaTime, const Camera &camera)
+{
+	Draw(position - camera.position, deltaTime);
 }
