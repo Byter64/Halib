@@ -6,6 +6,7 @@
 #include "Halib/Math/Rectangle.h"
 #include "Halib/Graphic/Font.h"
 #include "Halib/Graphic/Camera.h"
+#include "Halib/Graphic/Sprite.h"
 
 namespace Halib
 {
@@ -15,10 +16,12 @@ namespace Halib
 	void Draw(Image &image, VecI2 position);
 	void Draw(const std::string &text, VecI2 position, Font& font, Color color = Color::BLACK);
 	void Draw(const Rectangle &rect, VecI2 position, Color color);
+	void Draw(Sprite &sprite, VecI2 position);
 	
 	void Draw(Image &image, VecI2 position, const Camera& camera);
 	void Draw(const std::string &text, VecI2 position, Font& font, const Camera& camera, Color color = Color::BLACK);
 	void Draw(const Rectangle &rect, VecI2 position, Color color, const Camera& camera);
+	void Draw(Sprite &sprite, VecI2 position, const Camera& camera);
 	
 	/// @brief Clears the whole screen with the given color
 	/// @param color 
