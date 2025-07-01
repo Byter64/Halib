@@ -96,7 +96,7 @@ void Halib::Draw(Image &image, VecI2 position)
 #ifdef DESKTOP
 	if(image.GetWasDataRequested())
 	{
-		Hall::UpdateRaylibTexture((Hall::Color*)image.GetData());
+		Hall::UpdateRaylibTexture((Hall::Color*)image.GetData(), image.GetWidth(), image.GetHeight());
 	}
 #endif
 
@@ -179,7 +179,7 @@ void Halib::Draw(Sprite &sprite, VecI2 position)
 #ifdef DESKTOP
 	if(image->GetWasDataRequested())
 	{
-		Hall::UpdateRaylibTexture((Hall::Color*)image->GetData());
+		Hall::UpdateRaylibTexture((Hall::Color*)image->GetData(), image->GetWidth(), image->GetHeight());
 	}
 #endif
 
