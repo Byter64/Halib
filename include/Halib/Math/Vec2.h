@@ -21,6 +21,9 @@ namespace Halib
 		Vec2 operator-=(const Vec2& other);
 		Vec2 operator*=(const float scalar);
 		Vec2 operator/=(const float scalar);
+
+		bool operator==(const Vec2& other);
+		bool operator!=(const Vec2& other);
 	};
 
 }

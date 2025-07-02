@@ -53,3 +53,13 @@ Halib::VecI2 Halib::VecI2::operator/=(const int scalar)
 	y /= scalar;
 	return *this;
 }
+
+bool Halib::VecI2::operator==(const VecI2& other)
+{
+	return x == other.x && y == other.y;
+}
+
+bool Halib::VecI2::operator!=(const VecI2& other)
+{
+	return (*this == other);
+}
