@@ -1,4 +1,5 @@
 #pragma once
+#include "Halib/Math/VecI2.h"
 
 namespace Halib
 {
@@ -9,6 +10,7 @@ namespace Halib
 		float y;
 		
 		Vec2(float x = 0, float y = 0);
+		Vec2(const VecI2 &vec);
 
 		Vec2 operator+(const Vec2& other) const;
 		Vec2 operator-(const Vec2& other) const;
