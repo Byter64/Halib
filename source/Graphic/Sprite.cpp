@@ -40,16 +40,6 @@ std::shared_ptr<Halib::Image> Halib::Sprite::GetImage()
 	return image;
 }
 
-void Halib::Sprite::SetFrameIndex(VecI2 index)
-{
-	frameIndex = index;
-}
-
-Halib::VecI2 Halib::Sprite::GetFrameIndex()
-{
-	return frameIndex;
-}
-
 Halib::VecI2 Halib::Sprite::GetFrameSize()
 {
 	return size;

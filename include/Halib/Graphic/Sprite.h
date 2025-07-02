@@ -12,7 +12,6 @@ namespace Halib
 		
 		std::shared_ptr<Image> image;
 		VecI2 size; //Size of the sprite. This also determines the total amount of frames in the image
-		VecI2 frameIndex; //index of the current frame
 		VecI2 frameCount; //Amount of frames in x and y direction
 		
 		float timer;
@@ -27,6 +26,7 @@ public:
 			LEFT,
 			RIGHT
 		};
+		VecI2 frameIndex; //index of the current frame
 		VecI2 animationStartIndex; //Index of the first frame of the animation
 		short animationFrameCount; //Number of frames in current animation
 		float framesPerSecond; //Animation speed
@@ -50,8 +50,6 @@ public:
 		Sprite(const char* path, VecI2 frameCount, VecI2 frameIndex = VecI2{0});
 		
 		std::shared_ptr<Image> GetImage();
-		void SetFrameIndex(VecI2 index);
-		VecI2 GetFrameIndex();
 		VecI2 GetFrameSize();
 		
 		/// @brief 
