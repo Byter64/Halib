@@ -16,6 +16,17 @@ Halib::VecI2 Halib::VecI2::operator-(const VecI2& other) const
 	return VecI2(x - other.x, y - other.y);
 }
 
+Halib::VecI2 Halib::VecI2::operator*(const int scalar) const
+{
+	return VecI2(x * scalar, y * scalar);
+}
+
+Halib::VecI2 Halib::VecI2::operator/(const int scalar) const
+{
+	return VecI2(x / scalar, y / scalar);
+}
+
+
 Halib::VecI2 Halib::VecI2::operator+=(const VecI2& other)
 {
 	x += other.x;
@@ -26,5 +37,19 @@ Halib::VecI2 Halib::VecI2::operator-=(const VecI2& other)
 {
 	x -= other.x;
 	y -= other.y;
+	return *this;
+}
+
+Halib::VecI2 Halib::VecI2::operator*=(const int scalar)
+{
+	x *= scalar;
+	y *= scalar;
+	return *this;
+}
+
+Halib::VecI2 Halib::VecI2::operator/=(const int scalar)
+{
+	x /= scalar;
+	y /= scalar;
 	return *this;
 }

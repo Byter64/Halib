@@ -12,9 +12,13 @@ namespace Halib
 
 		VecI2 operator+(const VecI2& other) const;
 		VecI2 operator-(const VecI2& other) const;
+		VecI2 operator*(const int scalar) const;
+		VecI2 operator/(const int scalar) const;
 
 		VecI2 operator+=(const VecI2& other);
 		VecI2 operator-=(const VecI2& other);
+		VecI2 operator*=(const int scalar);
+		VecI2 operator/=(const int scalar);
 	};
 
 }
