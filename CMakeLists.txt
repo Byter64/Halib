@@ -8,7 +8,7 @@ project("Halib")
 
 include(FetchContent)
 FetchContent_Declare(Hall
-	GIT_REPOSITORY https://github.com/byter64/Hall.git
+	GIT_REPOSITORY "C:/Users/Yannik Stamm/Desktop/Hall"
 	GIT_TAG main
 )
 FetchContent_MakeAvailable(Hall)
@@ -28,6 +28,7 @@ set(SOURCES
 	"source/Graphic/Render.cpp"
 	"source/Graphic/Sprite.cpp"
 	"source/Math/VecI2.cpp"
+	"source/Math/Vec2.cpp"
 	"source/Math/Rectangle.cpp"
 )
 
