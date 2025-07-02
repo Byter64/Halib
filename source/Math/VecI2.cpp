@@ -1,9 +1,15 @@
 #include "Halib/Math/VecI2.h"
+#include <cmath>
 
 Halib::VecI2::VecI2(int x, int y)
 {
 	this->x = x;
 	this->y = y;
+}
+
+float Halib::VecI2::Magnitude()
+{
+	return std::sqrtf(x * x + y * y);
 }
 
 Halib::VecI2 Halib::VecI2::operator+(const VecI2& other) const

@@ -9,6 +9,7 @@ namespace Halib
 		int y;
 		
 		VecI2(int x = 0, int y = 0);
+		float Magnitude();
 
 		VecI2 operator+(const VecI2& other) const;
 		VecI2 operator-(const VecI2& other) const;

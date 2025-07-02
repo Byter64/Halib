@@ -1,4 +1,5 @@
 #include "Halib/Math/Vec2.h"
+#include <cmath>
 
 Halib::Vec2::Vec2(float x, float y)
 {
@@ -10,6 +11,11 @@ Halib::Vec2::Vec2(const VecI2& vec)
 {
 	this->x = vec.x;
 	this->y = vec.y;
+}
+
+float Halib::Vec2::Magnitude()
+{
+	return std::sqrtf(x * x + y * y);
 }
 
 Halib::Vec2 Halib::Vec2::operator+(const Vec2& other) const

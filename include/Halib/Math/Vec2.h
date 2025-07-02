@@ -12,6 +12,8 @@ namespace Halib
 		Vec2(float x = 0, float y = 0);
 		Vec2(const VecI2 &vec);
 
+		float Magnitude();
+
 		Vec2 operator+(const Vec2& other) const;
 		Vec2 operator-(const Vec2& other) const;
 		Vec2 operator*(const float scalar) const;
