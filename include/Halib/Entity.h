@@ -20,5 +20,6 @@ private:
 
 		Vec3 GetPosition();
 		void SetPosition(Vec3 position);
+		void AddPosition(Vec3 deltaPosition);
 	};
 } // namespace Halib

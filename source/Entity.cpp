@@ -29,3 +29,10 @@ void Halib::Entity::SetPosition(Vec3 position)
 		this->position = position;
 	}
 }
+
+void Halib::Entity::AddPosition(Vec3 deltaPosition)
+{
+	position += deltaPosition;
+	if(deltaPosition.z != 0)
+		rendersystem.UpdateEntities();
+}
