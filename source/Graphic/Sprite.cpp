@@ -8,12 +8,12 @@ Halib::Sprite::Sprite(std::shared_ptr<Image> image, VecI2 frameCount, VecI2 fram
 	this->frameCount = frameCount;
 	this->frameIndex = frameIndex;
 
-	size = VecI2(image->GetWidth() / frameCount.x, image->GetHeight() /frameCount.y);
+	size = VecI2({image->GetWidth() / frameCount.x, image->GetHeight() /frameCount.y});
 
 	isPlaying = false;
 	timer = 0;
 
-	scale = VecI2(1, 1);
+	scale = VecI2({1, 1});
 	flipX = false;
 	flipY = false;
 }
@@ -25,12 +25,12 @@ Halib::Sprite::Sprite(const char* path, VecI2 frameCount, VecI2 frameIndex)
 	this->frameCount = frameCount;
 	this->frameIndex = frameIndex;
 
-	size = VecI2(image->GetWidth() / frameCount.x, image->GetHeight() /frameCount.y);
+	size = VecI2({image->GetWidth() / frameCount.x, image->GetHeight() /frameCount.y});
 
 	isPlaying = false;
 	timer = 0;
 
-	scale = VecI2(1, 1);
+	scale = VecI2({1, 1});
 	flipX = false;
 	flipY = false;
 }
@@ -47,7 +47,7 @@ Halib::VecI2 Halib::Sprite::GetFrameSize()
 
 Halib::VecI2 Halib::Sprite::GetFrameOffset()
 {
-	return VecI2(frameIndex.x * size.x, frameIndex.y * size.y);
+	return VecI2({frameIndex.x * size.x, frameIndex.y * size.y});
 }
  
 void Halib::Sprite::SetupAnimation(VecI2 startFrame, short length, float framesPerSecond, AnimationDirection direction)

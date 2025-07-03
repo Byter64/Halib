@@ -20,6 +20,11 @@ FetchContent_Declare(freetype
 )
 FetchContent_MakeAvailable(freetype)
 
+FetchContent_Declare(glm
+	GIT_REPOSITORY https://github.com/g-truc/glm
+)
+FetchContent_MakeAvailable(glm)
+
 set(SOURCES
 	#Add the .c/.cpp files here
 	"external/libbmpread/libbmpread/bmpread.c"
@@ -40,6 +45,7 @@ set(INCLUDE_DIRS
 
 set(LINK_LIBS
 	freetype
+	glm::glm
 )
 
 

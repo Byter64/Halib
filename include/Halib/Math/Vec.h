@@ -1,13 +1,15 @@
 #pragma once
-#include "Halib/Math/VecTemplate.h"
+#include <glm/vec2.hpp>
+#include <glm/vec3.hpp>
+#include <glm/vec4.hpp>
 
 namespace Halib
 {
-	typedef Vec<int, 2> VecI2;
-	typedef Vec<int, 3> VecI3;
-	typedef Vec<int, 4> VecI4;
+	typedef glm::ivec2 VecI2; //A typedef for glm::ivec2 (OpenGL Mathematics)
+	typedef glm::ivec3 VecI3; //A typedef for glm::ivec3 (OpenGL Mathematics)
+	typedef glm::ivec4 VecI4; //A typedef for glm::ivec4 (OpenGL Mathematics)
 	
-	typedef Vec<float, 2> Vec2;
-	typedef Vec<float, 3> Vec3;
-	typedef Vec<float, 4> Vec4;
+	typedef glm::vec2 Vec2;   //A typedef for glm::vec2 (OpenGL Mathematics)
+	typedef glm::vec3 Vec3;   //A typedef for glm::vec3 (OpenGL Mathematics)
+	typedef glm::vec4 Vec4;   //A typedef for glm::vec4 (OpenGL Mathematics)
 } //Halib
