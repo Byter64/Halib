@@ -1,7 +1,10 @@
 #pragma once
+#include "Halib/Graphic/Rendersystem.h"
 
 namespace Halib
 {
+	Rendersystem rendersystem;
+
 	enum Button
 	{
 		A,
