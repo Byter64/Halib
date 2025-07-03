@@ -33,7 +33,7 @@ namespace Halib
 
 	//A wrapper for glm::length (OpenGL Mathematics)
 	template<class T>
-	T Magnitude(T vec) { return glm::length(vec); }
+	float Magnitude(T vec) { return glm::length(vec); }
 
 	//A wrapper for glm::normalize (OpenGL Mathematics)
 	template<class T>
