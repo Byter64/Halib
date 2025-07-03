@@ -36,6 +36,7 @@ public:
 		bool flipX;
 		bool flipY;
 
+		Sprite() = default;
 
 		/// @brief 
 		/// @param image The underlying image

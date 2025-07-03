@@ -3,6 +3,8 @@ cmake_minimum_required(VERSION 4.0)
 #If you want to build for desktop, use the flag -DDESKTOPBUILD, when running cmake
 option(DESKTOPBUILD "Replaces the Hall library with Hall_Desktop. Hall_Desktop is for Desktop builds.")
 
+set(CMAKE_CXX_STANDARD 20)
+set(CXX_STANDARD_REQUIRED ON)
 
 project("Halib")
 
@@ -27,9 +29,9 @@ set(SOURCES
 	"source/System.cpp"
 	"source/Graphic/Render.cpp"
 	"source/Graphic/Sprite.cpp"
-	"source/Math/VecI2.cpp"
-	"source/Math/Vec2.cpp"
 	"source/Math/Rectangle.cpp"
+	"source/Entity.cpp"
+	"source/Graphic/Rendersystem.cpp"
 )
 
 set(INCLUDE_DIRS

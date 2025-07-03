@@ -1,5 +1,5 @@
 #pragma once
-#include "Halib/Math/VecI2.h"
+#include "Halib/Math/Vec.h"
 
 namespace Halib
 {

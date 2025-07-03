@@ -1,5 +1,5 @@
 #pragma once
-#include "Halib/Math/VecI2.h"
+#include "Halib/Math/Vec.h"
 #include <memory>
 #include "Halib/Graphic/Color.h"
 

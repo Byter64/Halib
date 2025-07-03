@@ -2,7 +2,7 @@
 #include "Halib/Graphic/Color.h"
 #include "Halib/Graphic/Image.h"
 #include <string>
-#include "Halib/Math/VecI2.h"
+#include "Halib/Math/Vec.h"
 #include "Halib/Math/Rectangle.h"
 #include "Halib/Graphic/Font.h"
 #include "Halib/Graphic/Camera.h"
