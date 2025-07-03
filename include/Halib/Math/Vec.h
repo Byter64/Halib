@@ -31,6 +31,10 @@ namespace Halib
 	template<class T>
 	T FaceForward(T vec) { return glm::faceforward(vec); }
 
+	//A wrapper for glm::length (OpenGL Mathematics)
+	template<class T>
+	T Magnitude(T vec) { return glm::length(vec); }
+
 	//A wrapper for glm::normalize (OpenGL Mathematics)
 	template<class T>
 	T Normalize(T vec) { return glm::normalize(vec); }

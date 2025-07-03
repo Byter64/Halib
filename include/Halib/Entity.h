@@ -9,7 +9,7 @@ namespace Halib
 private:
 		Vec3 position;
 
-		public:
+public:
 		Sprite sprite;
 		bool isActive;
 		
