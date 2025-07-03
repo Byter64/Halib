@@ -36,11 +36,11 @@ void Halib::Rendersystem::RemoveEntity(std::shared_ptr<Entity> entity)
 	}
 }
 
-void Halib::Rendersystem::Draw(Camera& camera)
+void Halib::Rendersystem::Draw(float deltaTime, Camera& camera)
 {
 	for(auto iter = entities.begin(); iter != entities.end(); iter++)
 	{
 		std::shared_ptr<Entity> entity = *iter;
-		Halib::Draw(entity->sprite, entity->GetPosition(), camera);
+		entity->sprite.Draw(entity->GetPosition(), deltaTime, camera);
 	}
 }
