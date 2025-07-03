@@ -3,7 +3,7 @@
 
 namespace Halib
 {
-	Rendersystem rendersystem;
+	extern Rendersystem rendersystem;
 
 	enum Button
 	{

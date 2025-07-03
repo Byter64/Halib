@@ -8,6 +8,8 @@
 //Defined in Font.cpp
 extern FT_Library freetypeLibrary;
 
+Halib::Rendersystem rendersystem;
+
 static const int CONTROLLER_COUNT = 2;
 static Hall::ControllerState oldState[CONTROLLER_COUNT];
 static Hall::ControllerState newState[CONTROLLER_COUNT];
