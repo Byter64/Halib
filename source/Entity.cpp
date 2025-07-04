@@ -4,12 +4,12 @@
 
 Halib::Entity::Entity() : sprite(Sprite()), position(Vec3()), isActive(true), selfReference(this)
 {
-
+	rendersystem.AddEntity(selfReference);
 }
 
 Halib::Entity::Entity(Sprite sprite, Vec3 position) : sprite(sprite), position(position), isActive(true), selfReference(this)
 {
-
+	rendersystem.AddEntity(selfReference);
 }
 
 Halib::Vec3 Halib::Entity::GetPosition()
