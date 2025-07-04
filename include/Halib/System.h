@@ -28,6 +28,10 @@ namespace Halib
 	/// @brief Updates the whole system. Consider using this instead of the updating the underlying systems on your one
 	void Update();
 
+	void AddEntity(std::shared_ptr<Entity> entity);
+	void RemoveEntity(std::shared_ptr<Entity> entity);
+	void RemoveEntity(Entity* entity);
+
 	//Desktop: true, after the window has been requested to close
 	//wueHans: always false
 	bool GetShouldClose();
