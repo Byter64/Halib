@@ -36,7 +36,7 @@ void Halib::Init()
 	timePoint = Halib::GetTimeSinceStartup();
 	newTimePoint = Halib::GetTimeSinceStartup();
 	deltaTime = 1 / 30.0f;
-	timePerFrame = 1 /30.0f;
+	SetTargetFramerate(30);
 }
 
 static void UpdateInputs()
@@ -53,12 +53,6 @@ static void UpdateInputs()
 static void UpdateTime()
 {
 	timePoint = newTimePoint;
-	newTimePoint = Halib::GetTimeSinceStartup();
-	deltaTime = newTimePoint - timePoint;
-}
-
-static void AwaitNextFrame()
-{
 	while(deltaTime <= timePerFrame)
 	{
 		newTimePoint = Halib::GetTimeSinceStartup();
@@ -69,12 +63,11 @@ static void AwaitNextFrame()
 void Halib::Update()
 {
 	UpdateInputs();
-	UpdateTime();
-
+	
 	entitysystem.UpdateEntities(deltaTime);
 	rendersystem.Draw(deltaTime);
 
-	AwaitNextFrame();
+	UpdateTime();
 }
 
 bool Halib::GetShouldClose()
