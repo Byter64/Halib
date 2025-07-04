@@ -27,5 +27,7 @@ public:
 
 		std::shared_ptr<Entity> GetShared();
 		void Destroy();
+
+		virtual ~Entity() = default;
 	};
 } // namespace Halib

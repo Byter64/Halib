@@ -36,7 +36,7 @@ void Halib::Rendersystem::RemoveEntity(std::shared_ptr<Entity> entity)
 	}
 }
 
-void Halib::Rendersystem::Draw(float deltaTime, Camera& camera)
+void Halib::Rendersystem::Draw(float deltaTime)
 {
 	Clear(Halib::Color(backgroundColor));
 	

@@ -9,6 +9,7 @@
 extern FT_Library freetypeLibrary;
 
 Halib::Rendersystem Halib::rendersystem;
+Halib::Entitysystem Halib::entitysystem;
 
 static const int CONTROLLER_COUNT = 2;
 static Hall::ControllerState oldState[CONTROLLER_COUNT];
@@ -19,6 +20,7 @@ static Hall::ControllerState releasedState[CONTROLLER_COUNT];
 static float timePoint;
 static float newTimePoint;
 static float deltaTime;
+static float timePerFrame; //in seconds
 
 void Halib::Init()
 {
@@ -30,10 +32,11 @@ void Halib::Init()
 		printf("Text will not be available\n");
 		printf("Error code: %i\n", error);
 	}
-
+	
 	timePoint = Halib::GetTimeSinceStartup();
 	newTimePoint = Halib::GetTimeSinceStartup();
 	deltaTime = 1 / 30.0f;
+	timePerFrame = 1 /30.0f;
 }
 
 static void UpdateInputs()
@@ -54,9 +57,13 @@ static void UpdateTime()
 	deltaTime = newTimePoint - timePoint;
 }
 
-static void UpdateEntities()
+static void AwaitNextFrame()
 {
-	??
+	while(deltaTime <= timePerFrame)
+	{
+		newTimePoint = Halib::GetTimeSinceStartup();
+		deltaTime = newTimePoint - timePoint;
+	}
 }
 
 void Halib::Update()
@@ -64,7 +71,10 @@ void Halib::Update()
 	UpdateInputs();
 	UpdateTime();
 
+	entitysystem.UpdateEntities(deltaTime);
 	rendersystem.Draw(deltaTime);
+
+	AwaitNextFrame();
 }
 
 bool Halib::GetShouldClose()
@@ -75,6 +85,16 @@ bool Halib::GetShouldClose()
 float Halib::GetTimeSinceStartup()
 {
 	return Hall::GetSystemTime() / (float)Hall::SYSTEM_CLK_FREQUENCY;
+}
+
+float Halib::GetDeltaTime()
+{
+	return deltaTime;
+}
+
+void Halib::SetTargetFramerate(int framerate)
+{
+	timePerFrame = 1.0f / framerate;
 }
 
 bool Halib::GetButtonDown(int controllerID, Button button)

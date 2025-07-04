@@ -5,11 +5,13 @@
 Halib::Entity::Entity() : sprite(Sprite()), position(Vec3()), isActive(true), selfReference(this)
 {
 	rendersystem.AddEntity(selfReference);
+	entitysystem.AddEntity(selfReference);
 }
 
 Halib::Entity::Entity(Sprite sprite, Vec3 position) : sprite(sprite), position(position), isActive(true), selfReference(this)
 {
 	rendersystem.AddEntity(selfReference);
+	entitysystem.AddEntity(selfReference);
 }
 
 Halib::Vec3 Halib::Entity::GetPosition()
@@ -45,5 +47,6 @@ std::shared_ptr<Halib::Entity> Halib::Entity::GetShared()
 void Halib::Entity::Destroy()
 {
 	rendersystem.RemoveEntity(selfReference);
+	entitysystem.RemoveEntity(selfReference);
 	selfReference = std::shared_ptr<Entity>(nullptr);
 }
