@@ -26,9 +26,14 @@ void Halib::Rendersystem::UpdateEntities()
 
 void Halib::Rendersystem::RemoveEntity(std::shared_ptr<Entity> entity)
 {
+	RemoveEntity(entity.get());
+}
+
+void Halib::Rendersystem::RemoveEntity(Entity* entity)
+{
 	for(int i = 0; i < entities.size(); i++)
 	{
-		if(entities[i] == entity)
+		if(entities[i].get() == entity)
 		{
 			entities[i] = entities[entities.size() - 1];
 			entities.resize(entities.size() - 1);

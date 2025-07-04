@@ -7,9 +7,14 @@ void Halib::Entitysystem::AddEntity(std::shared_ptr<Entity> entity)
 
 void Halib::Entitysystem::RemoveEntity(std::shared_ptr<Entity> entity)
 {
+	RemoveEntity(entity.get());
+}
+
+void Halib::Entitysystem::RemoveEntity(Entity* entity)
+{
 	for(int i = 0; i < entities.size(); i++)
 	{
-		if(entities[i] == entity)
+		if(entities[i].get() == entity)
 		{
 			entities[i] = entities[entities.size() - 1];
 			entities.resize(entities.size() - 1);

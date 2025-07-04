@@ -2,16 +2,14 @@
 #include "Halib/Graphic/Rendersystem.h"
 #include "Halib/System.h"
 
-Halib::Entity::Entity() : sprite(Sprite()), position(Vec3()), isActive(true), selfReference(this)
+Halib::Entity::Entity() : sprite(Sprite()), position(Vec3()), isActive(true)
 {
-	rendersystem.AddEntity(selfReference);
-	entitysystem.AddEntity(selfReference);
+
 }
 
-Halib::Entity::Entity(Sprite sprite, Vec3 position) : sprite(sprite), position(position), isActive(true), selfReference(this)
+Halib::Entity::Entity(Sprite sprite, Vec3 position) : sprite(sprite), position(position), isActive(true)
 {
-	rendersystem.AddEntity(selfReference);
-	entitysystem.AddEntity(selfReference);
+
 }
 
 Halib::Vec3 Halib::Entity::GetPosition()
@@ -39,14 +37,8 @@ void Halib::Entity::AddPosition(Vec3 deltaPosition)
 		rendersystem.UpdateEntities();
 }
 
-std::shared_ptr<Halib::Entity> Halib::Entity::GetShared()
-{
-	return selfReference;
-}
-
 void Halib::Entity::Destroy()
 {
-	rendersystem.RemoveEntity(selfReference);
-	entitysystem.RemoveEntity(selfReference);
-	selfReference = std::shared_ptr<Entity>(nullptr);
+	rendersystem.RemoveEntity(this);
+	entitysystem.RemoveEntity(this);
 }

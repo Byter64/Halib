@@ -12,6 +12,7 @@ public:
 
 		void AddEntity(std::shared_ptr<Entity> entity);
 		void RemoveEntity(std::shared_ptr<Entity> entity);
+		void RemoveEntity(Entity* entity);
 		void UpdateEntities(float deltaTime);
 	};
 } // namespace Halib

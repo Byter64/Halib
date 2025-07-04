@@ -10,7 +10,6 @@ namespace Halib
 	{
 private:
 		Vec3 position;
-		std::shared_ptr<Entity> selfReference;
 
 public:
 		Sprite sprite;
@@ -25,7 +24,6 @@ public:
 		void SetPosition(Vec3 position);
 		void AddPosition(Vec3 deltaPosition);
 
-		std::shared_ptr<Entity> GetShared();
 		void Destroy();
 
 		virtual ~Entity() = default;
