@@ -9,14 +9,17 @@ namespace Halib
 	class Rendersystem
 	{
 		std::vector<std::shared_ptr<Entity>> entities;
-
+		
 		void SortEntities();
-
+		
 public:
+		Color backgroundColor = Color(15, 15, 15);
+		Camera camera;
+
 		void AddEntity(std::shared_ptr<Entity> entity);
 		void RemoveEntity(std::shared_ptr<Entity> entity);
 		void UpdateEntities();
-		void Draw(float deltaTime, Camera& camera);
+		void Draw(float deltaTime);
 
 	};
 } // namespace Halib

@@ -23,7 +23,7 @@ namespace Halib
 
 	void Init();
 
-	void UpdateInputs();
+	void Update();
 
 	//Desktop: true, after the window has been requested to close
 	//wueHans: always false

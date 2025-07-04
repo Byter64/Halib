@@ -16,6 +16,10 @@ static Hall::ControllerState newState[CONTROLLER_COUNT];
 static Hall::ControllerState pressedState[CONTROLLER_COUNT];
 static Hall::ControllerState releasedState[CONTROLLER_COUNT];
 
+static float timePoint;
+static float newTimePoint;
+static float deltaTime;
+
 void Halib::Init()
 {
 	Hall::Init();
@@ -26,9 +30,13 @@ void Halib::Init()
 		printf("Text will not be available\n");
 		printf("Error code: %i\n", error);
 	}
+
+	timePoint = Halib::GetTimeSinceStartup();
+	newTimePoint = Halib::GetTimeSinceStartup();
+	deltaTime = 1 / 30.0f;
 }
 
-void Halib::UpdateInputs()
+static void UpdateInputs()
 {
 	for(int i = 0; i < CONTROLLER_COUNT; i++)
 	{
@@ -37,6 +45,26 @@ void Halib::UpdateInputs()
 		pressedState[i] = ~oldState[i] & newState[i];
 		releasedState[i] = oldState[i] & ~newState[i];
 	}
+}
+
+static void UpdateTime()
+{
+	timePoint = newTimePoint;
+	newTimePoint = Halib::GetTimeSinceStartup();
+	deltaTime = newTimePoint - timePoint;
+}
+
+static void UpdateEntities()
+{
+	??
+}
+
+void Halib::Update()
+{
+	UpdateInputs();
+	UpdateTime();
+
+	rendersystem.Draw(deltaTime);
 }
 
 bool Halib::GetShouldClose()

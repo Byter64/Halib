@@ -38,6 +38,8 @@ void Halib::Rendersystem::RemoveEntity(std::shared_ptr<Entity> entity)
 
 void Halib::Rendersystem::Draw(float deltaTime, Camera& camera)
 {
+	Clear(Halib::Color(backgroundColor));
+	
 	for(auto iter = entities.begin(); iter != entities.end(); iter++)
 	{
 		std::shared_ptr<Entity> entity = *iter;
