@@ -53,6 +53,7 @@ static void UpdateInputs()
 static void UpdateTime()
 {
 	timePoint = newTimePoint;
+	deltaTime = newTimePoint - timePoint;
 	while(deltaTime <= timePerFrame)
 	{
 		newTimePoint = Halib::GetTimeSinceStartup();
@@ -63,7 +64,7 @@ static void UpdateTime()
 void Halib::Update()
 {
 	UpdateInputs();
-	
+
 	entitysystem.UpdateEntities(deltaTime);
 	rendersystem.Draw(deltaTime);
 
