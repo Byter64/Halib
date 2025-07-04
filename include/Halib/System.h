@@ -25,6 +25,7 @@ namespace Halib
 
 	void Init();
 
+	/// @brief Updates the whole system. Consider using this instead of the updating the underlying systems on your one
 	void Update();
 
 	//Desktop: true, after the window has been requested to close

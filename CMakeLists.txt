@@ -37,6 +37,7 @@ set(SOURCES
 	"source/Math/Rectangle.cpp"
 	"source/Entity.cpp"
 	"source/Graphic/Rendersystem.cpp"
+	"source/Entitysystem.cpp"
 )
 
 set(INCLUDE_DIRS
