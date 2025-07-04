@@ -29,9 +29,14 @@ Halib::VecI2 Halib::Tilemap::GetTile(VecI2 position)
 	return VecI2(std::get<0>(tile), std::get<1>(tile));
 }
 
+Halib::VecI2 Halib::Tilemap::GetSize()
+{
+	return VecI2(indices[0].size(), indices.size());
+}
+
 void Halib::Tilemap::Draw()
 {
-	Halib::Draw(*this);
+	Halib::Draw(*this, VecI2(0, 0));
 }
 
 void Halib::Tilemap::Draw(const Camera& camera)

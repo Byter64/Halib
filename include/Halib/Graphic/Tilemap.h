@@ -5,7 +5,7 @@
 
 namespace Halib
 {
-	/// @brief The center is (0, 0). If indices outside its size are requested, the tile indices are clamped Consider loading the image into the fast ram!
+	/// @brief The center is (0, 0). If indices outside its size are requested, the tile (0, 0) is drawn
 	class Tilemap
 	{
 		std::vector<std::vector<std::tuple<int, int>>> indices;
@@ -27,6 +27,10 @@ public:
 
 		void SetTile(VecI2 position, VecI2 newTile);
 		VecI2 GetTile(VecI2 position);
+		
+		/// @brief 
+		/// @return The size in tiles
+		VecI2 GetSize();
 
 		void Draw();
 		void Draw(const Camera& camera);

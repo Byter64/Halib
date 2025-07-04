@@ -215,44 +215,34 @@ void Halib::Draw(Sprite &sprite, VecI2 position, const Camera& camera)
 	Draw(sprite, position - camera.position);
 }
 
-void Halib::Draw(Tilemap& tilemap)
+void Halib::Draw(Tilemap& tilemap, VecI2 position)
 {
 	VecI2 frameSize = tilemap.sprite.GetFrameSize();
 	//We move one tile further to the topleft, just to be sure
 	VecI2 drawPosition = -frameSize;
-	VecI2 drawIndex;
-	VecI2 drawLimits = VecI2(Hall::SCREEN_WIDTH, Hall::SCREEN_HEIGHT) + frameSize;
-	drawIndex.x = drawPosition.x / frameSize.x;
-	drawIndex.y = drawPosition.y / frameSize.y;
-	drawLimits.x = drawPosition.x / frameSize.x;
-	drawLimits.y = drawPosition.y / frameSize.y;
+	VecI2 drawIndex = position + drawPosition;
+	VecI2 drawLimits = position + VecI2(Hall::SCREEN_WIDTH, Hall::SCREEN_HEIGHT) + frameSize;
+	drawIndex.x /= frameSize.x;
+	drawIndex.y /= frameSize.y;
+	drawLimits.x /= frameSize.x;
+	drawLimits.y /= frameSize.y;
 
-	for(; drawIndex.y < drawLimits.y; drawIndex.y++)
-		for(; drawIndex.x < drawLimits.x; drawIndex.x++)
+	for(; drawIndex.y > 0 && drawIndex.y < tilemap.GetSize().y && drawIndex.y < drawLimits.y; drawIndex.y++)
+	{
+		for(drawIndex.x = -1; drawIndex.x > 0 && drawIndex.x < tilemap.GetSize().x && drawIndex.x < drawLimits.x; drawIndex.x++)
 		{
 			tilemap.sprite.frameIndex = tilemap.GetTile(drawIndex);
 			Draw(tilemap.sprite, drawPosition);
+			drawPosition.x += frameSize.x;
 		}
+		drawPosition.x = -frameSize.x;
+		drawPosition.y += frameSize.y;
+	}
 }
 
 void Halib::Draw(Tilemap& tilemap, const Camera &camera)
 {
-	VecI2 frameSize = tilemap.sprite.GetFrameSize();
-	//We move one tile further to the topleft, just to be sure
-	VecI2 drawPosition = camera.position - frameSize;
-	VecI2 drawIndex;
-	VecI2 drawLimits = VecI2(Hall::SCREEN_WIDTH, Hall::SCREEN_HEIGHT) + frameSize;
-	drawIndex.x = drawPosition.x / frameSize.x;
-	drawIndex.y = drawPosition.y / frameSize.y;
-	drawLimits.x = drawPosition.x / frameSize.x;
-	drawLimits.y = drawPosition.y / frameSize.y;
-
-	for(; drawIndex.y < drawLimits.y; drawIndex.y++)
-		for(; drawIndex.x < drawLimits.x; drawIndex.x++)
-		{
-			tilemap.sprite.frameIndex = tilemap.GetTile(drawIndex);
-			Draw(tilemap.sprite, drawPosition, camera);
-		}
+	Draw(tilemap, -camera.position);
 }
 
 
