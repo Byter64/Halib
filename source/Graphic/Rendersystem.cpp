@@ -43,4 +43,5 @@ void Halib::Rendersystem::Draw(float deltaTime, Camera& camera)
 		std::shared_ptr<Entity> entity = *iter;
 		entity->sprite.Draw(entity->GetPosition(), deltaTime, camera);
 	}
+	Show();
 }
