@@ -25,6 +25,12 @@ FetchContent_Declare(glm
 )
 FetchContent_MakeAvailable(glm)
 
+FetchContent_Declare(json
+	GIT_REPOSITORY https://github.com/nlohmann/json
+	GIT_TAG v3.12.0
+)
+FetchContent_MakeAvailable(json)
+
 set(SOURCES
 	#Add the .c/.cpp files here
 	"external/libbmpread/libbmpread/bmpread.c"
@@ -38,6 +44,7 @@ set(SOURCES
 	"source/Entity.cpp"
 	"source/Graphic/Rendersystem.cpp"
 	"source/Entitysystem.cpp"
+	"source/Graphic/Tilemap.cpp"
 )
 
 set(INCLUDE_DIRS
@@ -47,6 +54,7 @@ set(INCLUDE_DIRS
 set(LINK_LIBS
 	freetype
 	glm::glm
+	nlohmann_json::nlohmann_json
 )
 
 

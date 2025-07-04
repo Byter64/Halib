@@ -215,6 +215,47 @@ void Halib::Draw(Sprite &sprite, VecI2 position, const Camera& camera)
 	Draw(sprite, position - camera.position);
 }
 
+void Halib::Draw(Tilemap& tilemap)
+{
+	VecI2 frameSize = tilemap.sprite.GetFrameSize();
+	//We move one tile further to the topleft, just to be sure
+	VecI2 drawPosition = -frameSize;
+	VecI2 drawIndex;
+	VecI2 drawLimits = VecI2(Hall::SCREEN_WIDTH, Hall::SCREEN_HEIGHT) + frameSize;
+	drawIndex.x = drawPosition.x / frameSize.x;
+	drawIndex.y = drawPosition.y / frameSize.y;
+	drawLimits.x = drawPosition.x / frameSize.x;
+	drawLimits.y = drawPosition.y / frameSize.y;
+
+	for(; drawIndex.y < drawLimits.y; drawIndex.y++)
+		for(; drawIndex.x < drawLimits.x; drawIndex.x++)
+		{
+			tilemap.sprite.frameIndex = tilemap.GetTile(drawIndex);
+			Draw(tilemap.sprite, drawPosition);
+		}
+}
+
+void Halib::Draw(Tilemap& tilemap, const Camera &camera)
+{
+	VecI2 frameSize = tilemap.sprite.GetFrameSize();
+	//We move one tile further to the topleft, just to be sure
+	VecI2 drawPosition = camera.position - frameSize;
+	VecI2 drawIndex;
+	VecI2 drawLimits = VecI2(Hall::SCREEN_WIDTH, Hall::SCREEN_HEIGHT) + frameSize;
+	drawIndex.x = drawPosition.x / frameSize.x;
+	drawIndex.y = drawPosition.y / frameSize.y;
+	drawLimits.x = drawPosition.x / frameSize.x;
+	drawLimits.y = drawPosition.y / frameSize.y;
+
+	for(; drawIndex.y < drawLimits.y; drawIndex.y++)
+		for(; drawIndex.x < drawLimits.x; drawIndex.x++)
+		{
+			tilemap.sprite.frameIndex = tilemap.GetTile(drawIndex);
+			Draw(tilemap.sprite, drawPosition, camera);
+		}
+}
+
+
 void Halib::Show()
 {
 	WaitForGPU();

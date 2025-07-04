@@ -40,6 +40,11 @@ void Halib::Rendersystem::Draw(float deltaTime)
 {
 	Clear(Halib::Color(backgroundColor));
 	
+	if(tilemap != nullptr)
+	{
+		tilemap->Draw(camera);
+	}
+
 	for(auto iter = entities.begin(); iter != entities.end(); iter++)
 	{
 		std::shared_ptr<Entity> entity = *iter;
