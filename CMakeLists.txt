@@ -44,7 +44,7 @@ set(SOURCES
 	"source/Entity.cpp"
 	"source/Graphic/Rendersystem.cpp"
 	"source/Entitysystem.cpp"
-	"source/Graphic/Tilemap.cpp"
+	#"source/Graphic/Tilemap.cpp"
 )
 
 set(INCLUDE_DIRS

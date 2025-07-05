@@ -14,7 +14,7 @@ namespace Halib
 		void SortEntities();
 		
 public:
-		std::shared_ptr<Tilemap> tilemap = nullptr;
+		//std::shared_ptr<Tilemap> tilemap = nullptr;
 		Color backgroundColor = Color(15, 15, 15);
 		Camera camera;
 		

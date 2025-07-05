@@ -44,10 +44,10 @@ void Halib::Rendersystem::RemoveEntity(Entity* entity)
 void Halib::Rendersystem::Draw(float deltaTime)
 {
 	
-	if(tilemap != nullptr)
-		tilemap->Draw(camera);
-	else
-		Clear(Halib::Color(backgroundColor));
+	//if(tilemap != nullptr)
+	//	tilemap->Draw(camera);
+	//else
+	Clear(Halib::Color(backgroundColor));
 
 	for(auto iter = entities.begin(); iter != entities.end(); iter++)
 	{
