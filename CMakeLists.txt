@@ -3,12 +3,14 @@ cmake_minimum_required(VERSION 4.0)
 #If you want to build for desktop, use the flag -DDESKTOPBUILD, when running cmake
 option(DESKTOPBUILD "Replaces the Hall library with Hall_Desktop. Hall_Desktop is for Desktop builds.")
 
+set(CMAKE_CXX_STANDARD 20)
+set(CXX_STANDARD_REQUIRED ON)
 
 project("Halib")
 
 include(FetchContent)
 FetchContent_Declare(Hall
-	GIT_REPOSITORY https://github.com/byter64/Hall.git
+	GIT_REPOSITORY "C:/Users/Yannik Stamm/Desktop/Hall"
 	GIT_TAG main
 )
 FetchContent_MakeAvailable(Hall)
@@ -18,6 +20,17 @@ FetchContent_Declare(freetype
 )
 FetchContent_MakeAvailable(freetype)
 
+FetchContent_Declare(glm
+	GIT_REPOSITORY https://github.com/g-truc/glm
+)
+FetchContent_MakeAvailable(glm)
+
+FetchContent_Declare(json
+	GIT_REPOSITORY https://github.com/nlohmann/json
+	GIT_TAG v3.12.0
+)
+FetchContent_MakeAvailable(json)
+
 set(SOURCES
 	#Add the .c/.cpp files here
 	"external/libbmpread/libbmpread/bmpread.c"
@@ -26,6 +39,12 @@ set(SOURCES
 	"source/Graphic/Font.cpp"
 	"source/System.cpp"
 	"source/Graphic/Render.cpp"
+	"source/Graphic/Sprite.cpp"
+	"source/Math/Rectangle.cpp"
+	"source/Entity.cpp"
+	"source/Graphic/Rendersystem.cpp"
+	"source/Entitysystem.cpp"
+	#"source/Graphic/Tilemap.cpp"
 )
 
 set(INCLUDE_DIRS
@@ -34,6 +53,8 @@ set(INCLUDE_DIRS
 
 set(LINK_LIBS
 	freetype
+	glm::glm
+	nlohmann_json::nlohmann_json
 )
 
 

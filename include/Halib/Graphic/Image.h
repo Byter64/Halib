@@ -1,5 +1,5 @@
 #pragma once
-#include "Halib/VecI2.h"
+#include "Halib/Math/Vec.h"
 #include <memory>
 #include "Halib/Graphic/Color.h"
 
@@ -11,9 +11,10 @@ namespace Halib
 		short width; //In pixels
 		short height; //In pixels
 		std::unique_ptr<Halib::Color[]> data; //pixel array
-#ifdef DESKTOP
+
+		//This is only needed for Visual Studio compiler, but #define if made vs die -_-
 		bool wasDataRequested = false;
-#endif
+
 
 public:
 		Image();
