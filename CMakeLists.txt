@@ -10,7 +10,7 @@ project("Halib")
 
 include(FetchContent)
 FetchContent_Declare(Hall
-	GIT_REPOSITORY "C:/Users/Yannik Stamm/Desktop/Hall"
+	GIT_REPOSITORY "https://github.com/Byter64/Hall"
 	GIT_TAG main
 )
 FetchContent_MakeAvailable(Hall)
