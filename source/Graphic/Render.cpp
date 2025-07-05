@@ -215,6 +215,7 @@ void Halib::Draw(Sprite &sprite, VecI2 position, const Camera& camera)
 	Draw(sprite, position - camera.position);
 }
 
+/*
 void Halib::Draw(Tilemap& tilemap, VecI2 position)
 {
 	VecI2 frameSize = tilemap.sprite.GetFrameSize();
@@ -269,7 +270,7 @@ void Halib::Draw(Tilemap& tilemap, const Camera &camera)
 {
 	Draw(tilemap, -camera.position);
 }
-
+*/
 
 void Halib::Show()
 {
