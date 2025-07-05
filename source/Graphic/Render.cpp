@@ -219,17 +219,42 @@ void Halib::Draw(Tilemap& tilemap, VecI2 position)
 {
 	VecI2 frameSize = tilemap.sprite.GetFrameSize();
 	//We move one tile further to the topleft, just to be sure
-	VecI2 drawPosition = -frameSize;
-	VecI2 drawIndex = position + drawPosition;
+	VecI2 drawPosition = -frameSize + (position % frameSize);
+	VecI2 startIndex = position + drawPosition;
 	VecI2 drawLimits = position + VecI2(Hall::SCREEN_WIDTH, Hall::SCREEN_HEIGHT) + frameSize;
-	drawIndex.x /= frameSize.x;
-	drawIndex.y /= frameSize.y;
+	VecI2 drawIndex;
+	startIndex.x /= frameSize.x;
+	startIndex.y /= frameSize.y;
 	drawLimits.x /= frameSize.x;
 	drawLimits.y /= frameSize.y;
+	drawIndex = startIndex;
 
-	for(; drawIndex.y > 0 && drawIndex.y < tilemap.GetSize().y && drawIndex.y < drawLimits.y; drawIndex.y++)
+	for (; drawIndex.y < 0 && drawIndex.y < drawLimits.y; drawIndex.y++)
 	{
-		for(drawIndex.x = -1; drawIndex.x > 0 && drawIndex.x < tilemap.GetSize().x && drawIndex.x < drawLimits.x; drawIndex.x++)
+		for (drawIndex.x = startIndex.x; drawIndex.x < 0 && drawIndex.x < drawLimits.x; drawIndex.x++)
+		{
+			tilemap.sprite.frameIndex = tilemap.GetTile(VecI2(0, 0));
+			Draw(tilemap.sprite, drawPosition);
+			drawPosition.x += frameSize.x;
+		}
+		for (; drawIndex.x < tilemap.GetSize().x && drawIndex.x < drawLimits.x; drawIndex.x++)
+		{
+			tilemap.sprite.frameIndex = tilemap.GetTile(VecI2(drawIndex.x, 0));
+			Draw(tilemap.sprite, drawPosition);
+			drawPosition.x += frameSize.x;
+		}
+		drawPosition.x = -frameSize.x;
+		drawPosition.y += frameSize.y;
+	}
+	for(; drawIndex.y < tilemap.GetSize().y && drawIndex.y < drawLimits.y; drawIndex.y++)
+	{
+		for (drawIndex.x = startIndex.x; drawIndex.x < 0 && drawIndex.x < drawLimits.x; drawIndex.x++)
+		{
+			tilemap.sprite.frameIndex = tilemap.GetTile(VecI2(0, drawIndex.y));
+			Draw(tilemap.sprite, drawPosition);
+			drawPosition.x += frameSize.x;
+		}
+		for(; drawIndex.x < tilemap.GetSize().x && drawIndex.x < drawLimits.x; drawIndex.x++)
 		{
 			tilemap.sprite.frameIndex = tilemap.GetTile(drawIndex);
 			Draw(tilemap.sprite, drawPosition);

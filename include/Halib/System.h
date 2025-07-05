@@ -48,6 +48,8 @@ namespace Halib
 	/// @param framerate
 	void SetTargetFramerate(int framerate);
 
+	VecI2 GetScreenSize();
+
 	/// @brief 
 	/// @param controllerID Must be 0 or 1 
 	/// @param button 

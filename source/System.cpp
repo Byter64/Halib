@@ -110,6 +110,11 @@ void Halib::SetTargetFramerate(int framerate)
 	timePerFrame = 1.0f / framerate;
 }
 
+Halib::VecI2 Halib::GetScreenSize()
+{
+	return Halib::VecI2(Hall::SCREEN_WIDTH, Hall::SCREEN_HEIGHT);
+}
+
 bool Halib::GetButtonDown(int controllerID, Button button)
 {
 	switch (button) 
