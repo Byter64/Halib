@@ -24,8 +24,8 @@ namespace Halib
 	void Draw(const Rectangle &rect, VecI2 position, Color color, const Camera& camera);
 	void Draw(Sprite &sprite, VecI2 position, const Camera& camera);
 
-	void Draw(Tilemap& tilemap, VecI2 position);
-	void Draw(Tilemap& tilemap, const Camera &camera);
+	//void Draw(Tilemap& tilemap, VecI2 position);
+	//void Draw(Tilemap& tilemap, const Camera &camera);
 	
 	/// @brief Clears the whole screen with the given color
 	/// @param color 
