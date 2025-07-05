@@ -60,9 +60,14 @@ void Halib::Sprite::SetupAnimation(VecI2 startFrame, short length, float framesP
 	timer = 0;
 	frameIndex = startFrame;
 	animationCounter = 0;
-
 }
 
+void Halib::Sprite::ResetAnimation()
+{
+	timer = 0;
+	frameIndex = animationStartIndex;
+	animationCounter = 0;
+}
 
 void Halib::Sprite::Draw(VecI2 position)
 {

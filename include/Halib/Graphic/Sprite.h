@@ -64,6 +64,9 @@ public:
 		/// @param direction Into which direction the animation in the spritesheet progresses
 		void SetupAnimation(VecI2 startFrame, short length, float framesPerSecond, AnimationDirection direction = RIGHT);
 
+		//Resets the current animation to frame 0
+		void ResetAnimation();
+
 		//This just calls Halib::Draw(...)
 		void Draw(VecI2 position);
 
