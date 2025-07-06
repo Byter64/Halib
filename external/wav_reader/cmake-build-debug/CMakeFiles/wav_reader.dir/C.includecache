@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/franciscohanna92/Facultad/teoria-informacion/practico1/wav_reader/lib/wav_reader_methods.c
+stdio.h
+-
+string.h
+-
+wav_reader_types.h
+/home/franciscohanna92/Facultad/teoria-informacion/practico1/wav_reader/lib/wav_reader_types.h
+
+/home/franciscohanna92/Facultad/teoria-informacion/practico1/wav_reader/lib/wav_reader_types.h
+

@@ -38,11 +38,13 @@ set(SOURCES
 	"source/Entity.cpp"
 	"source/Graphic/Rendersystem.cpp"
 	"source/Entitysystem.cpp"
-	#"source/Graphic/Tilemap.cpp"
+	"external/wav_reader/lib/wav_reader_methods.c"
+	"source/Audio/Audio.cpp"
 )
 
 set(INCLUDE_DIRS
 	PRIVATE "external/libbmpread/libbmpread/include"
+	PRIVATE "external/wav_reader/lib"
 )
 
 set(LINK_LIBS
