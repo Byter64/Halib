@@ -1,5 +1,6 @@
 #pragma once
 #include "Halib/Graphic/Rendersystem.h"
+#include "Halib/Audio/Audiosystem.h"
 #include "Halib/Entitysystem.h"
 #include "Halib/Entity.h"
 
@@ -7,7 +8,8 @@ namespace Halib
 {
 	extern Rendersystem rendersystem;
 	extern Entitysystem entitysystem;
-
+	extern Audiosystem audiosystem;
+	
 	enum Button
 	{
 		A,

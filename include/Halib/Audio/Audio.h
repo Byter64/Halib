@@ -4,8 +4,11 @@
 
 namespace Halib
 {
+	class Audiosystem;
+
 	class Audio
 	{
+		friend class Audiosystem;
 public:
 		enum Type : char
 		{
@@ -17,32 +20,20 @@ private:
 		Type type;
 		bool isPlaying;
 		bool isLooping;
-		int loopStart, loopEnd;
 		unsigned char volume;
+		bool isInvalid;
+		int loopStart, loopEnd;
+		const char* path; //For debugging messages only
 		
 		int frameCount; //Number of frames in the audio. frame = totalSamples/channelCount
 		float length; //lenth of the audio in seconds
 		float playStartTime;
 
-		Audio() = default;
-		Audio(const char* path);
 public:
-
-
-		void Play();
-		void Pause();
-		
-		void SetVolume(unsigned char volume);
-		void SetIsLooping(bool isLooping, int loopEnd = 0, int loopStart = 0);
-
-		bool GetIsPlaying();
-		unsigned char GetVolume();
-		bool GetIsMono();
-		bool GetIsStereo();
-		float GetLength();
-		bool GetIsLooping();
-		int GetLoopStart();
-		int GetLoopEnd();
+		//Please call Audiosystem::MakeSound/MakeMusic instead
+		Audio() = default;
+		//Please call Audiosystem::MakeSound/MakeMusic instead
+		Audio(const char* path);
 
 	};
 } // namespace Halib

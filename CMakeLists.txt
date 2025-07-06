@@ -40,6 +40,7 @@ set(SOURCES
 	"source/Entitysystem.cpp"
 	"external/wav_reader/lib/wav_reader_methods.c"
 	"source/Audio/Audio.cpp"
+	"source/Audio/Audiosystem.cpp"
 )
 
 set(INCLUDE_DIRS

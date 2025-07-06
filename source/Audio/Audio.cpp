@@ -4,10 +4,9 @@
 #include "wav_reader_types.h"
 #include "Halib/System.h"
 
-bool isChannelUsed[8];
-
 Halib::Audio::Audio(const char* path)
 {
+	this->isInvalid = false;
 	data = nullptr;
 
 	FILE* file = fopen(path, "rb");
@@ -16,6 +15,7 @@ Halib::Audio::Audio(const char* path)
 	{
 		printf("ERROR: could not parse file as wav\n");
 		printf("File: %s\n", path);
+		this->isInvalid = true;
 		return;
 	}
 
@@ -29,6 +29,7 @@ Halib::Audio::Audio(const char* path)
 		printf("ERROR: Wav file seems to have some kind of compression\n");
 		printf("I die.\n");
 		printf("File: %s\n", path);
+		this->isInvalid = true;
 		return;
 	}
 	
@@ -38,6 +39,7 @@ Halib::Audio::Audio(const char* path)
 		printf("ERROR: Wav file has 0 channels\n");
 		printf("I die.\n");
 		printf("File: %s\n", path);
+		this->isInvalid = true;
 		return;
 	case 1:
 		type = MONO;
@@ -49,6 +51,7 @@ Halib::Audio::Audio(const char* path)
 		printf("ERROR: Wav file has more than 2 channels\n");
 		printf("I die.\n");
 		printf("File: %s\n", path);
+		this->isInvalid = true;
 		return;
 	}
 
@@ -57,6 +60,7 @@ Halib::Audio::Audio(const char* path)
 		printf("ERROR: Wav file does not have a sample rate of 320000 kHz\n");
 		printf("I die.\n");
 		printf("File: %s\n", path);
+		this->isInvalid = true;
 		return;
 	}
 
@@ -65,6 +69,7 @@ Halib::Audio::Audio(const char* path)
 		printf("ERROR: Wav file does not have a bit rate of 16 Bit\n");
 		printf("I die.\n");
 		printf("File: %s\n", path);
+		this->isInvalid = true;
 		return;
 	}
 
@@ -73,112 +78,7 @@ Halib::Audio::Audio(const char* path)
 	isPlaying = false;
 	isLooping = false;
 	volume = 128;
+	this->path = path;
  
 	fclose(file);
-}
-
-void Halib::Audio::Play()
-{
-	isPlaying = true;
-	playStartTime = GetTimeSinceStartup();
-	unsigned char channelMask = 0;
-
-	int i = 0;
-	for(; i < 8; i++)
-	{
-		if(!isChannelUsed[i])
-		{
-			isChannelUsed[i] = true;
-			channelID1 = i; 
-			channelMask |= 1 << i;
-			break;
-		}
-	}
-
-	if(type == STEREO)
-	{
-		for(; i < 8; i++)
-		{
-			if(!isChannelUsed[i])
-			{
-				isChannelUsed[i] = true;
-				channelID2 = i; 
-				channelMask |= 1 << i;
-				break;
-			}
-		}
-	}
-
-	if(i == 8)
-	{
-		printf("WARNING: Audio could not be played becaus no channel is free\n");
-		return;
-	}
-
-	switch (type)
-	{
-	case MONO:
-		Hall::SetupMono(channelID1, data.get(), frameCount, volume);
-		break;
-	case Stereo:
-		Hall::SetupStereo(channelID1, channelID2, data.get(), frameCount, volume);
-		break;
-	}
-
-	Hall::Play(channelMask);
-}
-
-void Halib::Audio::Pause()
-{
-
-}
-
-void Halib::Audio::SetVolume(unsigned char volume)
-{
-
-}
-
-void Halib::Audio::SetIsLooping(bool isLooping, int loopEnd, int loopStart)
-{
-
-}
-
-bool Halib::Audio::GetIsPlaying()
-{
-
-}
-
-unsigned char Halib::Audio::GetVolume()
-{
-
-}
-
-bool Halib::Audio::GetIsMono()
-{
-
-}
-
-bool Halib::Audio::GetIsStereo()
-{
-
-}
-
-float Halib::Audio::GetLength()
-{
-
-}
-
-bool Halib::Audio::GetIsLooping()
-{
-
-}
-
-int Halib::Audio::GetLoopStart()
-{
-
-}
-
-int Halib::Audio::GetLoopEnd()
-{
-
 }

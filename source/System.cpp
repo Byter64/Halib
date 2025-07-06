@@ -4,14 +4,14 @@
 #include FT_FREETYPE_H
 #include <cstdio>
 #include "Halib/Graphic.h"
+#include "Halib/Audio.h"
 
 //Defined in Font.cpp
 extern FT_Library freetypeLibrary;
-//Defined in Audio.cpp
-extern bool isChannelUsed;
 
 Halib::Rendersystem Halib::rendersystem;
 Halib::Entitysystem Halib::entitysystem;
+Halib::Audiosystem Halib::audiosystem;
 
 static const int CONTROLLER_COUNT = 2;
 static Hall::ControllerState oldState[CONTROLLER_COUNT];
@@ -40,7 +40,7 @@ void Halib::Init()
 	deltaTime = 1 / 30.0f;
 	SetTargetFramerate(30);
 
-	for(int i = 0; i < 8; i++) isChannelUsed = false;
+	audiosystem.Reset();
 }
 
 static void UpdateInputs()
