@@ -1,6 +1,7 @@
 #pragma once
 #include "Halib/Graphic/Rendersystem.h"
 #include "Halib/Entitysystem.h"
+#include "Halib/Entity.h"
 
 namespace Halib
 {
