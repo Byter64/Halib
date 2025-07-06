@@ -108,6 +108,9 @@ float Halib::GetDeltaTime()
 void Halib::SetTargetFramerate(int framerate)
 {
 	timePerFrame = 1.0f / framerate;
+#ifdef DESKTOP
+	Hall::RaylibSetTargetFramerate(framerate);
+#endif
 }
 
 Halib::VecI2 Halib::GetScreenSize()
