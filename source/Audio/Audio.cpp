@@ -14,6 +14,7 @@ Halib::Audio::Audio(const char* path)
 	if(isInvalid)
 	{
 		printf("ERROR: could not parse file as wav\n");
+		printf("Check if file is actually RIFF format (and not Nist)\n");
 		printf("File: %s\n", path);
 		this->isInvalid = true;
 		return;
