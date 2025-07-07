@@ -20,6 +20,8 @@ Halib::Audio::Audio(const char* path)
 		return;
 	}
 
+	fseek(file, 0, SEEK_SET);
+
 	wav_header wavHeader;
 	wavHeader.riff_header = read_riff_header(file);
     wavHeader.fmt_subchunk = read_fmt_subchunk(file);
