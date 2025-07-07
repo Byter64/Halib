@@ -85,9 +85,16 @@ std::shared_ptr<Halib::Audio> Halib::Audiosystem::LoadMusic(const char* path, fl
 	std::shared_ptr<Audio> music = std::make_shared<Audio>(path);
 	if(music->isInvalid) return nullptr;
 
-	music->loopEnd = loopEnd * 32000;
-	music->loopStart = loopStart * 32000;
-	music->isLooping = true;
+	if(loopEnd != -1)
+	{
+		music->loopEnd = loopEnd * 32000;
+		music->loopStart = loopStart * 32000;
+		music->isLooping = true;
+	}
+	else
+	{
+		music->isLooping = false;
+	}
 	return music;
 }
 
