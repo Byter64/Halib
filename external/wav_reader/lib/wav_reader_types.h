@@ -14,12 +14,12 @@ struct riff_header {
 struct fmt_subchunk {
     char subchunk1_id[5];   // Contains the letters "fmt "
     int subchunk1_size;     // 16 or 18 for PCM.  This is the size of the rest of the Subchunk which follows this number.
-    int audio_format;       // PCM = 1 (i.e. Linear quantization) Values other than 1 indicate some form of compression.
-    int num_channels;       // Mono = 1, Stereo = 2, etc.
+    short audio_format;       // PCM = 1 (i.e. Linear quantization) Values other than 1 indicate some form of compression.
+    short num_channels;       // Mono = 1, Stereo = 2, etc.
     int sample_rate;        // 8000, 44100, etc.
     int byte_rate;          // == SampleRate * NumChannels * BitsPerSample/8
-    int block_align;        // == NumChannels * BitsPerSample/8. The number of bytes for one sample including all channels
-    int bits_per_sample;    // 8 bits = 8, 16 bits = 16, etc.
+    short block_align;        // == NumChannels * BitsPerSample/8. The number of bytes for one sample including all channels
+    short bits_per_sample;    // 8 bits = 8, 16 bits = 16, etc.
 };
 
 struct data_subchunk {
