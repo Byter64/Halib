@@ -55,9 +55,10 @@ void Halib::Audiosystem::ClearFinishedSounds()
 	for(int i = 0; i < 8; i++)
 	{
 		AudioContainer& container = audios[i];
+		if (!container.isUsed) continue;
 		float time = Halib::GetTimeSinceStartup();
 		float deltaTime = time - container.audio->playStartTime;
-		if(container.isUsed && deltaTime > container.audio->length)
+		if(deltaTime > container.audio->length)
 		{
 			container.isUsed = false;
 			container.audio = nullptr;
@@ -122,7 +123,11 @@ void Halib::Audiosystem::Play(std::shared_ptr<Audio> audio)
 			printf("File: %s\n", audio->path);
 			return;
 		}
-		Hall::SetupMono(channel, audio->data.get(), audio->frameCount, audio->volume);
+		if(audio->isLooping)
+			Hall::SetupMono(channel, audio->data.get(), audio->frameCount * 1, audio->loopStart, audio->loopEnd, audio->volume);
+		else
+			Hall::SetupMono(channel, audio->data.get(), audio->frameCount * 1, audio->volume);
+
 		Hall::Play(1 << channel);
 		audio->playStartTime = Halib::GetTimeSinceStartup();
 		audio->isPlaying = true;
@@ -138,7 +143,10 @@ void Halib::Audiosystem::Play(std::shared_ptr<Audio> audio)
 			printf("File: %s\n", audio->path);
 			return;
 		}
-		Hall::SetupStereo(channel1, channel2, audio->data.get(), audio->frameCount, audio->volume);
+		if (audio->isLooping)
+			Hall::SetupStereo(channel1, channel2, audio->data.get(), audio->frameCount * 2, audio->loopStart, audio->loopEnd, audio->volume);
+		else
+			Hall::SetupStereo(channel1, channel2, audio->data.get(), audio->frameCount * 2, audio->volume);
 		unsigned char channelSelect = (1 << channel1) | (1 << channel2);
 		Hall::Play(channelSelect);
 		audio->playStartTime = Halib::GetTimeSinceStartup();

@@ -90,8 +90,6 @@ Halib::Audio::Audio(const char* path)
 	this->path = path;
 	data = std::make_shared<Hall::Sample[]>(wavHeader.data_subchunk.subchunk2_size / 2);
 	fread(data.get(), wavHeader.data_subchunk.subchunk2_size, 1, file);
-	printf("Error?: %i \n", ferror(file));
-	printf("EOF?: %i \n", feof(file));
- 
+
 	fclose(file);
 }
