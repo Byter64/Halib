@@ -51,8 +51,8 @@ struct fmt_subchunk read_fmt_subchunk(FILE* fp) {
     fread(&fs.block_align, 2, 1, fp);
     fread(&fs.bits_per_sample, 2, 1, fp);
 
-    int extra_param_size;
-    fread(&extra_param_size, 2, 1, fp);
+    //int extra_param_size;
+    //fread(&extra_param_size, 2, 1, fp);
 
     return fs;
 }
@@ -64,9 +64,13 @@ struct fmt_subchunk read_fmt_subchunk(FILE* fp) {
  */
 struct data_subchunk read_data_subchunk(FILE* fp) {
     struct data_subchunk ds;
+	ds = { { 0, 0, 0, 0, '\0' },
+		0,
+	};
 
     fread(ds.subchunk2_id, 4, 1, fp);
     fread(&ds.subchunk2_size, 4, 1, fp);
+	unsigned char* temp = (unsigned char*) & ds.subchunk2_size;
 
     return ds;
 }

@@ -16,20 +16,25 @@ Halib::Audio::Audio(const char* path)
 		printf("ERROR: could not parse file as wav\n");
 		printf("File: %s\n", path);
 		this->isInvalid = true;
+		fclose(file);
 		return;
 	}
+
+	
+	fseek(file, 0, SEEK_SET);
 
 	wav_header wavHeader;
 	wavHeader.riff_header = read_riff_header(file);
     wavHeader.fmt_subchunk = read_fmt_subchunk(file);
     wavHeader.data_subchunk = read_data_subchunk(file);
 
-	if(wavHeader.fmt_subchunk.audio_format == 1)
+	if(wavHeader.fmt_subchunk.audio_format != 1)
 	{
 		printf("ERROR: Wav file seems to have some kind of compression\n");
 		printf("I die.\n");
 		printf("File: %s\n", path);
 		this->isInvalid = true;
+		fclose(file);
 		return;
 	}
 	
@@ -40,6 +45,7 @@ Halib::Audio::Audio(const char* path)
 		printf("I die.\n");
 		printf("File: %s\n", path);
 		this->isInvalid = true;
+		fclose(file);
 		return;
 	case 1:
 		type = MONO;
@@ -52,6 +58,7 @@ Halib::Audio::Audio(const char* path)
 		printf("I die.\n");
 		printf("File: %s\n", path);
 		this->isInvalid = true;
+		fclose(file);
 		return;
 	}
 
@@ -61,6 +68,7 @@ Halib::Audio::Audio(const char* path)
 		printf("I die.\n");
 		printf("File: %s\n", path);
 		this->isInvalid = true;
+		fclose(file);
 		return;
 	}
 
@@ -70,6 +78,7 @@ Halib::Audio::Audio(const char* path)
 		printf("I die.\n");
 		printf("File: %s\n", path);
 		this->isInvalid = true;
+		fclose(file);
 		return;
 	}
 
@@ -79,6 +88,8 @@ Halib::Audio::Audio(const char* path)
 	isLooping = false;
 	volume = 128;
 	this->path = path;
- 
+	data = std::make_shared<Hall::Sample[]>(wavHeader.data_subchunk.subchunk2_size / 2);
+	fread(data.get(), wavHeader.data_subchunk.subchunk2_size, 1, file);
+
 	fclose(file);
 }

@@ -38,7 +38,7 @@ set(SOURCES
 	"source/Entity.cpp"
 	"source/Graphic/Rendersystem.cpp"
 	"source/Entitysystem.cpp"
-	"external/wav_reader/lib/wav_reader_methods.c"
+	"external/wav_reader/lib/wav_reader_methods.cpp"
 	"source/Audio/Audio.cpp"
 	"source/Audio/Audiosystem.cpp"
 )
