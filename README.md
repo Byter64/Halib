@@ -1,6 +1,18 @@
 # Halib is coming, Morty!
 
 # Changelog
+## v3.0
+- Added: .wav support (only for RIFF container)
+- Added: Abstraction layer for audio
+- Added: Halib::audiosystem
+- Added: Sprite::ResetAnimation() function
+
+- Removed: Fetch of json library (not needed)
+
+- Fixed: target framerate could not be set higher than 30 fps on Desktop
+- Fixed: Leftover functions for abandoned tilemap feature had not been removed
+- Fixed: wrong path to fetch Hall repo
+
 ## v2.0
 - Added: Halib::SetTargetFramerate(...)
 - Added: Halib::Update(), which updates inputs, deltaTime, all entities and draws all of them
