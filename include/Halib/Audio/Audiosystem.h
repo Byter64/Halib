@@ -26,8 +26,8 @@ namespace Halib
 		//Maps channelID to audio. Always has a length of 8
 		std::vector<AudioContainer> audios;
 
-		char FindEmptyChannel();
-		std::tuple<char, char> FindEmptyChannels();
+		signed char FindEmptyChannel();
+		std::tuple<signed char, signed char> FindEmptyChannels();
 		void ClearFinishedSounds();
 public:
 		void Reset();
