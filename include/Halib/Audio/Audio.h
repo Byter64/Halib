@@ -16,7 +16,7 @@ public:
 			STEREO
 		};
 private:
-		std::shared_ptr<Hall::Sample> data;
+		std::shared_ptr<Hall::Sample[]> data;
 		Type type;
 		bool isPlaying;
 		bool isLooping;
