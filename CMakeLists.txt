@@ -87,7 +87,6 @@ else()
 		PUBLIC -fno-rtti
 		PUBLIC -march=rv32im
 		PUBLIC -Os
-		PUBLIC -ffreestanding
 		PUBLIC -Bstatic
 		PUBLIC -nostdinc
 	)
