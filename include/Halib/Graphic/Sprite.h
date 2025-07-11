@@ -49,6 +49,12 @@ public:
 		/// @param frameCount The amount of frames in x and y direction
 		/// @param frameIndex The index of the active frame
 		Sprite(const char* path, VecI2 frameCount, VecI2 frameIndex = VecI2{0});
+
+		/// @brief Instantiates a rectangle with given width and height and given color
+		/// @param width 
+		/// @param height 
+		/// @param color 
+		Sprite(short width, short height, Halib::Color color);
 		
 		std::shared_ptr<Image> GetImage();
 		VecI2 GetFrameSize();
