@@ -3,17 +3,18 @@
 #include <cstdlib>
 #include <Hall/Hall.h>
 
-Halib::Image::Image() : width(0), height(0), data(nullptr), wasDataRequested(false)
+Halib::Image::Image() : width(0), height(0), data(nullptr), wasDataRequested(false), type(Type::CONST_COLOR), color(Halib::Color::BLACK)
 {
 
 }
 
-Halib::Image::Image(short width, short height, std::unique_ptr<Halib::Color[]> data) : width(width), height(height), data(std::move(data)), wasDataRequested(false)
+Halib::Image::Image(short width, short height, std::unique_ptr<Halib::Color[]> data) : 
+width(width), height(height), data(std::move(data)), wasDataRequested(false), type(Type::TEXTURE), color(Halib::Color::BLACK)
 {
 
 }
 
-Halib::Image::Image(const char* path)
+Halib::Image::Image(const char* path) : type(Type::TEXTURE), color(Halib::Color::BLACK)
 {
 	bmpread_t bmp;
 	int result = bmpread(path, BMPREAD_TOP_DOWN | BMPREAD_ANY_SIZE | BMPREAD_ALPHA, &bmp);
@@ -47,6 +48,12 @@ Halib::Image::Image(const char* path)
 	
 }
 
+Halib::Image::Image(short width, short height, Halib::Color color) : 
+width(width), height(height), color(color), type(Halib::Image::Type::CONST_COLOR), data(nullptr)
+{
+	
+}
+
 short Halib::Image::GetWidth() const
 {
 	return width;
@@ -63,6 +70,21 @@ Halib::Color* Halib::Image::GetData()
 	wasDataRequested = true;
 #endif
 	return data.get();
+}
+
+bool Halib::Image::IsConstColor() const
+{
+	return type == Type::CONST_COLOR;
+}
+
+bool Halib::Image::IsTexture() const
+{
+	return type == Type::TEXTURE;
+}
+
+Halib::Color Halib::Image::GetColor() const
+{
+	return color;
 }
 
 #ifdef DESKTOP

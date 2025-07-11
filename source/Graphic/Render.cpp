@@ -100,15 +100,27 @@ void Halib::Draw(Image &image, VecI2 position)
 	}
 #endif
 
-	Hall::SetImage((Hall::Color*)image.GetData(), image.GetWidth(), image.GetHeight());
-	Hall::SetExcerpt(0, 0, image.GetWidth(), image.GetHeight());
-	Hall::SetScale(1, 1);
-	Hall::SetFlip(false, false);
-	Hall::SetColorTable(Hall::NONE);
-	Hall::SetColorSource(Hall::MEMORY);
-	Hall::SetShape(Hall::RECTANGLE);
-	Hall::SetScreenPosition(position.x, position.y);
-
+	if(image.IsTexture())
+	{
+		Hall::SetImage((Hall::Color*)image.GetData(), image.GetWidth(), image.GetHeight());
+		Hall::SetExcerpt(0, 0, image.GetWidth(), image.GetHeight());
+		Hall::SetScale(1, 1);
+		Hall::SetFlip(false, false);
+		Hall::SetColorTable(Hall::NONE);
+		Hall::SetColorSource(Hall::MEMORY);
+		Hall::SetShape(Hall::RECTANGLE);
+		Hall::SetScreenPosition(position.x, position.y);
+	} 
+	else 
+	{
+		Hall::SetRectangle(position.x, position.y, image.GetWidth(), image.GetHeight());
+		Hall::SetScale(1, 1);
+		Hall::SetFlip(false, false);
+		Hall::SetColorTable(Hall::NONE);
+		Hall::SetColorSource(Hall::COLOR);
+		Hall::SetShape(Hall::RECTANGLE);
+		Hall::SetColor(image.GetColor().GetHallColor());
+	}
 	Hall::Draw();
 }
 /*
