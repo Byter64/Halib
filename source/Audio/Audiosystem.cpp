@@ -283,7 +283,7 @@ float Halib::Audiosystem::GetLoopEnd(std::shared_ptr<Audio> audio)
 }
 
 
-std::shared_ptr<Audio> Halib::Audiosystem::LoudSound(const char* path)
+std::shared_ptr<Halib::Audio> Halib::Audiosystem::LoudSound(const char* path)
 {
 	return LoadSound(path);
 }
