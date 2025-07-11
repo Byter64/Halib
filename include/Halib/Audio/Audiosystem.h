@@ -38,7 +38,7 @@ public:
 		/// @param loopStart The start of the loop in seconds
 		/// @return 
 		std::shared_ptr<Audio> LoadMusic(const char* path, float loopEnd = -1, float loopStart = 0);
-		std::shared_ptr<Audio> LoudSound(const char* path);
+		std::shared_ptr<Audio> LoadSound(const char* path);
 		void Play(std::shared_ptr<Audio> audio);
 		void Pause(std::shared_ptr<Audio> audio);
 		
@@ -60,5 +60,8 @@ public:
 		bool GetIsLooping(std::shared_ptr<Audio> audio);
 		float GetLoopStart(std::shared_ptr<Audio> audio);
 		float GetLoopEnd(std::shared_ptr<Audio> audio);
+
+		[[deprecated("Please use LoadSound (see the \"a\") instead")]]
+		std::shared_ptr<Audio> LoudSound(const char* path);
 	};
 } // namespace Halib

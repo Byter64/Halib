@@ -99,7 +99,7 @@ std::shared_ptr<Halib::Audio> Halib::Audiosystem::LoadMusic(const char* path, fl
 	return music;
 }
 
-std::shared_ptr<Halib::Audio> Halib::Audiosystem::LoudSound(const char* path)
+std::shared_ptr<Halib::Audio> Halib::Audiosystem::LoadSound(const char* path)
 {
 	std::shared_ptr<Audio> sound = std::make_shared<Audio>(path);
 	if(sound->isInvalid) return nullptr;
@@ -280,4 +280,10 @@ float Halib::Audiosystem::GetLoopEnd(std::shared_ptr<Audio> audio)
 	if(audio == nullptr || audio->isInvalid) return 0;
 
 	return audio->loopEnd / (float)32000;
+}
+
+
+std::shared_ptr<Audio> Halib::Audiosystem::LoudSound(const char* path)
+{
+	return LoadSound(path);
 }
