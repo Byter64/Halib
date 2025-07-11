@@ -49,9 +49,13 @@ Halib::Image::Image(const char* path) : type(Type::TEXTURE), color(Halib::Color:
 }
 
 Halib::Image::Image(short width, short height, Halib::Color color) : 
-width(width), height(height), color(color), type(Halib::Image::Type::CONST_COLOR), data(nullptr)
+width(width), height(height), color(color), type(Halib::Image::Type::CONST_COLOR)
 {
-	
+	data = std::make_unique<Halib::Color[]>(width * height);
+	for(int i = 0; i < width * height; i++)
+	{
+		data.get()[i] = color;
+	}
 }
 
 short Halib::Image::GetWidth() const
