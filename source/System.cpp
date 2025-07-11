@@ -1,13 +1,13 @@
 #include "Halib/System.h"
 #include <Hall/Hall.h>
-#include <ft2build.h>
-#include FT_FREETYPE_H
+//#include <ft2build.h>
+//#include FT_FREETYPE_H
 #include <cstdio>
 #include "Halib/Graphic.h"
 #include "Halib/Audio.h"
 
 //Defined in Font.cpp
-extern FT_Library freetypeLibrary;
+//extern FT_Library freetypeLibrary;
 
 Halib::Rendersystem Halib::rendersystem;
 Halib::Entitysystem Halib::entitysystem;
@@ -27,13 +27,13 @@ static float timePerFrame; //in seconds
 void Halib::Init()
 {
 	Hall::Init();
-	int error = FT_Init_FreeType(&freetypeLibrary);
+	/*int error = FT_Init_FreeType(&freetypeLibrary);
 	if(error)
 	{
 		printf("FreeType init failed\n");
 		printf("Text will not be available\n");
 		printf("Error code: %i\n", error);
-	}
+	}*/
 	
 	timePoint = Halib::GetTimeSinceStartup();
 	newTimePoint = Halib::GetTimeSinceStartup();

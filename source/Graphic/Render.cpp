@@ -2,7 +2,7 @@
 #include <memory>
 #include <unordered_map>
 
-
+/*
 struct GlyphID
 {
 	FT_Face face;
@@ -14,7 +14,7 @@ struct GlyphID
 		return face == other.face && glyphIndex == other.glyphIndex && size == other.size;
 	}
 };
-
+*/
 struct CacheEntry
 {
 	std::shared_ptr<Hall::IndexContainer[]> indexContainers;
@@ -23,7 +23,7 @@ struct CacheEntry
 	char offsetLeft;
 	char offsetTop;
 };
-
+/*
 template<>
 struct std::hash<GlyphID>
 {
@@ -38,10 +38,10 @@ struct std::hash<GlyphID>
 	}
 };
 
-static std::unordered_map<GlyphID, CacheEntry> glyphCache;
+static std::unordered_map<GlyphID, CacheEntry> glyphCache;*/
 static Halib::Camera camera;
 
-
+/*
 static std::shared_ptr<Hall::IndexContainer[]> GlyphToIndexContainer(FT_Bitmap& bitmap)
 {
 
@@ -83,7 +83,7 @@ static std::shared_ptr<Hall::IndexContainer[]> GlyphToIndexContainer(FT_Bitmap& 
 
 	return indexContainers;
 }
-
+*/
 void Halib::WaitForGPU()
 {
 	while(Hall::GetIsGPUBusy());
@@ -111,7 +111,7 @@ void Halib::Draw(Image &image, VecI2 position)
 
 	Hall::Draw();
 }
-
+/*
 void Halib::Draw(const std::string &text, VecI2 position, Font& font, Color color)
 {
 	WaitForGPU();
@@ -153,7 +153,7 @@ void Halib::Draw(const std::string &text, VecI2 position, Font& font, Color colo
 		position.y += face->glyph->advance.y / 64;
 	}
 }
-
+*/
 void Halib::Draw(const Rectangle &rect, VecI2 position, Color color)
 {
 	WaitForGPU();
@@ -199,12 +199,12 @@ void Halib::Draw(Image &image, VecI2 position, const Camera& camera)
 {
 	Draw(image, position - camera.position);
 }
-
+/*
 void Halib::Draw(const std::string &text, VecI2 position, Font& font, const Camera& camera, Color color)
 {
 	Draw(text, position - camera.position, font, color);
 }
-
+*/
 void Halib::Draw(const Rectangle &rect, VecI2 position, Color color, const Camera& camera)
 {
 	Draw(rect, position - camera.position, color);

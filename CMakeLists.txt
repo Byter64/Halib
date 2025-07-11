@@ -15,10 +15,10 @@ FetchContent_Declare(Hall
 )
 FetchContent_MakeAvailable(Hall)
 
-FetchContent_Declare(freetype
-  URL https://download.savannah.gnu.org/releases/freetype/freetype-2.13.3.tar.gz
-)
-FetchContent_MakeAvailable(freetype)
+#FetchContent_Declare(freetype
+#URL https://download.savannah.gnu.org/releases/freetype/freetype-2.13.3.tar.gz
+#)
+#FetchContent_MakeAvailable(freetype)
 
 FetchContent_Declare(glm
 	GIT_REPOSITORY https://github.com/g-truc/glm
@@ -30,7 +30,7 @@ set(SOURCES
 	"external/libbmpread/libbmpread/bmpread.c"
 	"source/Graphic/Image.cpp"
 	"source/Graphic/Color.cpp"
-	"source/Graphic/Font.cpp"
+	#"source/Graphic/Font.cpp"
 	"source/System.cpp"
 	"source/Graphic/Render.cpp"
 	"source/Graphic/Sprite.cpp"
@@ -49,7 +49,7 @@ set(INCLUDE_DIRS
 )
 
 set(LINK_LIBS
-	freetype
+	#freetype
 	glm::glm
 	
 )
