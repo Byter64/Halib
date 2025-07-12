@@ -1,5 +1,6 @@
 #pragma once
 #include "Halib/Math/Vec.h"
+#include "Halib/Graphic/Rect.h"
 #include <vector>
 
 namespace Halib
@@ -8,9 +9,11 @@ namespace Halib
 	class Path 
 	{
 		std::vector<Vec2> points;
+		std::vector<std::shared_ptr<Rect>> rects;
+		int drawThickness;
 
 public:
-		Path(std::vector<Vec2> points);
+		Path(std::vector<Vec2> points, int width, Color color);
 
 
 		/// @brief 
