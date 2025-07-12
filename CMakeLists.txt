@@ -34,13 +34,13 @@ set(SOURCES
 	"source/System.cpp"
 	"source/Graphic/Render.cpp"
 	"source/Graphic/Sprite.cpp"
-	"source/Math/Rectangle.cpp"
 	"source/Entity.cpp"
 	"source/Graphic/Rendersystem.cpp"
 	"source/Entitysystem.cpp"
 	"external/wav_reader/lib/wav_reader_methods.cpp"
 	"source/Audio/Audio.cpp"
 	"source/Audio/Audiosystem.cpp"
+	"source/Graphic/Rect.cpp"
 )
 
 set(INCLUDE_DIRS

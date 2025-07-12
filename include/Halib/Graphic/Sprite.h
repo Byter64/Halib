@@ -1,7 +1,6 @@
 #pragma once
 #include <memory>
 #include "Halib/Graphic/Image.h"
-#include "Halib/Math/Rectangle.h"
 #include "Halib/Graphic/Camera.h"
 
 namespace Halib
