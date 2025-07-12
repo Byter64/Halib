@@ -40,7 +40,7 @@ struct std::hash<GlyphID>
 
 static std::unordered_map<GlyphID, CacheEntry> glyphCache;*/
 static Halib::Camera camera;
-
+static bool isVsyncEnabled = false;
 /*
 static std::shared_ptr<Hall::IndexContainer[]> GlyphToIndexContainer(FT_Bitmap& bitmap)
 {
@@ -290,7 +290,7 @@ void Halib::Show()
 
 	bool isVsync = Hall::GetVSync();
 	bool newIsVsync = Hall::GetVSync();
-	while(!(!isVsync && newIsVsync))
+	while(isVsyncEnabled && !(!isVsync && newIsVsync))
 	{
 		isVsync = newIsVsync;
 		newIsVsync = Hall::GetVSync();
@@ -315,4 +315,9 @@ void Halib::Clear(Halib::Color color)
 	Hall::SetRectangle(0, 0, Hall::SCREEN_WIDTH, Hall::SCREEN_HEIGHT);
 
 	Hall::Draw();
+}
+
+void Halib::SetVSynchronization(bool isEnabled)
+{
+	isVsyncEnabled = isEnabled;
 }

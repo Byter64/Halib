@@ -31,6 +31,10 @@ namespace Halib
 	/// @param color 
 	void Clear(Color color);
 
+	/// @brief If true, the update loop will wait for vsync before, else it will render the image directly
+	/// @param isEnabled 
+	void SetVSynchronization(bool isEnabled);
+
 	/// @brief Updates the screen and blocks until vSync happened
 	void Show();
 } // namespace Halib
