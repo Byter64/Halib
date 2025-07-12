@@ -8,11 +8,17 @@ Halib::Path::Path(std::vector<Vec2> points, int width, Color color)
 	this->points = points;
 	this->drawThickness = width;
 	rects = std::vector<std::shared_ptr<Rect>>();
+	borders = std::vector<float>();
+	length = 0;
+	borders.push_back(length);
 
 	for(int i = 1; i < points.size(); i++)
 	{
 		Vec2 a = points[i - 1];
 		Vec2 b = points[i];
+
+		length += Magnitude(a - b);
+		borders.push_back(length);
 
 		int x = a.x < b.x ? a.x : b.x;
 		int y = a.y < b.y ? a.y : b.y;
@@ -36,8 +42,28 @@ Halib::Path::Path(std::vector<Vec2> points, int width, Color color)
 	}
 }
 
+float Halib::Path::GetScaledIndex(float x)
+{
+	int index = 0;
+	while(index < borders.size() && x > borders[index])
+	{
+		index++;
+	}
+	index--;
+
+	float scaledIndex = index;
+	float distance = borders[index + 1] - borders[index];
+	x -= borders[index];
+	scaledIndex += x / distance;
+
+	return scaledIndex;
+}
+
 Halib::Vec2 Halib::Path::GetPosition(float x)
 {
+	x = GetScaledIndex(x);
+	std::cout << "x: " << x << std::endl;
+
 	x = x >= (points.size() - 1) ? (points.size() - 1) : x;
 	x = x < 0 ? 0 : x;
 	int indexA = x == (points.size() - 1) ? x - 1 : x;
@@ -53,5 +79,5 @@ Halib::Vec2 Halib::Path::GetPosition(float x)
 
 int Halib::Path::GetLength()
 {
-	return points.size();
+	return length;
 }

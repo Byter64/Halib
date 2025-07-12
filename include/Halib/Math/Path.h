@@ -10,8 +10,12 @@ namespace Halib
 	{
 		std::vector<Vec2> points;
 		std::vector<std::shared_ptr<Rect>> rects;
+		std::vector<float> borders; //contains the 1D beginning of each new point
 		int drawThickness;
+		float length;
 
+		//Returns the index of the point that is underneath x
+		float GetScaledIndex(float x);
 public:
 		Path(std::vector<Vec2> points, int width, Color color);
 
