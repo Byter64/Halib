@@ -5,4 +5,5 @@
 #include "Halib/Graphic/Render.h"
 //#include "Halib/Graphic/Font.h"
 #include "Halib/Graphic/Camera.h"
-#include "Halib/Graphic/Tilemap.h"
+//#include "Halib/Graphic/Tilemap.h"
+#include "Halib/Graphic/Rect.h"
