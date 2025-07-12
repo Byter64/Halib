@@ -86,7 +86,8 @@ else()
 		PUBLIC -nostdlib
 		PUBLIC -fno-unwind-tables
 		PUBLIC -fno-rtti
-		PUBLIC -march=rv32im
+		PUBLIC -march=rv32imf
+		PUBLIC -mabi=ilp32f
 		PUBLIC -Os
 		PUBLIC -Bstatic
 		PUBLIC -nostdinc
