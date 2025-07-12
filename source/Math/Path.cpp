@@ -45,7 +45,7 @@ Halib::Path::Path(std::vector<Vec2> points, int width, Color color)
 float Halib::Path::GetScaledIndex(float x)
 {
 	int index = 0;
-	while(index < borders.size() && x > borders[index])
+	while(index < borders.size() - 1 && x > borders[index])
 	{
 		index++;
 	}
@@ -62,7 +62,6 @@ float Halib::Path::GetScaledIndex(float x)
 Halib::Vec2 Halib::Path::GetPosition(float x)
 {
 	x = GetScaledIndex(x);
-	std::cout << "x: " << x << std::endl;
 
 	x = x >= (points.size() - 1) ? (points.size() - 1) : x;
 	x = x < 0 ? 0 : x;

@@ -1,29 +1,21 @@
 #include "Halib/Entitysystem.h"
-
-void Halib::Entitysystem::AddEntity(std::shared_ptr<Entity> entity)
-{
-	entities.push_back(entity);
-}
-
-void Halib::Entitysystem::RemoveEntity(std::shared_ptr<Entity> entity)
-{
-	RemoveEntity(entity.get());
-}
-
-void Halib::Entitysystem::RemoveEntity(Entity* entity)
-{
-	for(int i = 0; i < entities.size(); i++)
-	{
-		if(entities[i].get() == entity)
-		{
-			entities[i] = entities[entities.size() - 1];
-			entities.resize(entities.size() - 1);
-		}
-	}
-}
+#include "Halib/Graphic/Rendersystem.h"
+#include "Halib/System.h"
 
 void Halib::Entitysystem::UpdateEntities(float deltaTime)
 {
+	bool haveEntitiesBeenAdded = !rendersystem.toBeAdded.empty();
+	while (!rendersystem.toBeAdded.empty())
+	{
+		rendersystem.entities.push_back(rendersystem.toBeAdded.back());
+		rendersystem.toBeAdded.pop_back();
+	}
+	if (haveEntitiesBeenAdded)
+	{
+		rendersystem.SortEntities();
+	}
+
+	auto& entities = rendersystem.entities;
 	for(auto iter = entities.begin(); iter != entities.end(); iter++)
 	{
 		std::shared_ptr<Entity> entity = *iter;

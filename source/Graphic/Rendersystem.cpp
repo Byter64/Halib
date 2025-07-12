@@ -15,8 +15,7 @@ void Halib::Rendersystem::SortEntities()
 
 void Halib::Rendersystem::AddEntity(std::shared_ptr<Entity> entity)
 {
-	entities.push_back(entity);
-	SortEntities();
+	toBeAdded.push_back(entity);
 }
 
 void Halib::Rendersystem::UpdateEntities()
@@ -31,14 +30,7 @@ void Halib::Rendersystem::RemoveEntity(std::shared_ptr<Entity> entity)
 
 void Halib::Rendersystem::RemoveEntity(Entity* entity)
 {
-	for(int i = 0; i < entities.size(); i++)
-	{
-		if(entities[i].get() == entity)
-		{
-			entities[i] = entities[entities.size() - 1];
-			entities.resize(entities.size() - 1);
-		}
-	}
+	toBeRemoved.push_back(entity);
 }
 
 void Halib::Rendersystem::Draw(float deltaTime)
@@ -55,4 +47,18 @@ void Halib::Rendersystem::Draw(float deltaTime)
 		entity->sprite.Draw(entity->GetPosition(), deltaTime, camera);
 	}
 	Show();
+
+	for (auto iter = toBeRemoved.begin(); iter != toBeRemoved.end(); iter++)
+	{
+		Entity* entity = *iter;
+		for (int i = 0; i < entities.size(); i++)
+		{
+			if (entities[i].get() == entity)
+			{
+				entities[i] = entities[entities.size() - 1];
+				entities.resize(entities.size() - 1);
+			}
+		}
+	}
+	toBeRemoved.clear();
 }

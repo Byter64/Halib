@@ -77,19 +77,16 @@ void Halib::Update()
 
 void Halib::AddEntity(std::shared_ptr<Entity> entity)
 {
-	entitysystem.AddEntity(entity);
 	rendersystem.AddEntity(entity);
 }
 
 void Halib::RemoveEntity(std::shared_ptr<Entity> entity)
 {
-	entitysystem.RemoveEntity(entity);
 	rendersystem.RemoveEntity(entity);
 }
 
 void Halib::RemoveEntity(Entity* entity)
 {
-	entitysystem.RemoveEntity(entity);
 	rendersystem.RemoveEntity(entity);
 }
 

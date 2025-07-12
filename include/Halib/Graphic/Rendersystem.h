@@ -7,12 +7,16 @@
 
 namespace Halib
 {
+	class Entitysystem;
+
 	class Rendersystem
 	{
 		std::vector<std::shared_ptr<Entity>> entities;
-		
+		std::vector<std::shared_ptr<Entity>> toBeAdded;
+		std::vector<Entity*> toBeRemoved;
 		void SortEntities();
 		
+		friend class Entitysystem;
 public:
 		//std::shared_ptr<Tilemap> tilemap = nullptr;
 		Color backgroundColor = Color(15, 15, 15);
