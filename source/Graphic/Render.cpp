@@ -40,7 +40,7 @@ struct std::hash<GlyphID>
 
 static std::unordered_map<GlyphID, CacheEntry> glyphCache;*/
 static Halib::Camera camera;
-static bool isVsyncEnabled = false;
+static bool isVsyncEnabled = true;
 /*
 static std::shared_ptr<Hall::IndexContainer[]> GlyphToIndexContainer(FT_Bitmap& bitmap)
 {
