@@ -41,6 +41,7 @@ set(SOURCES
 	"source/Audio/Audio.cpp"
 	"source/Audio/Audiosystem.cpp"
 	"source/Graphic/Rect.cpp"
+	"source/Math/Path.cpp"
 )
 
 set(INCLUDE_DIRS
