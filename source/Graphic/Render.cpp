@@ -184,6 +184,7 @@ void Halib::Draw(const Rectangle &rect, VecI2 position, Color color)
 void Halib::Draw(Sprite &sprite, VecI2 position)
 {
 	auto image = sprite.GetImage();
+	if(image == nullptr) return;
 	VecI2 frameOffset = sprite.GetFrameOffset();
 	VecI2 frameSize = sprite.GetFrameSize();
 	WaitForGPU();
