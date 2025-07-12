@@ -88,7 +88,7 @@ else()
 		PUBLIC -fno-rtti
 		PUBLIC -march=rv32imf
 		PUBLIC -mabi=ilp32f
-		PUBLIC -Os
+		PUBLIC -O3
 		PUBLIC -Bstatic
 		PUBLIC -nostdinc
 	)
