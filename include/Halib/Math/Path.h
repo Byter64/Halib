@@ -17,6 +17,7 @@ namespace Halib
 		//Returns the index of the point that is underneath x
 		float GetScaledIndex(float x);
 public:
+		Path() = default;
 		Path(std::vector<Vec2> points, int width, Color color);
 
 
