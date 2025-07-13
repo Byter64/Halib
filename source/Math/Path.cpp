@@ -11,6 +11,7 @@ Halib::Path::Path(std::vector<Vec2> points, int width, Color color)
 	borders = std::vector<float>();
 	length = 0;
 	borders.push_back(length);
+	isActive = true;
 
 	for(int i = 1; i < points.size(); i++)
 	{
@@ -79,4 +80,23 @@ Halib::Vec2 Halib::Path::GetPosition(float x)
 int Halib::Path::GetLength()
 {
 	return length;
+}
+
+void Halib::Path::SetActive(bool isActive)
+{
+	this->isActive = isActive;
+	if(!isActive)
+	{
+		for(int i = 0; i < rects.size(); i++)
+		{
+			Halib::RemoveEntity(rects[i]);
+		}
+	}
+	else
+	{
+		for(int i = 0; i < rects.size(); i++)
+		{
+			Halib::AddEntity(rects[i]);
+		}
+	}
 }

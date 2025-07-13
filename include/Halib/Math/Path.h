@@ -13,6 +13,7 @@ namespace Halib
 		std::vector<float> borders; //contains the 1D beginning of each new point
 		int drawThickness;
 		float length;
+		bool isActive;
 
 		//Returns the index of the point that is underneath x
 		float GetScaledIndex(float x);
@@ -29,5 +30,9 @@ public:
 		/// @brief 
 		/// @return The length of the path 
 		int GetLength();
+
+		/// @brief toggles if the path is drawn or not
+		/// @param isActive 
+		void SetActive(bool isActive);
 	};
 } // namespace Halib
