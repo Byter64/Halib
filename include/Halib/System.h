@@ -31,6 +31,9 @@ namespace Halib
 	/// @brief Updates the whole system. Consider using this instead of the updating the underlying systems on your one
 	void Update();
 
+	/// @brief This is a very ugly function. Use draw calls to your liking to draw the UI
+	void DrawUI();
+
 	void AddEntity(std::shared_ptr<Entity> entity);
 	void RemoveEntity(std::shared_ptr<Entity> entity);
 	void RemoveEntity(Entity* entity);

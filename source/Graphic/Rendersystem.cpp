@@ -1,6 +1,7 @@
 #include "Halib/Graphic/Rendersystem.h"
 #include <algorithm>
 #include "Halib/Graphic/Render.h"
+#include "Halib/System.h"
 
 void Halib::Rendersystem::SortEntities()
 {
@@ -46,6 +47,7 @@ void Halib::Rendersystem::Draw(float deltaTime)
 		std::shared_ptr<Entity> entity = *iter;
 		entity->sprite.Draw(entity->GetPosition(), deltaTime, camera);
 	}
+	DrawUI();
 	Show();
 
 	for (auto iter = toBeRemoved.begin(); iter != toBeRemoved.end(); iter++)
