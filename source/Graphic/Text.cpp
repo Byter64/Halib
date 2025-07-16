@@ -32,7 +32,7 @@ struct Rect
 
 Rect glyphs[128];
 
-void InitGlyphs()
+void Halib::InitGlyphs()
 {
 	for(int i = 0; i < 128; i++)
 	{
@@ -74,7 +74,7 @@ void InitGlyphs()
 	glyphs[';'] = {116, 5};
 }
 
-void DrawText(const char* text, int x, int y)
+void Halib::DrawText(const char* text, int x, int y)
 {
 	int startX = x;
 	while(Hall::GetIsGPUBusy());

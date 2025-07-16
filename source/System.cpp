@@ -41,6 +41,7 @@ void Halib::Init()
 	SetTargetFramerate(30);
 
 	audiosystem.Reset();
+	InitGlyphs();
 }
 
 static void UpdateInputs()

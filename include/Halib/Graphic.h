@@ -7,3 +7,4 @@
 #include "Halib/Graphic/Camera.h"
 //#include "Halib/Graphic/Tilemap.h"
 #include "Halib/Graphic/Rect.h"
+#include "Halib/Graphic/Text.h"
