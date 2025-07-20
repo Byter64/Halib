@@ -79,6 +79,7 @@ void Halib::DrawText(const char* text, int x, int y)
 	int startX = x;
 	while(Hall::GetIsGPUBusy());
 	Hall::SetImage((const Hall::Color*)Assets::minifont5x3, MINIFONT5X3_WIDTH, MINIFONT5X3_HEIGHT);
+	Hall::SetColorSource(Hall::MEMORY);
 
 	for(const char* c = text; *c != '\0'; c++)
 	{
