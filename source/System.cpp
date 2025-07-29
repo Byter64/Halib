@@ -76,6 +76,11 @@ void Halib::Update()
 	UpdateTime();
 }
 
+__attribute__((weak)) void Halib::DrawUI()
+{
+
+}
+
 void Halib::AddEntity(std::shared_ptr<Entity> entity)
 {
 	rendersystem.AddEntity(entity);
