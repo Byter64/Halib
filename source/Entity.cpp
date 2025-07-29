@@ -40,5 +40,4 @@ void Halib::Entity::AddPosition(Vec3 deltaPosition)
 void Halib::Entity::Destroy()
 {
 	rendersystem.RemoveEntity(this);
-	entitysystem.RemoveEntity(this);
 }

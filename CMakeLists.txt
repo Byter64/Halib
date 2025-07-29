@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 4.0)
+cmake_minimum_required(VERSION 3.28.3)
 
 #If you want to build for desktop, use the flag -DDESKTOPBUILD, when running cmake
 option(DESKTOPBUILD "Replaces the Hall library with Hall_Desktop. Hall_Desktop is for Desktop builds.")
@@ -15,10 +15,10 @@ FetchContent_Declare(Hall
 )
 FetchContent_MakeAvailable(Hall)
 
-FetchContent_Declare(freetype
-  URL https://download.savannah.gnu.org/releases/freetype/freetype-2.13.3.tar.gz
-)
-FetchContent_MakeAvailable(freetype)
+#FetchContent_Declare(freetype
+#URL https://download.savannah.gnu.org/releases/freetype/freetype-2.13.3.tar.gz
+#)
+#FetchContent_MakeAvailable(freetype)
 
 FetchContent_Declare(glm
 	GIT_REPOSITORY https://github.com/g-truc/glm
@@ -30,17 +30,19 @@ set(SOURCES
 	"external/libbmpread/libbmpread/bmpread.c"
 	"source/Graphic/Image.cpp"
 	"source/Graphic/Color.cpp"
-	"source/Graphic/Font.cpp"
+	#"source/Graphic/Font.cpp"
 	"source/System.cpp"
 	"source/Graphic/Render.cpp"
 	"source/Graphic/Sprite.cpp"
-	"source/Math/Rectangle.cpp"
 	"source/Entity.cpp"
 	"source/Graphic/Rendersystem.cpp"
 	"source/Entitysystem.cpp"
 	"external/wav_reader/lib/wav_reader_methods.cpp"
 	"source/Audio/Audio.cpp"
 	"source/Audio/Audiosystem.cpp"
+	"source/Graphic/Rect.cpp"
+	"source/Math/Path.cpp"
+	"source/Graphic/Text.cpp"
 )
 
 set(INCLUDE_DIRS
@@ -49,7 +51,7 @@ set(INCLUDE_DIRS
 )
 
 set(LINK_LIBS
-	freetype
+	#freetype
 	glm::glm
 	
 )
@@ -85,9 +87,9 @@ else()
 		PUBLIC -nostdlib
 		PUBLIC -fno-unwind-tables
 		PUBLIC -fno-rtti
-		PUBLIC -march=rv32im
-		PUBLIC -Os
-		PUBLIC -ffreestanding
+		PUBLIC -march=rv32imf
+		PUBLIC -mabi=ilp32f
+		PUBLIC -O3
 		PUBLIC -Bstatic
 		PUBLIC -nostdinc
 	)

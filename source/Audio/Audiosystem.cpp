@@ -25,7 +25,7 @@ bool Halib::Audiosystem::AudioContainer::operator!=(const AudioContainer& other)
 	return !(*this == other);
 }
 
-char Halib::Audiosystem::FindEmptyChannel()
+signed char Halib::Audiosystem::FindEmptyChannel()
 {
 	for(int i = 0; i < 8; i++)
 		if(!audios[i].isUsed)
@@ -33,10 +33,10 @@ char Halib::Audiosystem::FindEmptyChannel()
 	return -1;
 }
 
-std::tuple<char, char> Halib::Audiosystem::FindEmptyChannels()
+std::tuple<signed char, signed char> Halib::Audiosystem::FindEmptyChannels()
 {
-	std::tuple<char, char> result;
-	char firstID = -1;
+	std::tuple<signed char, signed char> result;
+	signed char firstID = -1;
 	for(int i = 0; i < 8; i++)
 	{
 		if(!audios[i].isUsed)
@@ -99,7 +99,7 @@ std::shared_ptr<Halib::Audio> Halib::Audiosystem::LoadMusic(const char* path, fl
 	return music;
 }
 
-std::shared_ptr<Halib::Audio> Halib::Audiosystem::LoudSound(const char* path)
+std::shared_ptr<Halib::Audio> Halib::Audiosystem::LoadSound(const char* path)
 {
 	std::shared_ptr<Audio> sound = std::make_shared<Audio>(path);
 	if(sound->isInvalid) return nullptr;
@@ -115,7 +115,7 @@ void Halib::Audiosystem::Play(std::shared_ptr<Audio> audio)
 	ClearFinishedSounds();
 	if(audio->type == Audio::MONO) 
 	{
-		char channel = FindEmptyChannel();
+		signed char channel = FindEmptyChannel();
 		if(channel == -1)
 		{
 			printf("WARNING: Audio could not be loaded\n");
@@ -280,4 +280,10 @@ float Halib::Audiosystem::GetLoopEnd(std::shared_ptr<Audio> audio)
 	if(audio == nullptr || audio->isInvalid) return 0;
 
 	return audio->loopEnd / (float)32000;
+}
+
+
+std::shared_ptr<Halib::Audio> Halib::Audiosystem::LoudSound(const char* path)
+{
+	return LoadSound(path);
 }

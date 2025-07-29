@@ -4,7 +4,7 @@
 #include <string>
 #include "Halib/Math/Vec.h"
 #include "Halib/Math/Rectangle.h"
-#include "Halib/Graphic/Font.h"
+//#include "Halib/Graphic/Font.h"
 #include "Halib/Graphic/Camera.h"
 #include "Halib/Graphic/Sprite.h"
 #include "Halib/Graphic/Tilemap.h"
@@ -15,12 +15,12 @@ namespace Halib
 	void WaitForGPU();
 
 	void Draw(Image &image, VecI2 position);
-	void Draw(const std::string &text, VecI2 position, Font& font, Color color = Color::BLACK);
+	//void Draw(const std::string &text, VecI2 position, Font& font, Color color = Color::BLACK);
 	void Draw(const Rectangle &rect, VecI2 position, Color color);
 	void Draw(Sprite &sprite, VecI2 position);
 	
 	void Draw(Image &image, VecI2 position, const Camera& camera);
-	void Draw(const std::string &text, VecI2 position, Font& font, const Camera& camera, Color color = Color::BLACK);
+	//void Draw(const std::string &text, VecI2 position, Font& font, const Camera& camera, Color color = Color::BLACK);
 	void Draw(const Rectangle &rect, VecI2 position, Color color, const Camera& camera);
 	void Draw(Sprite &sprite, VecI2 position, const Camera& camera);
 
@@ -30,6 +30,10 @@ namespace Halib
 	/// @brief Clears the whole screen with the given color
 	/// @param color 
 	void Clear(Color color);
+
+	/// @brief If true, the update loop will wait for vsync before, else it will render the image directly
+	/// @param isEnabled 
+	void SetVSynchronization(bool isEnabled);
 
 	/// @brief Updates the screen and blocks until vSync happened
 	void Show();

@@ -35,6 +35,20 @@ Halib::Sprite::Sprite(const char* path, VecI2 frameCount, VecI2 frameIndex)
 	flipY = false;
 }
 
+Halib::Sprite::Sprite(short width, short height, Halib::Color color)
+{
+	frameCount = VecI2(1, 1);
+	frameIndex = VecI2(0, 0);
+	size = VecI2(width, height);
+	isPlaying = false;
+	timer = 0;
+	scale = VecI2(1, 1);
+	flipX = false;
+	flipY = false;
+
+	image = std::make_shared<Image>(width, height, color);
+}
+
 std::shared_ptr<Halib::Image> Halib::Sprite::GetImage()
 {
 	return image;

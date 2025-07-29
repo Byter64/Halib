@@ -2,7 +2,7 @@
 #include <memory>
 #include <unordered_map>
 
-
+/*
 struct GlyphID
 {
 	FT_Face face;
@@ -14,7 +14,7 @@ struct GlyphID
 		return face == other.face && glyphIndex == other.glyphIndex && size == other.size;
 	}
 };
-
+*/
 struct CacheEntry
 {
 	std::shared_ptr<Hall::IndexContainer[]> indexContainers;
@@ -23,7 +23,7 @@ struct CacheEntry
 	char offsetLeft;
 	char offsetTop;
 };
-
+/*
 template<>
 struct std::hash<GlyphID>
 {
@@ -38,10 +38,10 @@ struct std::hash<GlyphID>
 	}
 };
 
-static std::unordered_map<GlyphID, CacheEntry> glyphCache;
+static std::unordered_map<GlyphID, CacheEntry> glyphCache;*/
 static Halib::Camera camera;
-
-
+static bool isVsyncEnabled = true;
+/*
 static std::shared_ptr<Hall::IndexContainer[]> GlyphToIndexContainer(FT_Bitmap& bitmap)
 {
 
@@ -83,7 +83,7 @@ static std::shared_ptr<Hall::IndexContainer[]> GlyphToIndexContainer(FT_Bitmap& 
 
 	return indexContainers;
 }
-
+*/
 void Halib::WaitForGPU()
 {
 	while(Hall::GetIsGPUBusy());
@@ -100,18 +100,30 @@ void Halib::Draw(Image &image, VecI2 position)
 	}
 #endif
 
-	Hall::SetImage((Hall::Color*)image.GetData(), image.GetWidth(), image.GetHeight());
-	Hall::SetExcerpt(0, 0, image.GetWidth(), image.GetHeight());
-	Hall::SetScale(1, 1);
-	Hall::SetFlip(false, false);
-	Hall::SetColorTable(Hall::NONE);
-	Hall::SetColorSource(Hall::MEMORY);
-	Hall::SetShape(Hall::RECTANGLE);
-	Hall::SetScreenPosition(position.x, position.y);
-
+	if(image.IsTexture())
+	{
+		Hall::SetImage((Hall::Color*)image.GetData(), image.GetWidth(), image.GetHeight());
+		Hall::SetExcerpt(0, 0, image.GetWidth(), image.GetHeight());
+		Hall::SetScale(1, 1);
+		Hall::SetFlip(false, false);
+		Hall::SetColorTable(Hall::NONE);
+		Hall::SetColorSource(Hall::MEMORY);
+		Hall::SetShape(Hall::RECTANGLE);
+		Hall::SetScreenPosition(position.x, position.y);
+	} 
+	else 
+	{
+		Hall::SetRectangle(position.x, position.y, image.GetWidth(), image.GetHeight());
+		Hall::SetScale(1, 1);
+		Hall::SetFlip(false, false);
+		Hall::SetColorTable(Hall::NONE);
+		Hall::SetColorSource(Hall::COLOR);
+		Hall::SetShape(Hall::RECTANGLE);
+		Hall::SetColor(image.GetColor().GetHallColor());
+	}
 	Hall::Draw();
 }
-
+/*
 void Halib::Draw(const std::string &text, VecI2 position, Font& font, Color color)
 {
 	WaitForGPU();
@@ -153,7 +165,7 @@ void Halib::Draw(const std::string &text, VecI2 position, Font& font, Color colo
 		position.y += face->glyph->advance.y / 64;
 	}
 }
-
+*/
 void Halib::Draw(const Rectangle &rect, VecI2 position, Color color)
 {
 	WaitForGPU();
@@ -172,6 +184,7 @@ void Halib::Draw(const Rectangle &rect, VecI2 position, Color color)
 void Halib::Draw(Sprite &sprite, VecI2 position)
 {
 	auto image = sprite.GetImage();
+	if(image == nullptr) return;
 	VecI2 frameOffset = sprite.GetFrameOffset();
 	VecI2 frameSize = sprite.GetFrameSize();
 	WaitForGPU();
@@ -199,12 +212,12 @@ void Halib::Draw(Image &image, VecI2 position, const Camera& camera)
 {
 	Draw(image, position - camera.position);
 }
-
+/*
 void Halib::Draw(const std::string &text, VecI2 position, Font& font, const Camera& camera, Color color)
 {
 	Draw(text, position - camera.position, font, color);
 }
-
+*/
 void Halib::Draw(const Rectangle &rect, VecI2 position, Color color, const Camera& camera)
 {
 	Draw(rect, position - camera.position, color);
@@ -278,7 +291,7 @@ void Halib::Show()
 
 	bool isVsync = Hall::GetVSync();
 	bool newIsVsync = Hall::GetVSync();
-	while(!(!isVsync && newIsVsync))
+	while(isVsyncEnabled && !(!isVsync && newIsVsync))
 	{
 		isVsync = newIsVsync;
 		newIsVsync = Hall::GetVSync();
@@ -303,4 +316,9 @@ void Halib::Clear(Halib::Color color)
 	Hall::SetRectangle(0, 0, Hall::SCREEN_WIDTH, Hall::SCREEN_HEIGHT);
 
 	Hall::Draw();
+}
+
+void Halib::SetVSynchronization(bool isEnabled)
+{
+	isVsyncEnabled = isEnabled;
 }
