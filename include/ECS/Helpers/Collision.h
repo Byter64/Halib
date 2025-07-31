@@ -3,7 +3,6 @@
 #include "glm/glm.hpp"
 namespace Engine
 {
-
     struct Collision
     {
         enum State

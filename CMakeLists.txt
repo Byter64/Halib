@@ -50,6 +50,17 @@ set(SOURCES
 	"source/ECS/Systems/RenderSystem.cpp"
 	"source/ECS/Systems/TextRenderSystem.cpp"
 	"source/ECS/Systems/TransformParentSystem.cpp"
+
+	"source/CrashHandler.cpp"
+	"source/ECSException.cpp"
+	"source/EngineException.cpp"
+	"source/FileSystem.cpp"
+	"source/main.cpp"
+	"source/Miscellaneous.cpp"
+	"source/Scene.cpp"
+	"source/SceneManager.cpp"
+	"source/Systems.cpp"
+	"source/TimeManager.cpp"
 )
 
 set(INCLUDE_DIRS
