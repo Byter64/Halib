@@ -28,21 +28,28 @@ FetchContent_MakeAvailable(glm)
 set(SOURCES
 	#Add the .c/.cpp files here
 	"external/libbmpread/libbmpread/bmpread.c"
-	"source/Graphic/Image.cpp"
-	"source/Graphic/Color.cpp"
-	#"source/Graphic/Font.cpp"
-	"source/System.cpp"
-	"source/Graphic/Render.cpp"
-	"source/Graphic/Sprite.cpp"
-	"source/Entity.cpp"
-	"source/Graphic/Rendersystem.cpp"
-	"source/Entitysystem.cpp"
 	"external/wav_reader/lib/wav_reader_methods.cpp"
-	"source/Audio/Audio.cpp"
-	"source/Audio/Audiosystem.cpp"
-	"source/Graphic/Rect.cpp"
-	"source/Math/Path.cpp"
-	"source/Graphic/Text.cpp"
+	
+	"source/ECS/ComponentManager.cpp"
+	"source/ECS/ECSSystem.cpp"
+	"source/ECS/Entity.cpp"
+	"source/ECS/EntityManager.cpp"
+	"source/ECS/EntityUtility.cpp"
+	"source/ECS/SystemManager.cpp"
+	
+	"source/ECS/Components/MeshRenderer.cpp"
+	"source/ECS/Components/Text.cpp"
+	"source/ECS/Components/Transform.cpp"
+	
+	"source/ECS/Helpers/Animation.cpp"
+	"source/ECS/Helpers/Collision.cpp"
+	"source/ECS/Helpers/Shader.cpp"
+	
+	"source/ECS/Systems/AnimationSystem.cpp"
+	"source/ECS/Systems/CollisionSystem.cpp"
+	"source/ECS/Systems/RenderSystem.cpp"
+	"source/ECS/Systems/TextRenderSystem.cpp"
+	"source/ECS/Systems/TransformParentSystem.cpp"
 )
 
 set(INCLUDE_DIRS
