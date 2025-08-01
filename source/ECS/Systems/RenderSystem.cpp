@@ -37,6 +37,8 @@ namespace Engine
         Transform& transform = ecsSystem->GetComponent<Transform>(entity);
         SpriteRenderer& spriteRenderer = ecsSystem->GetComponent<SpriteRenderer>(entity);
         glm::vec2 position = transform.GetGlobalTranslation();
+        glm::ivec2 scale = transform.GetSpriteScale();
+        glm::bvec2 flip = transform.GetSpriteFlip();
 
         auto& image = spriteRenderer.image;
 	    if(image == nullptr) return;
@@ -53,8 +55,8 @@ namespace Engine
 
 	    Hall::SetImage((Hall::Color*)image->GetData(), image->GetWidth(), image->GetHeight());
 	    Hall::SetExcerpt(frameOffset.x, frameOffset.y, frameSize.x, frameSize.y);
-	    Hall::SetScale(spriteRenderer.scale.x, spriteRenderer.scale.y);
-	    Hall::SetFlip(spriteRenderer.flipX, spriteRenderer.flipY);
+	    Hall::SetScale(scale.x, scale.y);
+	    Hall::SetFlip(flip.x, flip.y);
 	    Hall::SetScreenPosition(position.x, position.y);
 
 	    Hall::Draw();
