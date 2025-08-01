@@ -13,7 +13,6 @@ namespace Engine
 
         camera.SetTranslation(glm::vec3(0));
         camera.SetScale(glm::vec3(1));
-        camera.SetRotation(glm::identity<glm::quat>());
     }
 
     void RenderSystem::Render()

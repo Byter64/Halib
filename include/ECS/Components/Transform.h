@@ -11,55 +11,52 @@ namespace Engine
     {
     private:
         bool hasTransformChanged = true;
-        glm::mat4 matrix = glm::mat4(1);
-        glm::vec3 translation = glm::vec3(0, 0, 0);
-        glm::vec3 scale = glm::vec3(1, 1, 1);
-        glm::quat rotation = glm::identity<glm::quat>();
+        glm::mat3 matrix = glm::mat3(1);
+        glm::vec2 translation = glm::vec2(0, 0);
+        glm::vec2 scale = glm::vec2(1, 1);
+
+        glm::ivec2 spriteScale = glm::ivec2(1, 1); //The wueHans GPU demands a special format for the scaling factors
+        glm::bvec2 spriteFlip = glm::bvec2(false, false);
 
         bool isGlobalTranslationOutdated = true;
         bool isGlobalScaleOutdated = true;
-        bool isGlobalRotationOutdated = true;
         bool isGlobalMatrixOutdated = true;
-        glm::mat4 globalMatrix = glm::mat4(1);
-        glm::vec3 globalTranslation = glm::vec3(0, 0, 0);
-        glm::vec3 globalScale = glm::vec3(1, 1, 1);
-        glm::quat globalRotation = glm::identity<glm::quat>();
+        glm::mat3 globalMatrix = glm::mat3(1);
+        glm::vec2 globalTranslation = glm::vec2(0, 0);
+        glm::vec2 globalScale = glm::vec2(1, 1);
 
         Transform* parent = nullptr;
         std::list<Transform*> children;
 
         void SetIsGlobalTranslationOutdated();
         void SetIsGlobalScaleOutdated();
-        void SetIsGlobalRotationOutdated();
+
+        void SetSpriteVariables(glm::vec2 scale);
+        void UpdateScales();
 
     public:
         Transform() = default;
-        Transform(glm::vec3 position, glm::vec3 scale, glm::quat rotation);
+        Transform(glm::vec2 position, glm::vec2 scale);
         Transform(Transform& other) = default;
 
         Transform& operator= (Transform& other) = default;
         Transform& operator= (Transform&& other);
 
-        glm::vec3 GetTranslation();
-        glm::vec3 GetGlobalTranslation();
-        void SetTranslation(const glm::vec3& translation);
-        void SetGlobalTranslation(const glm::vec3& translation);
-        void AddTranslation(const glm::vec3& translation);
+        glm::vec2 GetTranslation();
+        glm::vec2 GetGlobalTranslation();
+        void SetTranslation(const glm::vec2& translation);
+        void SetGlobalTranslation(const glm::vec2& translation);
+        void AddTranslation(const glm::vec2& translation);
 
-        glm::vec3 GetScale();
-        glm::vec3 GetGlobalScale();
-        void SetScale(const glm::vec3& scale);
-        void AddScale(const glm::vec3& scale);
+        glm::ivec2 GetSpriteScale();
+        glm::bvec2 GetSpriteFlip();
+        glm::vec2 GetScale();
+        glm::vec2 GetGlobalScale();
+        void SetScale(const glm::vec2& scale);
+        void AddScale(const glm::vec2& scale);
 
-        glm::quat GetRotation();
-        glm::quat GetGlobalRotation();
-        void SetRotation(const glm::quat& rotation);
-        void AddRotation(const glm::quat& rotation);
-        void AddRotation(const glm::vec3& rotation);
-
-        const glm::mat4x4& GetMatrix();
-        const glm::mat4x4& GetGlobalMatrix();
-
+        const glm::mat2x3& GetMatrix();
+        const glm::mat2x3& GetGlobalMatrix();
 
         void SetParent(Transform* parent);
         Transform* GetParent();

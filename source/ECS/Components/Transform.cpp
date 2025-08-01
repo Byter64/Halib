@@ -5,17 +5,17 @@
 #include "Engine.h"
 namespace Engine
 {
-    Transform::Transform(glm::vec3 position, glm::vec3 scale, glm::quat rotation) : translation(position), scale(scale), rotation(rotation)
+    Transform::Transform(glm::vec2 position, glm::vec2 scale) : translation(position), scale(scale)
     {
         parent = nullptr;
     }
 
-    glm::vec3 Transform::GetTranslation()
+    glm::vec2 Transform::GetTranslation()
     {
         return translation;
     }
 
-    void Transform::SetTranslation(const glm::vec3 &translation)
+    void Transform::SetTranslation(const glm::vec2 &translation)
     {
         this->translation = translation;
         hasTransformChanged = true;
@@ -23,15 +23,15 @@ namespace Engine
         SetIsGlobalTranslationOutdated();
     }
 
-    void Transform::SetGlobalTranslation(const glm::vec3 &translation)
+    void Transform::SetGlobalTranslation(const glm::vec2 &translation)
     {
-        glm::vec3 localTranslation = translation;
+        glm::vec2 localTranslation = translation;
         if(parent != nullptr)
             localTranslation = translation - parent->GetGlobalTranslation();
         SetTranslation(localTranslation);
     }
 
-    void Transform::AddTranslation(const glm::vec3 &translation)
+    void Transform::AddTranslation(const glm::vec2 &translation)
     {
         this->translation += translation;
         hasTransformChanged = true;
@@ -39,12 +39,24 @@ namespace Engine
         SetIsGlobalTranslationOutdated();
     }
 
-    glm::vec3 Transform::GetScale()
+    glm::ivec2 Transform::GetSpriteScale()
+    {
+        UpdateScales();
+        return spriteScale;
+    }
+
+    glm::bvec2 Transform::GetSpriteFlip()
+    {
+        UpdateScales();
+        return spriteFlip;
+    }
+
+    glm::vec2 Transform::GetScale()
     {
         return scale;
     }
 
-    void Transform::SetScale(const glm::vec3 &scale)
+    void Transform::SetScale(const glm::vec2 &scale)
     {
         this->scale = scale;
         hasTransformChanged = true;
@@ -53,7 +65,7 @@ namespace Engine
         SetIsGlobalScaleOutdated();
     }
 
-    void Transform::AddScale(const glm::vec3 &scale)
+    void Transform::AddScale(const glm::vec2 &scale)
     {
         this->scale += scale;
         hasTransformChanged = true;
@@ -62,45 +74,14 @@ namespace Engine
         SetIsGlobalScaleOutdated();
     }
 
-    glm::quat Transform::GetRotation()
-    {
-        return rotation;
-    }
-
-    void Transform::SetRotation(const glm::quat &rotation)
-    {
-        this->rotation = glm::normalize(rotation);
-        hasTransformChanged = true;
-
-        SetIsGlobalTranslationOutdated();
-        SetIsGlobalRotationOutdated();
-    }
-
-    void Transform::AddRotation(const glm::quat &rotation)
-    {
-        this->rotation = glm::normalize(this->rotation * rotation);
-        hasTransformChanged = true;
-
-        SetIsGlobalTranslationOutdated();
-        SetIsGlobalRotationOutdated();
-    }
-
-    /// Adds euler angles
-    /// \param rotation the rotation in radians in euler angles
-    void Transform::AddRotation(const glm::vec3 &rotation)
-    {
-        AddRotation(glm::quat(rotation));
-    }
-
-    const glm::mat4x4 &Transform::GetMatrix()
+    const glm::mat2x3 &Transform::GetMatrix()
     {
         if(hasTransformChanged)
         {
-            glm::mat4 scale = glm::scale(glm::mat4(1.0f), this->scale);
-            glm::mat4 rotation = glm::toMat4(this->rotation);
-            glm::mat4 translation = glm::translate(glm::mat4(1.0f), this->translation);
+            glm::mat2 scale = glm::scale(glm::mat3(1.0f), glm::vec2(this->scale));
+            glm::mat2 translation = glm::translate(glm::mat3(1.0f), this->translation);
 
-            matrix = translation * rotation * scale;
+            matrix = translation * scale;
             hasTransformChanged = false;
         }
 
@@ -144,31 +125,23 @@ namespace Engine
 
     std::string Transform::MatrixToString()
     {
-        const glm::mat4x4 &matrix = GetMatrix();
+        const glm::mat3x3 &matrix = GetMatrix();
         std::string result = std::to_string(matrix[0][0]) + ",\t ";
         result += std::to_string(matrix[1][0]) + ",\t ";
-        result += std::to_string(matrix[2][0]) + ",\t ";
-        result += std::to_string(matrix[3][0]) + ",\t\n";
+        result += std::to_string(matrix[2][0]) + ",\t\n";
 
         result += std::to_string(matrix[0][1]) + ",\t ";
         result += std::to_string(matrix[1][1]) + ",\t ";
-        result += std::to_string(matrix[2][1]) + ",\t ";
-        result += std::to_string(matrix[3][1]) + ",\t\n";
+        result += std::to_string(matrix[2][1]) + ",\t\n";
 
         result += std::to_string(matrix[0][2]) + ",\t ";
         result += std::to_string(matrix[1][2]) + ",\t ";
-        result += std::to_string(matrix[2][2]) + ",\t ";
-        result += std::to_string(matrix[3][2]) + ",\t\n";
-
-        result += std::to_string(matrix[0][3]) + ",\t ";
-        result += std::to_string(matrix[1][3]) + ",\t ";
-        result += std::to_string(matrix[2][3]) + ",\t ";
-        result += std::to_string(matrix[3][3]) + ",\t\n";
+        result += std::to_string(matrix[2][2]) + ",\t\n";
 
         return result;
     }
 
-    glm::vec3 Transform::GetGlobalTranslation()
+    glm::vec2 Transform::GetGlobalTranslation()
     {
         if(isGlobalTranslationOutdated)
         {
@@ -178,8 +151,8 @@ namespace Engine
             }
             else
             {
-                glm::mat4 parent = this->parent->GetGlobalMatrix();
-                globalTranslation = parent * glm::vec4(translation, 1);
+                glm::mat3 parent = this->parent->GetGlobalMatrix();
+                globalTranslation = parent * glm::vec3(translation, 1);
             }
             isGlobalTranslationOutdated = false;
         }
@@ -188,53 +161,20 @@ namespace Engine
     }
 
 
-    glm::vec3 Transform::GetGlobalScale()
+    glm::vec2 Transform::GetGlobalScale()
     {
-        if(isGlobalScaleOutdated)
-        {
-            if(parent == nullptr)
-            {
-                globalScale = scale;
-            }
-            else
-            {
-                glm::vec3 parent = this->parent->GetGlobalScale();
-                globalScale = glm::vec3(scale.x * parent.x, scale.y * parent.y, scale.z * parent.z);
-            }
-            isGlobalScaleOutdated = false;
-        }
+        UpdateScales();
 
         return globalScale;
     }
 
-    glm::quat Transform::GetGlobalRotation()
-    {
-        if(isGlobalRotationOutdated)
-        {
-            if(parent == nullptr)
-            {
-                globalRotation = rotation;
-            }
-            else
-            {
-                glm::quat parent = this->parent->GetGlobalRotation();
-                globalRotation = parent * rotation;
-
-            }
-            isGlobalRotationOutdated = false;
-        }
-
-        return globalRotation;
-    }
-
-    const glm::mat4x4 &Transform::GetGlobalMatrix()
+    const glm::mat2x3 &Transform::GetGlobalMatrix()
     {
         if(isGlobalMatrixOutdated)
         {
-            glm::mat4 scale = glm::scale(glm::mat4(1.0f), GetGlobalScale());
-            glm::mat4 rotation = glm::toMat4(GetGlobalRotation());
-            glm::mat4 translation = glm::translate(glm::mat4(1.0f), GetGlobalTranslation());
-            globalMatrix = translation * rotation * scale;
+            glm::mat3 scale = glm::scale(glm::mat3(1.0f), glm::vec2(GetGlobalScale()));
+            glm::mat3 translation = glm::translate(glm::mat3(1.0f), GetGlobalTranslation());
+            globalMatrix = translation * scale;
 
             isGlobalMatrixOutdated = false;
         }
@@ -262,13 +202,37 @@ namespace Engine
         }
     }
 
-    void Transform::SetIsGlobalRotationOutdated()
+    void Transform::SetSpriteVariables(glm::vec2 scale)
     {
-        isGlobalRotationOutdated = true;
-        isGlobalMatrixOutdated = true;
-        for(Transform* child : children)
+        if(::fabs(scale.x) >= 1)
+            spriteScale.x = scale.x;
+        else
+            spriteScale.x = ::roundf(-(1 / scale.x));
+        spriteFlip.x = scale.x < 0;
+
+        if(::fabs(scale.y) >= 1)
+            spriteScale.y = scale.y;
+        else
+            spriteScale.y = ::roundf(-(1 / scale.y));
+        spriteFlip.y = scale.y < 0;
+    }
+
+    void Transform::UpdateScales()
+    {
+        if(isGlobalScaleOutdated)
         {
-            child->SetIsGlobalRotationOutdated();
+            if(parent == nullptr)
+            {
+                globalScale = scale;
+                SetSpriteVariables(scale);
+            }
+            else
+            {
+                glm::vec2 parent = this->parent->GetGlobalScale();
+                globalScale = glm::vec2(scale.x * parent.x, scale.y * parent.y);
+                SetSpriteVariables(globalScale);
+            }
+            isGlobalScaleOutdated = false;
         }
     }
 
@@ -279,66 +243,36 @@ namespace Engine
         message += std::to_string(translation.x);
         message += ", ";
         message += std::to_string(translation.y);
-        message += ", ";
-        message += std::to_string(translation.z);
         message += ")\n";
 
         message += "\tScale: (";
         message += std::to_string(scale.x);
         message += ", ";
         message += std::to_string(scale.y);
-        message += ", ";
-        message += std::to_string(scale.z);
         message += ")\n";
 
-        message += "\tRotation: (";
-        message += std::to_string(rotation.x);
-        message += ", ";
-        message += std::to_string(rotation.y);
-        message += ", ";
-        message += std::to_string(rotation.z);
-        message += ", ";
-        message += std::to_string(rotation.w);
-        message += ")\n";
-
-        glm::vec3 globalTranslation = GetGlobalTranslation();
+        glm::vec2 globalTranslation = GetGlobalTranslation();
         message += "\nGLOBAL\n";
         message += "\tPosition: (";
         message += std::to_string(globalTranslation.x);
         message += ", ";
         message += std::to_string(globalTranslation.y);
-        message += ", ";
-        message += std::to_string(globalTranslation.z);
         message += ")\n";
 
-        glm::vec3 globalScale = GetGlobalScale();
+        glm::vec2 globalScale = GetGlobalScale();
         message += "\tScale: (";
         message += std::to_string(globalScale.x);
         message += ", ";
         message += std::to_string(globalScale.y);
-        message += ", ";
-        message += std::to_string(globalScale.z);
         message += ")\n";
-
-        glm::quat globalRotation = GetGlobalRotation();
-        message += "\tRotation: (";
-        message += std::to_string(globalRotation.x);
-        message += ", ";
-        message += std::to_string(globalRotation.y);
-        message += ", ";
-        message += std::to_string(globalRotation.z);
-        message += ", ";
-        message += std::to_string(globalRotation.w);
-        message += ")\n";
-
 
         return message;
     }
 
     std::string Transform::GlobalTranslationToString()
     {
-        glm::vec3 pos = GetGlobalTranslation();
-        return "(" + std::to_string(pos.x) + ", " + std::to_string(pos.y) + ", " + std::to_string(pos.z) + ")";
+        glm::vec2 pos = GetGlobalTranslation();
+        return "(" + std::to_string(pos.x) + ", " + std::to_string(pos.y) + ")";
     }
 
     Transform &Transform::operator=(Transform &&other)
@@ -349,16 +283,13 @@ namespace Engine
         matrix = other.matrix;
         translation = other.translation;
         scale = other.scale;
-        rotation = other.rotation;
 
         isGlobalTranslationOutdated = other.isGlobalTranslationOutdated;
         isGlobalScaleOutdated = other.isGlobalScaleOutdated;
-        isGlobalRotationOutdated = other.isGlobalRotationOutdated;
         isGlobalMatrixOutdated = other.isGlobalMatrixOutdated;
         globalMatrix = other.globalMatrix;
         globalTranslation = other.globalTranslation;
         globalScale = other.globalScale;
-        globalRotation = other.globalRotation;
 
         children.clear();
         std::copy(other.children.begin(), other.children.end(), std::back_inserter(children));
