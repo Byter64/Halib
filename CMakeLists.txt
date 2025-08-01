@@ -44,10 +44,9 @@ set(SOURCES
 	"source/ECS/Helpers/Collision.cpp"
 	"source/ECS/Helpers/Color.cpp"
 	"source/ECS/Helpers/Image.cpp"
-	#"source/ECS/Helpers/Shader.cpp"
 	
 	#"source/ECS/Systems/AnimationSystem.cpp"
-	#"source/ECS/Systems/CollisionSystem.cpp"
+	"source/ECS/Systems/CollisionSystem.cpp"
 	"source/ECS/Systems/RenderSystem.cpp"
 	#"source/ECS/Systems/TextRenderSystem.cpp"
 	#"source/ECS/Systems/TransformParentSystem.cpp"

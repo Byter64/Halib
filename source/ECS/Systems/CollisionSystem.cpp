@@ -82,7 +82,7 @@ namespace Engine
                 TilemapCollider& collider2 = ecsSystem->GetComponent<TilemapCollider>(entity2);
                 if(ignoredLayers[collider1.layer].count(collider2.layer)) continue;
 
-                std::pair<bool, glm::vec3> result = CheckCollision(collider2, collider1);
+                std::pair<bool, glm::vec2> result = CheckCollision(collider2, collider1);
                 UpdateCollision(collider2, collider1, result.first, result.second);
             }
         }
@@ -123,7 +123,7 @@ namespace Engine
         }
     }
 
-    void CollisionSystem::UpdateCollision(TilemapCollider &collider1, BoxCollider &collider2, bool areColliding, glm::vec3 tilePos)
+    void CollisionSystem::UpdateCollision(TilemapCollider &collider1, BoxCollider &collider2, bool areColliding, glm::vec2 tilePos)
     {
         Collision collision1 = {ecsSystem->GetEntity(collider1), ecsSystem->GetEntity(collider2),
                                 tilePos,
@@ -175,43 +175,42 @@ namespace Engine
 
         transform1.AddTranslation(collider1.position);
         transform2.AddTranslation(collider2.position);
-        glm::vec3 position1 = transform1.GetGlobalTranslation();
-        glm::vec3 position2 = transform2.GetGlobalTranslation();
+        glm::vec2 position1 = transform1.GetGlobalTranslation();
+        glm::vec2 position2 = transform2.GetGlobalTranslation();
         transform1.AddTranslation(-collider1.position);
         transform2.AddTranslation(-collider2.position);
 
-        glm::vec3 size1 = collider1.size * transform1.GetGlobalScale() * 0.5f; //Size is now half of the actual size
-        glm::vec3 size2 = collider2.size * transform2.GetGlobalScale() * 0.5f;
+        glm::vec2 size1 = collider1.size * transform1.GetGlobalScale() * 0.5f; //Size is now half of the actual size
+        glm::vec2 size2 = collider2.size * transform2.GetGlobalScale() * 0.5f;
 
         bool areColliding = true;
         if ( std::abs(position1[0] - position2[0]) > (size1[0] + size2[0]) ) areColliding = false;
         if ( std::abs(position1[1] - position2[1]) > (size1[1] + size2[1]) ) areColliding = false;
-        if ( std::abs(position1[2] - position2[2]) > (size1[2] + size2[2]) ) areColliding = false;
 
         return areColliding;
     }
 
-    std::pair<bool, glm::vec3> CollisionSystem::CheckCollision(const TilemapCollider &collider1, const BoxCollider &collider2)
+    std::pair<bool, glm::vec2> CollisionSystem::CheckCollision(const TilemapCollider &collider1, const BoxCollider &collider2)
     {
         Transform& transform1 = ecsSystem->GetComponent<Transform>(ecsSystem->GetEntity(collider1));
         Transform& transform2 = ecsSystem->GetComponent<Transform>(ecsSystem->GetEntity(collider2));
 
         transform1.AddTranslation(collider1.position);
         transform2.AddTranslation(collider2.position);
-        glm::vec3 position1 = transform1.GetGlobalTranslation();
-        glm::vec3 position2 = transform2.GetGlobalTranslation();
+        glm::vec2 position1 = transform1.GetGlobalTranslation();
+        glm::vec2 position2 = transform2.GetGlobalTranslation();
         transform1.AddTranslation(-collider1.position);
         transform2.AddTranslation(-collider2.position);
 
-        glm::vec3 size1 = glm::vec3(0.5f); //a box of a tilemap always has a radius of 0.5f
-        glm::vec3 size2 = collider2.size * transform2.GetGlobalScale() * 0.5f;
+        glm::vec2 size1 = glm::vec2(0.5f); //a box of a tilemap always has a radius of 0.5f
+        glm::vec2 size2 = collider2.size * transform2.GetGlobalScale() * 0.5f;
 
-        glm::vec3 distance = position2 - position1;
+        glm::vec2 distance = position2 - position1;
         std::pair<int, int> origin = {(int)std::round(distance.x), (int)std::round(distance.y)};
         int xtol = glm::floor(2 * (size1.x + size2.x) + 1);
         int ytol = glm::floor(2 * (size1.y + size2.y) + 1);
 
-        glm::vec3 colPos = glm::vec3(0);
+        glm::vec2 colPos = glm::vec3(0);
         int count = 0;
 
         for(int x = origin.first - xtol < 0 ? 0 : origin.first - xtol; x < origin.first + xtol && x < collider1.map.size(); x++)
@@ -219,12 +218,11 @@ namespace Engine
             {
                 if(!collider1.map[x][y]) continue;
 
-                glm::vec3 tilePosition = position1 + glm::vec3(x, y, 0);
+                glm::vec2 tilePosition = position1 + glm::vec2(x, y);
 
                 bool areColliding = true;
                 if ( std::abs(tilePosition[0] - position2[0]) > (size1[0] + size2[0]) ) areColliding = false;
                 if ( std::abs(tilePosition[1] - position2[1]) > (size1[1] + size2[1]) ) areColliding = false;
-                if ( std::abs(tilePosition[2] - position2[2]) > (size1[2] + size2[2]) ) areColliding = false;
 
                 if(areColliding)
                 {
@@ -233,7 +231,7 @@ namespace Engine
                 }
             }
         if(count == 0)
-            return {false, glm::vec3(0)};
+            return {false, glm::vec2(0)};
         else
             return {true, colPos / (float)count};
     }

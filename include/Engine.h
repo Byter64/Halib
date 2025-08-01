@@ -23,7 +23,7 @@
 #include "ECS/Helpers/glmExtension.h"
 #include "ECS/Systems/TransformParentSystem.h"
 #include "ECS/Systems/RenderSystem.h"
-//#include "ECS/Systems/CollisionSystem.h"
+#include "ECS/Systems/CollisionSystem.h"
 //#include "ECS/Systems/TextRenderSystem.h"
 //#include "ECS/Systems/AnimationSystem.h"
 
