@@ -9,9 +9,8 @@
 #include "ECS/System.h"
 #include "ECSSystem.h"
 #include "ECS/Components/Transform.h"
-#include "ECS/Components/MeshRenderer.h"
-#include "glad/glad.h"
-#include "../../../../extern/tinygltf/tiny_gltf.h"
+#include "ECS/Components/SpriteRenderer.h"
+#include "ECS/Helpers/Color.h"
 
 namespace Engine
 {
@@ -23,6 +22,7 @@ namespace Engine
 
     public:
         Transform camera;
+        Engine::Color backgroundColor; //If transparent, background will not be cleared
 
 
         RenderSystem();

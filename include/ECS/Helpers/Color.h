@@ -50,5 +50,8 @@ public:
 		bool GetAlpha();
 
 		Hall::Color GetHallColor() const;
+
+		bool operator==(const Color& other) const;
+		bool operator!=(const Color& other) const;
 	};
 } // namespace Halib

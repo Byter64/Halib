@@ -48,6 +48,6 @@ public:
 		/// @return true == visible, false == transparent
 		bool GetAlpha();
 
-		Hall::Color GetHallColor() const;
+		Hall::Color GetHallColor() const;zz
 	};
 } // namespace Halib

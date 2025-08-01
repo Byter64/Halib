@@ -69,3 +69,13 @@ Hall::Color Engine::Color::GetHallColor() const
 {
 	return color;
 }
+
+bool Engine::Color::operator==(const Color& other) const
+{
+	return color == other.color;
+}
+
+bool Engine::Color::operator!=(const Color& other) const
+{
+	return !(*this == other);
+}

@@ -9,8 +9,8 @@ namespace Engine
 {
     void RenderSystem::Render()
     {
-        glClearColor(0.172f, 0.243f, 0.313f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        if(backgroundColor != Halib::Color::TRANSPARENT)
+            Halib::Clear(backgroundColor);
 
         for(Entity entity : entities)
         {
