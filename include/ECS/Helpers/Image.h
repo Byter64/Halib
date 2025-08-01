@@ -20,7 +20,7 @@ namespace Engine
 public:
 		Image();
 		//Image is responsible for data and will free the data on destruction
-		Image(short width, short height, std::unique_ptr<Engine::Color[]> data);
+		Image(short width, short height, std::unique_ptr<Engine::Color[]> data, Hall::CTType type);
 		Image(const char* path);
 
 		short GetWidth() const;

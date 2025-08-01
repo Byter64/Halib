@@ -1,20 +1,20 @@
-#include "Engine/Helpers/Image.h"
+#include "ECS/Helpers/Image.h"
 #include "bmpread.h"
 #include <cstdlib>
 #include <Hall/Hall.h>
 
-Engine::Image::Image() : width(0), height(0), data(nullptr), wasDataRequested(false), type(Type::CONST_COLOR), color(Engine::Color::BLACK)
+Engine::Image::Image() : width(0), height(0), data(nullptr), wasDataRequested(false)
 {
 
 }
 
-Engine::Image::Image(short width, short height, std::unique_ptr<Engine::Color[]> data) : 
-width(width), height(height), data(std::move(data)), wasDataRequested(false), type(Type::TEXTURE), color(Engine::Color::BLACK)
+Engine::Image::Image(short width, short height, std::unique_ptr<Engine::Color[]> data, Hall::CTType ctType) : 
+width(width), height(height), data(std::move(data)), wasDataRequested(false), ctType(ctType)
 {
 
 }
 
-Engine::Image::Image(const char* path) : type(Type::TEXTURE), color(Engine::Color::BLACK)
+Engine::Image::Image(const char* path) : ctType(Hall::NONE)
 {
 	bmpread_t bmp;
 	int result = bmpread(path, BMPREAD_TOP_DOWN | BMPREAD_ANY_SIZE | BMPREAD_ALPHA, &bmp);
@@ -66,7 +66,7 @@ Engine::Color* Engine::Image::GetData()
 	return data.get();
 }
 
-Engine::Color Engine::Image::GetCTType() const
+Hall::CTType Engine::Image::GetCTType() const
 {
 	return ctType;
 }
