@@ -1,5 +1,6 @@
 #pragma once
 #include <memory>
+#include <Hall/Hall.h>
 #include "ECS/Helpers/Image.h"
 #include "glm/vec2.hpp"
 
@@ -14,6 +15,6 @@ namespace Engine
 		bool isActive;
 		bool flipX;
 		bool flipY;
-
+		Hall::CTType ctType;
 	};
 } // namespace Engine

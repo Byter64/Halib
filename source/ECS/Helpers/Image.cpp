@@ -48,16 +48,6 @@ Engine::Image::Image(const char* path) : type(Type::TEXTURE), color(Engine::Colo
 	
 }
 
-Engine::Image::Image(short width, short height, Engine::Color color) : 
-width(width), height(height), color(color), type(Engine::Image::Type::CONST_COLOR)
-{
-	data = std::make_unique<Engine::Color[]>(width * height);
-	for(int i = 0; i < width * height; i++)
-	{
-		data.get()[i] = color;
-	}
-}
-
 short Engine::Image::GetWidth() const
 {
 	return width;
@@ -76,19 +66,9 @@ Engine::Color* Engine::Image::GetData()
 	return data.get();
 }
 
-bool Engine::Image::IsConstColor() const
+Engine::Color Engine::Image::GetCTType() const
 {
-	return type == Type::CONST_COLOR;
-}
-
-bool Engine::Image::IsTexture() const
-{
-	return type == Type::TEXTURE;
-}
-
-Engine::Color Engine::Image::GetColor() const
-{
-	return color;
+	return ctType;
 }
 
 #ifdef DESKTOP
