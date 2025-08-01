@@ -1,5 +1,4 @@
 #pragma once
-#include "../../../../extern/tinygltf/tiny_gltf.h"
 #include "glad/glad.h"
 #include "glm/glm.hpp"
 #include "glm/gtc/quaternion.hpp"

@@ -3,13 +3,14 @@
 #include "EntityUtility.h"
 #include "ECSSystem.h"
 #include "FileSystem.h"
-#include "Systems.h"
+//#include "Systems.h"
 #include "Miscellaneous.h"
 #include "TimeManager.h"
 #include "SceneManager.h"
 #include "Scene.h"
 
 #include "ECS/Entity.h"
+/*
 #include "ECS/Components/Name.h"
 #include "ECS/Components/Transform.h"
 #include "ECS/Components/MeshRenderer.h"
@@ -27,3 +28,4 @@
 #include "InputSystem/InputActionVec2.h"
 #include "InputSystem/InputActionButton.h"
 #include "InputSystem/GamepadButton.h"
+*/

@@ -129,4 +129,4 @@ namespace Engine
 
 } // Engine
 
-extern std::shared_ptr<Engine::ECSSystem>& ecsSystem;
+extern std::shared_ptr<Engine::ECSSystem> ecsSystem;
