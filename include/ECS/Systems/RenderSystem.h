@@ -20,9 +20,15 @@ namespace Engine
         void EntityRemoved(Entity entity) override;
         void Render(Entity entity);
 
+        /// @brief Clears the whole screen with the given color
+	    /// @param color 
+	    void Clear(Color color);
+
+        void WaitForGPU();
+
     public:
         Transform camera;
-        Engine::Color backgroundColor; //If transparent, background will not be cleared
+        Color backgroundColor; //If transparent, background will not be cleared
 
 
         RenderSystem();
