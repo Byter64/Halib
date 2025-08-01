@@ -1,7 +1,7 @@
 #pragma once
 #include <Hall/Hall.h>
 
-namespace Color
+namespace Engine
 {
 	/// @brief Represents a color in the format R5G5B5A1. R, G and B values are in the range [0, 31]
 	class Color

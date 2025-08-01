@@ -14,10 +14,10 @@ namespace Engine
 			CONST_COLOR
 		};
 
-		std::unique_ptr<Halib::Color[]> data; //pixel array
+		std::unique_ptr<Engine::Color[]> data; //pixel array
 		short width; //In pixels
 		short height; //In pixels
-		Halib::Color color;
+		Engine::Color color;
 		Type type;
 
 		//This is only needed for Visual Studio compiler, but #define if made vs die -_-
@@ -27,21 +27,21 @@ namespace Engine
 public:
 		Image();
 		//Image is responsible for data and will free the data on destruction
-		Image(short width, short height, std::unique_ptr<Halib::Color[]> data);
+		Image(short width, short height, std::unique_ptr<Engine::Color[]> data);
 		Image(const char* path);
 
 		/// @brief Instantiates a rectangle with given width and height and given color
 		/// @param width 
 		/// @param height 
 		/// @param color 
-		Image(short width, short height, Halib::Color color);
+		Image(short width, short height, Engine::Color color);
 
 		short GetWidth() const;
 		short GetHeight() const;
-		Halib::Color* GetData();
+		Engine::Color* GetData();
 		bool IsConstColor() const;
 		bool IsTexture() const;
-		Halib::Color GetColor() const;
+		Engine::Color GetColor() const;
 
 #ifdef DESKTOP
 		bool GetWasDataRequested() const;

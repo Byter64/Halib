@@ -37,12 +37,11 @@ set(SOURCES
 	#"source/ECS/EntityUtility.cpp"
 	"source/ECS/SystemManager.cpp"
 	
-	#"source/ECS/Components/MeshRenderer.cpp"
 	#"source/ECS/Components/Text.cpp"
-	#"source/ECS/Components/Transform.cpp"
+	"source/ECS/Components/Transform.cpp"
 	
 	#"source/ECS/Helpers/Animation.cpp"
-	#"source/ECS/Helpers/Collision.cpp"
+	"source/ECS/Helpers/Collision.cpp"
 	#"source/ECS/Helpers/Color.cpp"
 	#"source/ECS/Helpers/Image.cpp"
 	#"source/ECS/Helpers/Shader.cpp"
@@ -55,7 +54,7 @@ set(SOURCES
 	#"source/ECS/Systems/TransformParentSystem.cpp"
  
 	#"source/CrashHandler.cpp"
-	#"source/ECSException.cpp"
+	"source/ECSException.cpp"
 	#"source/EngineException.cpp"
 	#"source/FileSystem.cpp"
 	#"source/main.cpp"
@@ -107,7 +106,6 @@ else()
 		PUBLIC -fno-exceptions
 		PUBLIC -nostdlib
 		PUBLIC -fno-unwind-tables
-		PUBLIC -fno-rtti
 		PUBLIC -march=rv32imf
 		PUBLIC -mabi=ilp32f
 		PUBLIC -O3

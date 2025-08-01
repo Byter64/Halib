@@ -1,4 +1,5 @@
 #include "ECS/Components/Transform.h"
+#define GLM_ENABLE_EXPERIMENTAL
 #include "glm/gtx/quaternion.hpp"
 #include <iostream>
 #include "Engine.h"
