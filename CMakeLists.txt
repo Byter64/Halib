@@ -54,7 +54,7 @@ set(SOURCES
 	"source/CrashHandler.cpp"
 	"source/ECSException.cpp"
 	"source/EngineException.cpp"
-	#"source/FileSystem.cpp"
+	"source/FileSystem.cpp"
 	#"source/main.cpp"
 	#"source/Miscellaneous.cpp"
 	#"source/Scene.cpp"

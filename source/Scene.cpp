@@ -31,16 +31,6 @@ namespace Engine
         entities.clear();
     }
 
-    std::vector<Entity> Scene::CreateEntity(std::filesystem::path path, std::string animationPrefix, bool addParent)
-    {
-        std::vector<Entity> entities = ImportGLTF(path, animationPrefix, addParent);
-        for(Entity entity : entities)
-        {
-            this->entities.insert(entity);
-        }
-        return entities;
-    }
-
     void Scene::Update(float deltaTime)
     {
         OnUpdate(deltaTime);
