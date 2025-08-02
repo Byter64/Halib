@@ -13,7 +13,6 @@ namespace Engine
         startTime = Hall::GetSystemTime();
     }
 
-    //Returns the time since startup in seconds
     float TimeManager::GetTimeSinceStartup()
     {
         return ToSeconds(GetTimeSinceStartupWithoutPauses() - timePaused);
@@ -34,5 +33,18 @@ namespace Engine
     {
         unsigned long long duration = Hall::GetSystemTime() - startTimePause;
         timePaused += duration;
+    }
+
+    void TimeManager::SetTargetFramerate(int framerate)
+    {
+        timePerFrame = 1.0f / framerate;
+#ifdef DESKTOP
+	    Hall::RaylibSetTargetFramerate(framerate);
+#endif
+    }
+
+    float TimeManager::GetTargetTimePerFrame()
+    {
+        return timePerFrame;
     }
 } // Engine

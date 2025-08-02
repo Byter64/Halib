@@ -24,14 +24,14 @@ namespace Engine
 	    /// @param color 
 	    void Clear(Color color);
 
-        void WaitForGPU();
-
+        
     public:
         Transform camera;
         Color backgroundColor; //If transparent, background will not be cleared
-
-
+        
+        
         RenderSystem();
+        static void WaitForGPU();
 
         void Render();
     };

@@ -3,6 +3,7 @@
 		"vector": "cpp",
 		"memory": "cpp",
 		"xstring": "cpp",
-		"filesystem": "cpp"
+		"filesystem": "cpp",
+		"xiosbase": "cpp"
 	}
 }
