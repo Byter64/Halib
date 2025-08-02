@@ -57,9 +57,9 @@ set(SOURCES
 	"source/FileSystem.cpp"
 	#"source/main.cpp"
 	#"source/Miscellaneous.cpp"
-	#"source/Scene.cpp"
-	#"source/SceneManager.cpp"
-	#"source/Systems.cpp"
+	"source/Scene.cpp"
+	"source/SceneManager.cpp"
+	"source/Systems.cpp"
 	"source/TimeManager.cpp"
 )
 
