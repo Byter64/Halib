@@ -1,5 +1,5 @@
 #include "EngineException.h"
-#include "../../extern/StackWalker-master/Main/StackWalker/StackWalker.h"
+#include "../external/StackWalker-master/Main/StackWalker/StackWalker.h"
 #include <string>
 
 namespace Engine

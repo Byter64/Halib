@@ -1,6 +1,8 @@
-#include <windows.h>
 #include "CrashHandler.h"
 #include "Engine.h"
+#ifdef _WIN32
+#include <windows.h>
+#endif
 #include <fstream>
 #include <errhandlingapi.h>
 
