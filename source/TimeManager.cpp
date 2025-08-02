@@ -1,32 +1,38 @@
 #include "TimeManager.h"
+#include <Hall/Hall.h>
 
 namespace Engine
 {
+    float TimeManager::ToSeconds(unsigned long long time)
+    {
+        return time / Hall::SYSTEM_CLK_FREQUENCY;
+    }
+
     TimeManager::TimeManager()
     {
-        startTime = std::chrono::system_clock::now();
+        startTime = Hall::GetSystemTime();
     }
 
     //Returns the time since startup in seconds
     float TimeManager::GetTimeSinceStartup()
     {
-        return GetTimeSinceStartupWithoutPauses() - timePaused;
+        return ToSeconds(GetTimeSinceStartupWithoutPauses() - timePaused);
     }
 
     float TimeManager::GetTimeSinceStartupWithoutPauses()
     {
-        std::chrono::microseconds duration = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::system_clock::now() - startTime);
-        return (duration.count() / 1000000.0f);
+        unsigned long long duration = Hall::GetSystemTime() - startTime;
+        return ToSeconds(duration);
     }
 
     void TimeManager::OnPause()
     {
-        startTimePause = std::chrono::system_clock::now();
+        startTimePause = Hall::GetSystemTime();
     }
 
     void TimeManager::OnContinue()
     {
-        std::chrono::microseconds duration = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::system_clock::now() - startTimePause);
-        timePaused += (duration.count() / 1000000.0f);
+        unsigned long long duration = Hall::GetSystemTime() - startTimePause;
+        timePaused += duration;
     }
 } // Engine

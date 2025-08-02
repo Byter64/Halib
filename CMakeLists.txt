@@ -60,7 +60,7 @@ set(SOURCES
 	#"source/Scene.cpp"
 	#"source/SceneManager.cpp"
 	#"source/Systems.cpp"
-	#"source/TimeManager.cpp"
+	"source/TimeManager.cpp"
 )
 
 set(INCLUDE_DIRS
