@@ -20,6 +20,8 @@ namespace Engine
         State state;
 
         Collision() = default;
+        Collision(Entity entity1, Entity entity2);
+        Collision(Entity entity1, Entity entity2, glm::vec2 pos1, glm::vec2 pos2);
 
         bool operator==(const Collision &other) const;
         bool operator!=(const Collision &other) const;
