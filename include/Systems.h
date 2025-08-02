@@ -10,7 +10,7 @@
 
 namespace Engine::Systems
 {
-    extern std::shared_ptr<ECSSystem> ecsSystem;
+    extern std::shared_ptr<ECSSystem>& ecsSystem;
     extern std::shared_ptr<RenderSystem> renderSystem;
     extern std::shared_ptr<CollisionSystem> collisionSystem;
     //extern std::shared_ptr<TextRenderSystem> textRenderSystem;

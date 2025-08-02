@@ -56,7 +56,7 @@ set(SOURCES
 	"source/EngineException.cpp"
 	"source/FileSystem.cpp"
 	#"source/main.cpp"
-	#"source/Miscellaneous.cpp"
+	"source/Miscellaneous.cpp"
 	"source/Scene.cpp"
 	"source/SceneManager.cpp"
 	"source/Systems.cpp"

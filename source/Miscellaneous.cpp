@@ -1,18 +1,24 @@
 #include "Miscellaneous.h"
 #include "Engine.h"
+#include <Hall/Hall.h>
 
-extern GLFWwindow* window;
 namespace Engine
 {
     bool isGamePaused;
     bool areAnimationsPaused;
+    bool shouldGameClose = false;
+
+    bool GetShouldGameClose()
+    {
+        return Hall::ShouldClose() || shouldGameClose;
+    }
 
     /*Tells the game to terminate. The current iterationuu of the game loop will still be regularly finished and
      * Engine::OnEndGame() will be called before actually closing the application.
      */
     void EndGame()
     {
-        glfwSetWindowShouldClose(window, true);
+        shouldGameClose = true;
     }
 
     /// Tells the game to pause
