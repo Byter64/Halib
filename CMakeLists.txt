@@ -40,12 +40,11 @@ set(SOURCES
 	#"source/ECS/Components/Text.cpp"
 	"source/ECS/Components/Transform.cpp"
 	
-	#"source/ECS/Helpers/Animation.cpp"
 	"source/ECS/Helpers/Collision.cpp"
 	"source/ECS/Helpers/Color.cpp"
 	"source/ECS/Helpers/Image.cpp"
 	
-	#"source/ECS/Systems/AnimationSystem.cpp"
+	"source/ECS/Systems/AnimationSystem.cpp"
 	"source/ECS/Systems/CollisionSystem.cpp"
 	"source/ECS/Systems/RenderSystem.cpp"
 	#"source/ECS/Systems/TextRenderSystem.cpp"

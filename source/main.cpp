@@ -101,7 +101,8 @@ void InitializeECS()
     ecsSystem->RegisterComponent<Engine::BoxCollider>();
     ecsSystem->RegisterComponent<Engine::TilemapCollider>();
     //ecsSystem->RegisterComponent<Engine::Text>();
-    //ecsSystem->RegisterComponent<Engine::Animator>();
+    ecsSystem->RegisterComponent<Engine::Animator>();
+    ecsSystem->RegisterComponent<Engine::Animation>();
 
     ecsSystem->RegisterSystem<Engine::TransformParentSystem>();
     Engine::Signature transformSignature;
@@ -129,11 +130,12 @@ void InitializeECS()
     //textRenderSignature.set(ecsSystem->GetComponentType<Engine::Text>());
     //ecsSystem->AddSystemSignature<Engine::TextRenderSystem>(textRenderSignature);
 
-    //Engine::Systems::animationSystem = ecsSystem->RegisterSystem<Engine::AnimationSystem>();
-    //Engine::Signature animationSignature;
-    //animationSignature.set(ecsSystem->GetComponentType<Engine::Animator>());
-    //animationSignature.set(ecsSystem->GetComponentType<Engine::Transform>());
-    //ecsSystem->AddSystemSignature<Engine::AnimationSystem>(animationSignature);
+    Engine::Systems::animationSystem = ecsSystem->RegisterSystem<Engine::AnimationSystem>();
+    Engine::Signature animationSignature;
+    animationSignature.set(ecsSystem->GetComponentType<Engine::Animator>());
+    animationSignature.set(ecsSystem->GetComponentType<Engine::Animation>());
+    animationSignature.set(ecsSystem->GetComponentType<Engine::SpriteRenderer>());
+    ecsSystem->AddSystemSignature<Engine::AnimationSystem>(animationSignature);
 }
 
 void ShowRender()

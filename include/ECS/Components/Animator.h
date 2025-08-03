@@ -3,14 +3,12 @@
 
 namespace Engine
 {
-
     struct Animator
     {
-        bool isLooping = false;
-        float speed = 1.0f;
-        float currentTime = 0.0f;
-        std::string animationName;
-
+        bool isPlaying;
+		short animationCounter; //counter for the animation frames
+		float timer;
+		float framesPerSecond; //Animation speed
+        glm::ivec2 frameIndex; //index of the current frame
     };
-
 } // Engine
