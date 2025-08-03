@@ -1,6 +1,7 @@
 #pragma once
 #include "glm/vec2.hpp"
 #include <memory>
+#include <filesystem>
 #include "ECS/Helpers/Color.h"
 
 namespace Engine
@@ -22,6 +23,7 @@ public:
 		//Image is responsible for data and will free the data on destruction
 		Image(short width, short height, std::unique_ptr<Engine::Color[]> data, Hall::CTType type);
 		Image(const char* path);
+		Image(std::filesystem::path path);
 
 		short GetWidth() const;
 		short GetHeight() const;

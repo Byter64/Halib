@@ -45,7 +45,41 @@ Engine::Image::Image(const char* path) : ctType(Hall::NONE)
 	}
 
 	bmpread_free(&bmp);
+}
+
+Engine::Image::Image(std::filesystem::path path)
+{
+	char cPath[512];
+	std::wcstombs(cPath, path.c_str(), 512);
+	bmpread_t bmp;
+	int result = bmpread(cPath, BMPREAD_TOP_DOWN | BMPREAD_ANY_SIZE | BMPREAD_ALPHA, &bmp);
+	data = std::make_unique<Engine::Color[]>(bmp.width * bmp.height);
+	width = bmp.width;
+	height = bmp.height;
+	wasDataRequested = false;
 	
+	//This is stupid, but changing bmpread to directly output R5G5B5A1 did not seem so straight forward
+	for(int i = 0; i < bmp.width * bmp.height; i++)
+	{
+		unsigned char red   = bmp.data[4 * i + 0];
+		unsigned char green = bmp.data[4 * i + 1];
+		unsigned char blue  = bmp.data[4 * i + 2];
+		unsigned char alpha = bmp.data[4 * i + 3];
+
+		red = red >> 3;
+		green = green >> 3;
+		blue = blue >> 3;
+		
+		Engine::Color color = 0;
+		color.SetRed(red);
+		color.SetGreen(green);
+		color.SetBlue(blue);
+		color.SetAlpha(alpha >= 192);
+
+		data[i] = color;
+	}
+
+	bmpread_free(&bmp);
 }
 
 short Engine::Image::GetWidth() const
