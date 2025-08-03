@@ -1,7 +1,7 @@
 #pragma once
 #include "ECS/System.h"
 #include <map>
-#include "ECS/Helpers/Animation.h"
+#include "ECS/Components/Animation.h"
 #include "ECS/Components/Transform.h"
 
 namespace Engine
