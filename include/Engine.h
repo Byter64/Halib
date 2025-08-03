@@ -19,6 +19,7 @@
 #include "ECS/Components/TilemapCollider.h"
 //#include "ECS/Components/Text.h"
 #include "ECS/Components/Animator.h"
+#include "ECS/Components/Animation.h"
 #include "ECS/Helpers/Color.h"
 #include "ECS/Helpers/Image.h"
 #include "ECS/Helpers/glmExtension.h"

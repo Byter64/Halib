@@ -1,5 +1,4 @@
 #pragma once
-#include "ECS/Helpers/Animation.h"
 
 namespace Engine
 {
