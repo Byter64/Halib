@@ -4,7 +4,7 @@ namespace Engine
 {
 	namespace Input
 	{	
-		enum class Button : char
+		enum Button : char
 		{
 			A,
 			B,
