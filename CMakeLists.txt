@@ -34,7 +34,7 @@ set(SOURCES
 	"source/ECS/ECSSystem.cpp"
 	"source/ECS/Entity.cpp"
 	"source/ECS/EntityManager.cpp"
-	#"source/ECS/EntityUtility.cpp"
+	"source/ECS/EntityUtility.cpp"
 	"source/ECS/SystemManager.cpp"
 	
 	#"source/ECS/Components/Text.cpp"
@@ -55,6 +55,7 @@ set(SOURCES
 	"source/EngineException.cpp"
 	"source/FileSystem.cpp"
 	"source/main.cpp"
+	"source/Input.cpp"
 	"source/Miscellaneous.cpp"
 	"source/Scene.cpp"
 	"source/SceneManager.cpp"

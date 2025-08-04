@@ -1,22 +1,12 @@
 #include "Engine.h"
-//For whatever reason, these defines are not allowed to be written before glad is included (glad is also included in Engine.h)
-#define STB_IMAGE_IMPLEMENTATION
-#define STB_IMAGE_WRITE_IMPLEMENTATION
-#define TINYGLTF_IMPLEMENTATION
-#include "../../extern/tinygltf/tiny_gltf.h"
 #include "EntityUtility.h"
 
 #include <iostream>
 #include <queue>
-#include "CollisionLayer.h"
-#include "ECS/Helpers/Animation.h"
+#include "ECS/Components/Animation.h"
 
 namespace Engine
 {
-    Entity GenerateEntities(const tinygltf::Node& root, Transform* parent, std::shared_ptr<tinygltf::Model> model);
-    Animation::Action GenerateAction(const tinygltf::Animation& gltfAnimation, std::shared_ptr<tinygltf::Model> model);
-    std::vector<unsigned int> FindHierarchy(const tinygltf::Node& node, std::shared_ptr<tinygltf::Model> model, const tinygltf::Node& currentNode = tinygltf::Node(), std::vector<unsigned int> hierarchy = std::vector<unsigned int>());
-
     /**
      * Finds a child with a name name in root and returns it. Prints a warning. if rot has not both a Name and a Transform component.
      * Uses breadth-first search.
@@ -70,14 +60,18 @@ namespace Engine
 
         if(ecsSystem->HasComponent<Name>(entity))
             ecsSystem->AddComponent(newEntity, ecsSystem->GetComponent<Name>(entity) + " Cloned");
-        if(ecsSystem->HasComponent<MeshRenderer>(entity))
-            ecsSystem->AddComponent(newEntity, ecsSystem->GetComponent<MeshRenderer>(entity));
+        if(ecsSystem->HasComponent<SpriteRenderer>(entity))
+            ecsSystem->AddComponent(newEntity, ecsSystem->GetComponent<SpriteRenderer>(entity));
         if(ecsSystem->HasComponent<BoxCollider>(entity))
             ecsSystem->AddComponent(newEntity, ecsSystem->GetComponent<BoxCollider>(entity));
         if(ecsSystem->HasComponent<TilemapCollider>(entity))
             ecsSystem->AddComponent(newEntity, ecsSystem->GetComponent<TilemapCollider>(entity));
-        if(ecsSystem->HasComponent<Text>(entity))
-            ecsSystem->AddComponent(newEntity, ecsSystem->GetComponent<Text>(entity));
+        //if(ecsSystem->HasComponent<Text>(entity))
+        //    ecsSystem->AddComponent(newEntity, ecsSystem->GetComponent<Text>(entity));
+        if(ecsSystem->HasComponent<Animator>(entity))
+            ecsSystem->AddComponent(newEntity, ecsSystem->GetComponent<Animator>(entity));
+        if(ecsSystem->HasComponent<Animation>(entity))
+            ecsSystem->AddComponent(newEntity, ecsSystem->GetComponent<Animation>(entity));
 
         if(ecsSystem->HasComponent<Transform>(entity))
         {
@@ -117,153 +111,5 @@ namespace Engine
 
         if(removeParent)
             ecsSystem->RemoveEntity(entity);
-    }
-
-    Entity GenerateEntities(const tinygltf::Node& root, Transform* parent, std::shared_ptr<tinygltf::Model> model)
-    {
-        Entity entity = ecsSystem->CreateEntity();
-
-        Name name = root.name;
-        ecsSystem->AddComponent(entity, name);
-
-        Transform transform;
-        glm::vec3 translation{0};
-        glm::vec3 scale{1};
-        glm::quat rotation = glm::identity<glm::quat>();
-        if (!root.translation.empty())
-        { translation = glm::vec3{(float) root.translation[0], (float) root.translation[1], (float) root.translation[2]}; }
-        if (!root.scale.empty())
-        { scale = glm::vec3{(float) root.scale[0], (float) root.scale[1], (float) root.scale[2]}; }
-        if (!root.rotation.empty())
-        { rotation = glm::quat{ (float) root.rotation[3], (float) root.rotation[0], (float) root.rotation[1], (float) root.rotation[2]}; }
-
-        transform.SetTranslation(translation);
-        transform.SetScale(scale);
-        transform.SetRotation(rotation);
-        ecsSystem->AddComponent(entity, transform);
-        ecsSystem->GetComponent<Transform>(entity).SetParent(parent);
-
-        if (root.mesh != -1)
-        {
-            MeshRenderer meshRenderer = Systems::renderSystem->CreateMeshRenderer(model->meshes[root.mesh], model);
-            ecsSystem->AddComponent(entity, meshRenderer);
-        }
-
-        for (int childIndex: root.children)
-        {
-            const tinygltf::Node &child = model->nodes[childIndex];
-            GenerateEntities(child, &ecsSystem->GetComponent<Transform>(entity), model);
-        }
-
-        return entity;
-    }
-
-    Animation::Action GenerateAction(const tinygltf::Animation& gltfAnimation, std::shared_ptr<tinygltf::Model> model)
-    {
-        Animation::Action action;
-        action.name = gltfAnimation.name;
-
-        for(int i = 0; i < gltfAnimation.channels.size(); i++)
-        {
-            const tinygltf::AnimationChannel& gltfChannel = gltfAnimation.channels[i];
-            const tinygltf::AnimationSampler& sampler = gltfAnimation.samplers[gltfChannel.sampler];
-            const tinygltf::Accessor& domain = model->accessors[sampler.input];
-            const tinygltf::Accessor& codomain = model->accessors[sampler.output];
-            const tinygltf::BufferView& domainBV = model->bufferViews[domain.bufferView];
-            const tinygltf::BufferView& codomainBV = model->bufferViews[codomain.bufferView];
-            const tinygltf::Buffer& domainBuf = model->buffers[domainBV.buffer];
-            const tinygltf::Buffer& codomainBuf = model->buffers[codomainBV.buffer];
-
-            Animation::Channel channel;
-
-            channel.target = Animation::Channel::StringToTarget(gltfChannel.target_path);
-            channel.interpolation = Animation::Channel::StringToInterpolation((sampler.interpolation));
-
-            const float* domainPointer = reinterpret_cast<const float*>(&domainBuf.data[domainBV.byteOffset + domain.byteOffset]);
-            const float* codomainPointer = reinterpret_cast<const float*>(&codomainBuf.data[codomainBV.byteOffset + codomain.byteOffset]);
-            if(domain.componentType != TINYGLTF_COMPONENT_TYPE_FLOAT || codomain.componentType != TINYGLTF_COMPONENT_TYPE_FLOAT)
-            {
-                throw std::runtime_error("feeec");
-            }
-
-            for(int i = 0; i < domain.count; i++)
-            {
-                if(codomain.type == TINYGLTF_TYPE_VEC4)
-                {
-                    glm::quat value;
-                    value.x = codomainPointer[(i * 4) + 0];
-                    value.y = codomainPointer[(i * 4) + 1];
-                    value.z = codomainPointer[(i * 4) + 2];
-                    value.w = codomainPointer[(i * 4) + 3];
-                    channel.functionTo4D[domainPointer[i]] = value;
-                }
-                else if (codomain.type == TINYGLTF_TYPE_VEC3)
-                {
-                    glm::vec3 value;
-                    value.x = codomainPointer[(i * 3) + 0];
-                    value.y = codomainPointer[(i * 3) + 1];
-                    value.z = codomainPointer[(i * 3) + 2];
-                    channel.functionTo3D[domainPointer[i]] = value;
-                }
-            }
-
-            channel.hierarchy = FindHierarchy(model->nodes[gltfChannel.target_node], model);
-            channel.hierarchy.erase(channel.hierarchy.begin()); //The to be deleted element is the index within the root nodes. This index however is not needed
-
-            if(channel.target == Animation::Channel::Target::Rotation)
-            {
-                auto iter = channel.functionTo4D.end();
-                std::advance(iter, -1);
-                if(iter->first > action.endTime)
-                    action.endTime = iter->first;
-
-                if(channel.functionTo4D.begin()->first < action.startTime)
-                    action.startTime = channel.functionTo4D.begin()->first;
-            }
-            else
-            {
-                auto iter = channel.functionTo3D.end();
-                std::advance(iter, -1);
-                if(iter->first > action.endTime)
-                    action.endTime = iter->first;
-
-                if(channel.functionTo3D.begin()->first < action.startTime)
-                    action.startTime = channel.functionTo3D.begin()->first;
-            }
-
-            action.channels.push_back(channel);
-        }
-
-        action.duration = action.endTime - action.startTime;
-        return action;
-    }
-
-    std::vector<unsigned int> FindHierarchy(const tinygltf::Node& node, std::shared_ptr<tinygltf::Model> model, const tinygltf::Node& currentNode, std::vector<unsigned int> hierarchy)
-    {
-        static bool foundNode = false;
-        std::vector<int> children = currentNode.children;
-        if(hierarchy.empty())
-        {
-            foundNode = false;
-            children = model->scenes[0].nodes;
-        }
-
-        if(node == currentNode)
-        {
-            foundNode = true;
-            return hierarchy;
-        }
-
-        for(int i = 0; i < children.size(); i++)
-        {
-            hierarchy.push_back(i);
-
-            std::vector<unsigned int> result = FindHierarchy(node, model, model->nodes[children[i]], hierarchy);
-            if(foundNode) return result;
-
-            hierarchy.pop_back();
-        }
-
-        return hierarchy;
     }
 } // Engine
