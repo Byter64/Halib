@@ -29,6 +29,7 @@ set(SOURCES
 	#Add the .c/.cpp files here
 	"external/libbmpread/libbmpread/bmpread.c"
 	"external/wav_reader/lib/wav_reader_methods.cpp"
+	"external/StackWalker-master/Main/StackWalker/StackWalker.cpp"
 	
 	"source/ECS/ComponentManager.cpp"
 	"source/ECS/ECSSystem.cpp"
