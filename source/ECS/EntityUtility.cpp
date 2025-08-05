@@ -69,7 +69,7 @@ namespace Engine
         while(type < ecsSystem->GetNumberOfRegisteredComponents())
         {
             if(ecsSystem->HasComponent(entity, type))
-                ecsSystem->AddComponent(newEntity, ecsSystem->GetComponent(entity, type));
+                ecsSystem->AddComponent(newEntity, ecsSystem->GetComponent(entity, type), type);
             
             if(type == ecsSystem->GetComponentType<Name>())
             {
