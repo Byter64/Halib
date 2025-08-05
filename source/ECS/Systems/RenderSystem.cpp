@@ -9,8 +9,6 @@ namespace Engine
 {
     RenderSystem::RenderSystem()
     {
-        Hall::Init();
-
         camera.SetTranslation(glm::vec3(0));
         camera.SetScale(glm::vec3(1));
     }
