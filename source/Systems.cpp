@@ -1,4 +1,3 @@
-#pragma once
 #include "Systems.h"
 
 extern std::shared_ptr<Engine::ECSSystem> ecsSystem;
