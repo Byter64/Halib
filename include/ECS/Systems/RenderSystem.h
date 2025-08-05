@@ -10,8 +10,12 @@
 
 namespace Engine
 {
+    class SpriteRenderer;
+
     class RenderSystem : public System
     {
+        friend class SpriteRenderer;
+
         void EntityAdded(Entity entity) override;
         void EntityRemoved(Entity entity) override;
         void Render(Entity entity);
@@ -21,6 +25,7 @@ namespace Engine
 	    void Clear(Color color);
 
         std::vector<Entity> sortedEntities{};
+        void ResortEntity(Entity entity);
     public:
         Transform camera;
         Color backgroundColor; //If transparent, background will not be cleared

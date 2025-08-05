@@ -84,6 +84,13 @@ namespace Engine
         while(Hall::GetIsGPUBusy());
     }
 
+    void RenderSystem::ResortEntity(Entity entity)
+    {
+        //This could be made a bit more efficient
+        EntityRemoved(entity);
+        EntityAdded(entity);
+    }
+
     void RenderSystem::EntityAdded(Entity entity)
     {
         auto iter = std::upper_bound(sortedEntities.begin(), sortedEntities.end(), entity,
