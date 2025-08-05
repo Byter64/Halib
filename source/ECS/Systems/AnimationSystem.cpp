@@ -32,7 +32,6 @@ namespace Engine
 	        	{
 	        		animator.animationCounter = 0;
 	        		animator.frameIndex = animation.animationStartIndex;
-                    spriteRenderer.offset = animator.frameIndex * spriteRenderer.size;
 	        	}
 	        	else
 	        	{
@@ -44,6 +43,7 @@ namespace Engine
 	        			case Animation::RIGHT	: animator.frameIndex.x++; break;
 	        		}
 	        	}
+                spriteRenderer.offset = animator.frameIndex * spriteRenderer.size;
 	        }
         }
     }
