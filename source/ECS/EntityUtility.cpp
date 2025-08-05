@@ -76,6 +76,8 @@ namespace Engine
                 Name& name = ecsSystem->GetComponent<Name>(newEntity);
                 if(!EndsWith(name, " Cloned")) name += " Cloned";
             }
+            
+            type++;
         }
 
         if(ecsSystem->HasComponent<Transform>(newEntity))
