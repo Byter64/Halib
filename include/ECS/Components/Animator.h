@@ -4,7 +4,7 @@ namespace Engine
 {
     struct Animator
     {
-        bool isPlaying;
+        bool isPlaying = true;
 		short animationCounter; //counter for the animation frames
 		float timer;
 		float framesPerSecond; //Animation speed
