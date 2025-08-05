@@ -55,9 +55,9 @@ void GameMain()
     float gameTime1 = Engine::Systems::timeManager->GetTimeSinceStartupWithoutPauses();
     float deltaTime = 1/60.0f;
     std::cout << "Engine initialization took " << Engine::Systems::timeManager->GetTimeSinceStartupWithoutPauses() << " s" << std::endl;
+    time1 = Engine::Systems::timeManager->GetTimeSinceStartupWithoutPauses();
     while (!Engine::GetShouldGameClose())
     {
-        time1 = Engine::Systems::timeManager->GetTimeSinceStartupWithoutPauses();
 
         Engine::Input::UpdateInputs();
 
@@ -74,8 +74,8 @@ void GameMain()
 
         Engine::Systems::renderSystem->Render();
         //Engine::Systems::textRenderSystem->Render();
-        //if (!Engine::areAnimationsPaused)
-        //    Engine::Systems::animationSystem->Update(deltaTime);
+        if (!Engine::areAnimationsPaused)
+            Engine::Systems::animationSystem->Update(deltaTime);
 
         ShowRender();
 
@@ -83,7 +83,9 @@ void GameMain()
         while (time2 - time1 < Engine::Systems::timeManager->GetTargetTimePerFrame())
             time2 = Engine::Systems::timeManager->GetTimeSinceStartupWithoutPauses();
 
+        std::cout << "deltaTime: " << deltaTime << std::endl;
         deltaTime = time2 - time1;
+        time1 = time2;
     }
 
     OnEndGame();
