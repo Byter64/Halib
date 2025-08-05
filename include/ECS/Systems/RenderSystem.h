@@ -1,8 +1,4 @@
 #pragma once
-#include <memory>
-#include <stack>
-#include <unordered_map>
-#include <map>
 #include <filesystem>
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
@@ -24,7 +20,7 @@ namespace Engine
 	    /// @param color 
 	    void Clear(Color color);
 
-        
+        std::vector<Entity> sortedEntities{};
     public:
         Transform camera;
         Color backgroundColor; //If transparent, background will not be cleared

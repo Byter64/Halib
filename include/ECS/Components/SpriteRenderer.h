@@ -13,5 +13,10 @@ namespace Engine
 		glm::ivec2 offset; //pixel offset of the sprite within the image
 		bool isActive;
 		Hall::CTType ctType;
+
+		int GetLayer();
+		void SetLayer(int layer);
+	private:
+		int layer = 0;
 	};
 } // namespace Engine

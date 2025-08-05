@@ -23,7 +23,7 @@ namespace Engine
         Hall::SetColorSource(Hall::MEMORY);
         Hall::SetShape(Hall::RECTANGLE);
 
-        for(Entity entity : entities)
+        for(Entity entity : sortedEntities)
         {
             SpriteRenderer& spriteRenderer = ecsSystem->GetComponent<SpriteRenderer>(entity);
             Render(entity);
@@ -86,12 +86,27 @@ namespace Engine
 
     void RenderSystem::EntityAdded(Entity entity)
     {
+        auto iter = std::upper_bound(sortedEntities.begin(), sortedEntities.end(), entity,
+        [](Entity entity, Entity other)
+    {
+        SpriteRenderer& sr1 = ecsSystem->GetComponent<SpriteRenderer>(entity);
+        SpriteRenderer& sr2 = ecsSystem->GetComponent<SpriteRenderer>(other);
 
+        return sr1.GetLayer() < sr2.GetLayer();
+    });
+        sortedEntities.insert(iter, entity);
     }
-
+    
     void RenderSystem::EntityRemoved(Entity entity)
     {
+        auto iter = sortedEntities.begin();
+        while(iter != sortedEntities.end() && *iter != entity)
+            iter++;
+        
+        while((iter + 1) != sortedEntities.end())
+            *iter = *(iter + 1);
 
+        sortedEntities.resize(sortedEntities.size() - 1);
     }
 
 } // Engine
