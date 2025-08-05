@@ -23,6 +23,17 @@ namespace Engine
         return entityManager->CreateEntity();
     }
 
+    void ECSSystem::AddComponent(Entity entity, void* component, ComponentType componentType)
+    {
+        componentManager->AddComponent(entity, component, componentType);
+    
+        auto signature = entityManager->GetSignature(entity);
+        signature.set(componentType, true);
+        entityManager->SetSignature(entity, signature);
+    
+        systemManager->EntitySignatureChanged(entity, signature);
+    }
+
     /*
      * You usually don't want to use this, as it immediately destroys the entity.
      * You should rather use RemoveEntity, which removes the entity at the end of the frame
@@ -62,13 +73,15 @@ namespace Engine
         return componentManager->GetTypeName(componentType);
     }
 
-    /// Runtime component check. ONLY USE IT IF YOU KNOW WHAT YOU ARE DOING
-    /// \param entity
-    /// \return
     bool ECSSystem::HasComponent(Entity entity, ComponentType componentType)
     {
         Signature signature = entityManager->GetSignature(entity);
         return signature[componentType];
+    }
+
+    void* ECSSystem::GetComponent(Entity entity, ComponentType componentType)
+    {
+        return componentManager->GetComponent(entity, componentType);
     }
 
     void ECSSystem::RemoveAllEntities()

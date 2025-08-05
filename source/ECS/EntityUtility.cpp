@@ -7,6 +7,13 @@
 
 namespace Engine
 {
+    static bool EndsWith(const std::string& string, const std::string& ending)
+    {
+        if(string.size() < ending.size()) return false;
+
+        return string.substr(string.size() - ending.size()) == ending;
+    }
+
     /**
      * Finds a child with a name name in root and returns it. Prints a warning. if rot has not both a Name and a Transform component.
      * Uses breadth-first search.
@@ -58,24 +65,21 @@ namespace Engine
     {
         Entity newEntity = ecsSystem->CreateEntity();
 
-        if(ecsSystem->HasComponent<Name>(entity))
-            ecsSystem->AddComponent(newEntity, ecsSystem->GetComponent<Name>(entity) + " Cloned");
-        if(ecsSystem->HasComponent<SpriteRenderer>(entity))
-            ecsSystem->AddComponent(newEntity, ecsSystem->GetComponent<SpriteRenderer>(entity));
-        if(ecsSystem->HasComponent<BoxCollider>(entity))
-            ecsSystem->AddComponent(newEntity, ecsSystem->GetComponent<BoxCollider>(entity));
-        if(ecsSystem->HasComponent<TilemapCollider>(entity))
-            ecsSystem->AddComponent(newEntity, ecsSystem->GetComponent<TilemapCollider>(entity));
-        //if(ecsSystem->HasComponent<Text>(entity))
-        //    ecsSystem->AddComponent(newEntity, ecsSystem->GetComponent<Text>(entity));
-        if(ecsSystem->HasComponent<Animator>(entity))
-            ecsSystem->AddComponent(newEntity, ecsSystem->GetComponent<Animator>(entity));
-        if(ecsSystem->HasComponent<Animation>(entity))
-            ecsSystem->AddComponent(newEntity, ecsSystem->GetComponent<Animation>(entity));
-
-        if(ecsSystem->HasComponent<Transform>(entity))
+        ComponentType type = 0;
+        while(type < ecsSystem->GetNumberOfRegisteredComponents())
         {
-            ecsSystem->AddComponent(newEntity, ecsSystem->GetComponent<Transform>(entity));
+            if(ecsSystem->HasComponent(entity, type))
+                ecsSystem->AddComponent(newEntity, ecsSystem->GetComponent(entity, type));
+            
+            if(type == ecsSystem->GetComponentType<Name>())
+            {
+                Name& name = ecsSystem->GetComponent<Name>(newEntity);
+                if(!EndsWith(name, " Cloned")) name += " Cloned";
+            }
+        }
+
+        if(ecsSystem->HasComponent<Transform>(newEntity))
+        {
             Transform& newTransform = ecsSystem->GetComponent<Transform>(newEntity);
             newTransform.GetChildren().clear();
 

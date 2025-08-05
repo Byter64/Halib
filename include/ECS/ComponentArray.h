@@ -61,6 +61,16 @@ namespace Engine
             size++;
         }
 
+        //This is only meant for the CopyEntity function
+        void AddComponentRuntime(Entity entity, void* component) override
+        {
+            size_t index = size;
+            entityToIndex[entity.id] = index;
+            indexToEntity[index] = entity.id;
+            components[index] = *(T*)component;
+            size++;
+        }
+
         void RemoveComponent(Entity entity)
         {
             if(entityToIndex.find(entity.id) == entityToIndex.end())
@@ -101,6 +111,12 @@ namespace Engine
             }
 
             return components[entityToIndex[entity.id]];
+        }
+
+        void* GetComponentRuntime(Entity entity) override
+        {
+
+            return (void*)&components[entityToIndex[entity.id]];
         }
 
         bool HasComponent(Entity entity)

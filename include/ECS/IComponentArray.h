@@ -6,7 +6,9 @@ namespace Engine
     class IComponentArray
     {
     public:
-        virtual ~IComponentArray() = default;
+        virtual void AddComponentRuntime(Entity entity, void* component) = 0;
+        virtual void* GetComponentRuntime(Entity entity) = 0;
         virtual void EntityDestroyed(Entity entity) = 0;
+        virtual ~IComponentArray() = default;
     };
 }

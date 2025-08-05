@@ -24,10 +24,13 @@ namespace Engine
         void DestroyEntity(Entity entity);
         void RemoveEntity(Entity entity);
 
+        //You found a secret! Please do not use this function. It is for internal use only
+        void AddComponent(Entity entity, void* component, ComponentType componentType);
+
         ///Returns true, if the entity has not been destroyed by a call to RemoveEntity() or similar
         bool IsEntityActive(Entity entity);
 
-        ///WARNING: all variables with entity IDs will be invalid after calling this function. New onse need to be inquired with "CreateEntity()"
+        ///WARNING: all variables with entity IDs will be invalid after calling this function. New once need to be inquired with "CreateEntity()"
         void RemoveAllEntities();
         void DeletePurgatory();
 
@@ -37,7 +40,7 @@ namespace Engine
             componentManager->RegisterComponent<T>();
         }
 
-        //Component data is undefined!!!
+        //Component data is default initialized, when using this AddComponent overload
         template<typename T>
         T& AddComponent(Entity entity)
         {
@@ -96,7 +99,16 @@ namespace Engine
 
         ComponentType GetNumberOfRegisteredComponents();
         const char *GetComponentTypeName(ComponentType componentType);
+
+        /// Runtime component check. ONLY USE THIS IF YOU KNOW WHAT YOU ARE DOING
+        /// \param entity
+        /// \return
         bool HasComponent(Entity entity, ComponentType componentType);
+
+        /// @brief Runtime get component. ONLY USE THIS IF YOU KNOW WHAT YOU ARE DOING
+        /// @param entity 
+        /// @return 
+        void* GetComponent(Entity entity, ComponentType componentType);
 
         Signature GetSignature(Entity entity);
 

@@ -9,9 +9,12 @@
 
 namespace Engine
 {
+    class ECSSystem;
 
     class ComponentManager
     {
+        friend class ECSSystem;
+
         std::unordered_map<const char*, ComponentType> nameToType;
         std::unordered_map<ComponentType, const char*> typeToName;
         std::unordered_map<const char*, std::shared_ptr<IComponentArray>> typeToComponentArrays;
@@ -35,6 +38,11 @@ namespace Engine
             return std::static_pointer_cast<ComponentArray<T>>(typeToComponentArrays[typeName]);
         }
 
+        //This is only meant for the CopyEntity function
+        void AddComponent(Entity entity, void* component, ComponentType componentType);
+        std::shared_ptr<IComponentArray> GetComponentArray(ComponentType componentType);
+        void* GetComponent(Entity entity, ComponentType componentType);
+        
     public:
         template<typename T>
         void RegisterComponent()
@@ -73,7 +81,7 @@ namespace Engine
             return nameToType[typeName];
         }
 
-        //Component data is undefined!!!
+        //The data of the newly created component is still undefined
         template<typename T>
         T& AddComponent(Entity entity)
         {
