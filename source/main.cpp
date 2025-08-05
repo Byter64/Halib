@@ -154,7 +154,7 @@ void ShowRender()
 }
 
 
-
+#ifndef _MSC_VER
 __attribute__((weak)) void OnStartGame(int screenWidth, int screenHeight)
 {
 
@@ -174,3 +174,4 @@ __attribute__((weak)) void OnEndGame()
 {
 
 }
+#endif // !_MSC_VER
