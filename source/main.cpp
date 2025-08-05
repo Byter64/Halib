@@ -57,7 +57,7 @@ void GameMain()
     std::cout << "Engine initialization took " << Engine::Systems::timeManager->GetTimeSinceStartupWithoutPauses() << " s" << std::endl;
     while (!Engine::GetShouldGameClose())
     {
-        time1 = Hall::GetSystemTime();
+        time1 = Engine::Systems::timeManager->GetTimeSinceStartupWithoutPauses();
 
         Engine::Input::UpdateInputs();
 
