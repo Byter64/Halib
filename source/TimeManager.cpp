@@ -5,7 +5,7 @@ namespace Engine
 {
     float TimeManager::ToSeconds(unsigned long long time)
     {
-        return time / Hall::SYSTEM_CLK_FREQUENCY;
+        return time / (float)Hall::SYSTEM_CLK_FREQUENCY;
     }
 
     TimeManager::TimeManager()
