@@ -83,7 +83,6 @@ void GameMain()
         while (time2 - time1 < Engine::Systems::timeManager->GetTargetTimePerFrame())
             time2 = Engine::Systems::timeManager->GetTimeSinceStartupWithoutPauses();
 
-        std::cout << "deltaTime: " << deltaTime << std::endl;
         deltaTime = time2 - time1;
         time1 = time2;
     }
