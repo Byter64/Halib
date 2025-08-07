@@ -41,6 +41,7 @@ set(SOURCES
 	#"source/ECS/Components/Text.cpp"
 	"source/ECS/Components/Transform.cpp"
 	"source/ECS/Components/SpriteRenderer.cpp"
+	"source/ECS/Components/RenderHelper.cpp"
 	
 	"source/ECS/Helpers/Collision.cpp"
 	"source/ECS/Helpers/Color.cpp"
