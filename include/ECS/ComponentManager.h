@@ -1,5 +1,6 @@
 #pragma once
 #include <unordered_map>
+#include <set>
 #include <memory>
 #include <stdexcept>
 #include "ComponentType.h"
@@ -10,6 +11,7 @@
 namespace Engine
 {
     class ECSSystem;
+    extern std::shared_ptr<ECSSystem>& ecsSystem;
 
     class ComponentManager
     {
@@ -19,6 +21,9 @@ namespace Engine
         std::unordered_map<ComponentType, const char*> typeToName;
         std::unordered_map<const char*, std::shared_ptr<IComponentArray>> typeToComponentArrays;
         std::unordered_map<ComponentType, std::shared_ptr<IComponentArray>> componentTypeToComponentArrays;
+        //key needs all components in value
+        std::unordered_map<ComponentType, std::set<ComponentType>> dependencies;
+        std::unordered_map<ComponentType, std::set<ComponentType>> inverseDependencies;
 
         ComponentType nextFreeComponentType;
 
@@ -42,8 +47,10 @@ namespace Engine
         void AddComponent(Entity entity, void* component, ComponentType componentType);
         std::shared_ptr<IComponentArray> GetComponentArray(ComponentType componentType);
         void* GetComponent(Entity entity, ComponentType componentType);
+        bool HasComponent(Entity entity, ComponentType componentType);
+        void RemoveComponent(Entity entity, ComponentType componentType);
         
-    public:
+        public:
         template<typename T>
         void RegisterComponent()
         {
@@ -62,6 +69,9 @@ namespace Engine
             componentTypeToComponentArrays.insert({nextFreeComponentType, array});
             nameToType.insert({typeName, nextFreeComponentType});
             typeToName.insert({nextFreeComponentType, typeName});
+            dependencies[nextFreeComponentType] = std::set<ComponentType>();
+            inverseDependencies[nextFreeComponentType] = std::set<ComponentType>();
+
             nextFreeComponentType++;
         }
 
@@ -85,18 +95,39 @@ namespace Engine
         template<typename T>
         T& AddComponent(Entity entity)
         {
+            ComponentType type = nameToType[typeid(T).name()];
+            for(ComponentType dependency : dependencies[type])
+            {
+                if(!HasComponent(entity, dependency))
+                    ecsSystem->AddComponent(entity, dependency);
+            }
+
             return GetComponentArray<T>()->AddComponent(entity);
         }
 
         template<typename T>
         void AddComponent(Entity entity, T component)
         {
+            ComponentType type = nameToType[typeid(T).name()];
+            for(ComponentType dependency : dependencies[type])
+            {
+                if(!HasComponent(entity, dependency))
+                    ecsSystem->AddComponent(entity, dependency);
+            }
+
             GetComponentArray<T>()->AddComponent(entity, component);
         }
 
         template<typename T>
         void RemoveComponent(Entity entity)
         {
+            //Missing: Fill out the Rectangle and Text Renderer
+            for(ComponentType inverseDependency : inverseDependencies[GetComponentType<T>()])
+            {
+                if(HasComponent(entity, inverseDependency))
+                    ecsSystem->RemoveComponent(entity, inverseDependency);
+            }
+
             GetComponentArray<T>()->RemoveComponent(entity);
         }
 
@@ -135,6 +166,7 @@ namespace Engine
 
         const char *GetTypeName(ComponentType componentType);
         ComponentType GetNumberOfRegisteredComponents();
+        void RegisterDependency(ComponentType type, ComponentType neededType);
     };
 
 } // Engine

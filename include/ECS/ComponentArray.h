@@ -71,7 +71,7 @@ namespace Engine
             size++;
         }
 
-        void RemoveComponent(Entity entity)
+        void RemoveComponent(Entity entity) override
         {
             if(entityToIndex.find(entity.id) == entityToIndex.end())
             {
@@ -119,7 +119,7 @@ namespace Engine
             return (void*)&components[entityToIndex[entity.id]];
         }
 
-        bool HasComponent(Entity entity)
+        bool HasComponent(Entity entity) override
         {
             return entityToIndex.find(entity.id) != entityToIndex.end();
         }

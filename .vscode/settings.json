@@ -4,6 +4,7 @@
 		"memory": "cpp",
 		"xstring": "cpp",
 		"filesystem": "cpp",
-		"xiosbase": "cpp"
+		"xiosbase": "cpp",
+		"set": "cpp"
 	}
 }

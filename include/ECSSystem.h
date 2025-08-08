@@ -27,6 +27,9 @@ namespace Engine
         //You found a secret! Please do not use this function. It is for internal use only
         void AddComponent(Entity entity, void* component, ComponentType componentType);
 
+        //You found a secret! Please do not use this function. It is for internal use only
+        void RemoveComponent(Entity entity, ComponentType componentType);
+
         ///Returns true, if the entity has not been destroyed by a call to RemoveEntity() or similar
         bool IsEntityActive(Entity entity);
 
@@ -70,7 +73,6 @@ namespace Engine
         template<typename T>
         void RemoveComponent(Entity entity)
         {
-
             auto signature = entityManager->GetSignature(entity);
             signature.set(componentManager->GetComponentType<T>(), false);
             entityManager->SetSignature(entity, signature);
@@ -97,6 +99,11 @@ namespace Engine
             return componentManager->GetNumberOfComponents<T>();
         }
 
+        /// @brief Sets a dependency. From now on, it is assured, that a component of type "type" will only exist, if a component of type "neededType" also exists for an entity. This means, that if "type" is added to an entity without "neededType", "neededType" will automatically added BEFORE "type" is added. When "neededType" is removed, "type" will be automatically removed BEFORE "neededType" is removed.
+        /// @param type The main type
+        /// @param neededType The type that "type" is dependent on
+        void RegisterDependency(ComponentType type, ComponentType neededType);
+        
         ComponentType GetNumberOfRegisteredComponents();
         const char *GetComponentTypeName(ComponentType componentType);
 

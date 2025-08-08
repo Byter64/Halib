@@ -34,6 +34,16 @@ namespace Engine
         systemManager->EntitySignatureChanged(entity, signature);
     }
 
+    void ECSSystem::RemoveComponent(Entity entity, ComponentType componentType)
+    {
+        auto signature = entityManager->GetSignature(entity);
+        signature.set(componentType, false);
+        entityManager->SetSignature(entity, signature);
+        systemManager->EntitySignatureChanged(entity, signature);
+
+        componentManager->RemoveComponent(entity, componentType);
+    }
+
     /*
      * You usually don't want to use this, as it immediately destroys the entity.
      * You should rather use RemoveEntity, which removes the entity at the end of the frame
@@ -61,6 +71,11 @@ namespace Engine
     void ECSSystem::RemoveEntity(Entity entity)
     {
         entityManager->RemoveEntity(entity);
+    }
+
+    void ECSSystem::RegisterDependency(ComponentType type, ComponentType neededType)
+    {
+        componentManager->RegisterDependency(type, neededType);
     }
 
     ComponentType ECSSystem::GetNumberOfRegisteredComponents()
