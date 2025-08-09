@@ -7,10 +7,11 @@
 #include "IComponentArray.h"
 #include "ComponentArray.h"
 #include "EngineException.h"
+#include "ECSSystem_Header.h"
 
 namespace Engine
 {
-    class ECSSystem;
+
     extern std::shared_ptr<ECSSystem>& ecsSystem;
 
     class ComponentManager
