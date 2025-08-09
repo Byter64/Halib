@@ -99,11 +99,18 @@ void InitializeECS()
     ecsSystem->RegisterComponent<Engine::Name>();
     ecsSystem->RegisterComponent<Engine::Transform>();
     ecsSystem->RegisterComponent<Engine::SpriteRenderer>();
+    ecsSystem->RegisterComponent<Engine::TextRenderer>();
+    ecsSystem->RegisterComponent<Engine::RectangleRenderer>();
+    ecsSystem->RegisterComponent<Engine::RenderHelper>();
     ecsSystem->RegisterComponent<Engine::BoxCollider>();
     ecsSystem->RegisterComponent<Engine::TilemapCollider>();
-    //ecsSystem->RegisterComponent<Engine::Text>();
     ecsSystem->RegisterComponent<Engine::Animator>();
     ecsSystem->RegisterComponent<Engine::Animation>();
+
+    ecsSystem->RegisterDependency(ecsSystem->GetComponentType<Engine::RectangleRenderer>(), ecsSystem->GetComponentType<Engine::RenderHelper>());
+    ecsSystem->RegisterDependency(ecsSystem->GetComponentType<Engine::SpriteRenderer>(), ecsSystem->GetComponentType<Engine::RenderHelper>());
+    ecsSystem->RegisterDependency(ecsSystem->GetComponentType<Engine::TextRenderer>(), ecsSystem->GetComponentType<Engine::RenderHelper>());
+    
 
     ecsSystem->RegisterSystem<Engine::TransformParentSystem>();
     Engine::Signature transformSignature;

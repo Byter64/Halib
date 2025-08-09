@@ -17,6 +17,7 @@
 #include "ECS/Components/SpriteRenderer.h"
 #include "ECS/Components/TextRenderer.h"
 #include "ECS/Components/RectangleRenderer.h"
+#include "ECS/Components/RenderHelper.h"
 #include "ECS/Components/BoxCollider.h"
 #include "ECS/Components/TilemapCollider.h"
 #include "ECS/Components/Animator.h"
