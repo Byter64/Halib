@@ -102,6 +102,7 @@ namespace Engine
         return sr1.GetLayer() < sr2.GetLayer();
     });
         sortedEntities.insert(iter, entity);
+        ecsSystem->GetComponent<RenderHelper>(entity).DetermineType();
     }
     
     void RenderSystem::EntityRemoved(Entity entity)

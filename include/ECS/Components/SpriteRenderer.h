@@ -11,8 +11,7 @@ namespace Engine
 		std::shared_ptr<Image> image;
 		glm::ivec2 size;
 		glm::ivec2 offset; //pixel offset of the sprite within the image
-		bool isActive;
-		Hall::CTType ctType;
+		Hall::CTType ctType = Hall::CTType::NONE;
 
 		int GetLayer();
 		void SetLayer(int layer);
