@@ -25,18 +25,35 @@ namespace Engine
 
         for(Entity entity : sortedEntities)
         {
-            SpriteRenderer& spriteRenderer = ecsSystem->GetComponent<SpriteRenderer>(entity);
             Render(entity);
         }
     }
 
     void RenderSystem::Render(Entity entity)
     {
-        Transform& transform = ecsSystem->GetComponent<Transform>(entity);
+        RenderHelper& helper = ecsSystem->GetComponent<RenderHelper>(entity);
+        switch (helper.type)
+        {
+        case RenderHelper::SPRITE:
+            RenderSprite(entity);
+            break;
+        case RenderHelper::TEXT:
+            RenderText(entity);
+        case RenderHelper::RECTANGLE:
+            RenderRectangle(entity);
+        default:
+            break;
+        }
+    }
+
+    void RenderSystem::RenderSprite(Entity entity)
+    {
+Transform& transform = ecsSystem->GetComponent<Transform>(entity);
         SpriteRenderer& spriteRenderer = ecsSystem->GetComponent<SpriteRenderer>(entity);
-        glm::vec2 position = transform.GetGlobalTranslation();
         glm::ivec2 scale = transform.GetSpriteScale();
         glm::bvec2 flip = transform.GetSpriteFlip();
+        glm::vec2 position = transform.GetGlobalTranslation();
+        position -= spriteRenderer.size / 2;
 
         auto& image = spriteRenderer.image;
 	    if(image == nullptr) return;
@@ -50,7 +67,7 @@ namespace Engine
 	    	Hall::UpdateRaylibTexture((Hall::Color*)image->GetData(), image->GetWidth(), image->GetHeight());
 	    }
 #endif
-
+        Hall::SetColorSource(Hall::MEMORY);
 	    Hall::SetImage((Hall::Color*)image->GetData(), image->GetWidth(), image->GetHeight());
 	    Hall::SetExcerpt(frameOffset.x, frameOffset.y, frameSize.x, frameSize.y);
 	    Hall::SetScale(scale.x, scale.y);
@@ -60,17 +77,31 @@ namespace Engine
 	    Hall::Draw();
     }
 
+    void RenderSystem::RenderRectangle(Entity entity)
+    {
+        RectangleRenderer& renderer = ecsSystem->GetComponent<RectangleRenderer>(entity);
+        Transform& transform = ecsSystem->GetComponent<Transform>(entity);
+        glm::ivec2 position = transform.GetGlobalTranslation();
+        position -= renderer.size / 2;
+        glm::ivec2 size = renderer.size;
+
+    	Hall::SetScale(1, 1);
+    	Hall::SetFlip(false, false);
+    	Hall::SetColor(renderer.color.GetHallColor());
+    	Hall::SetColorTable(Hall::NONE);
+    	Hall::SetColorSource(Hall::COLOR);
+    	Hall::SetRectangle(position.x, position.y, size.x, size.y);
+
+    	Hall::Draw();
+    }
 
     void RenderSystem::Clear(Color color)
     {
     	WaitForGPU();
 
-    	//This is ugly but I want to hide color.color. I hope the compiler optimises this away
-    	Hall::Color* hallColor = (Hall::Color*)(&color);
-
     	Hall::SetScale(1, 1);
     	Hall::SetFlip(false, false);
-    	Hall::SetColor(*hallColor);
+    	Hall::SetColor(color.GetHallColor());
     	Hall::SetColorTable(Hall::NONE);
     	Hall::SetColorSource(Hall::COLOR);
     	Hall::SetShape(Hall::RECTANGLE);

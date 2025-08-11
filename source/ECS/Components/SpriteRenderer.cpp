@@ -3,7 +3,7 @@
 
 namespace Engine
 {
-	int SpriteRenderer::GetLayer()
+	int SpriteRenderer::GetLayer() const
 	{
 		return layer;
 	}
