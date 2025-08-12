@@ -14,9 +14,9 @@ namespace Engine
     class ComponentArray : public IComponentArray
     {
         size_t size = 0;
-        std::array<T, Entity::MAX_ENTITIES> components;
-        std::unordered_map<std::uint32_t, size_t> entityToIndex;
-        std::unordered_map<size_t, std::uint32_t> indexToEntity;
+        std::array<T, Entity::MAX_ENTITIES> components{};
+        std::unordered_map<std::uint32_t, size_t> entityToIndex{};
+        std::unordered_map<size_t, std::uint32_t> indexToEntity{};
 
     public:
         //Component data is default initialized, when using this AddComponent overload
@@ -62,12 +62,12 @@ namespace Engine
         }
 
         //This is only meant for the CopyEntity function
-        void AddComponentRuntime(Entity entity, void* component) override
+        void AddComponentRuntime(Entity entity) override
         {
             size_t index = size;
             entityToIndex[entity.id] = index;
             indexToEntity[index] = entity.id;
-            components[index] = *(T*)component;
+            components[index] = T();
             size++;
         }
 

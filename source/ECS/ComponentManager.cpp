@@ -3,7 +3,7 @@
 
 namespace Engine
 {
-    void ComponentManager::AddComponent(Entity entity, void* component, ComponentType componentType)
+    void ComponentManager::AddComponentRuntime(Entity entity, ComponentType componentType)
     {
         for(ComponentType dependency : dependencies[componentType])
         {
@@ -11,7 +11,7 @@ namespace Engine
                 ecsSystem->AddComponent(entity, dependency);
         }
 
-        GetComponentArray(componentType)->AddComponentRuntime(entity, component);
+        GetComponentArray(componentType)->AddComponentRuntime(entity);
     }
 
     std::shared_ptr<IComponentArray> ComponentManager::GetComponentArray(ComponentType componentType)

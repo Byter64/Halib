@@ -45,7 +45,7 @@ namespace Engine
         }
 
         //This is only meant for the CopyEntity function
-        void AddComponent(Entity entity, void* component, ComponentType componentType);
+        void AddComponentRuntime(Entity entity, ComponentType componentType);
         std::shared_ptr<IComponentArray> GetComponentArray(ComponentType componentType);
         void* GetComponent(Entity entity, ComponentType componentType);
         bool HasComponent(Entity entity, ComponentType componentType);
@@ -99,8 +99,8 @@ namespace Engine
             ComponentType type = nameToType[typeid(T).name()];
             for(ComponentType dependency : dependencies[type])
             {
-                if(!HasComponent(entity, dependency))
-                    ecsSystem->AddComponent(entity, dependency);
+                if (!HasComponent(entity, dependency))
+                    ecsSystem->AddComponentRuntime(entity, dependency);
             }
 
             return GetComponentArray<T>()->AddComponent(entity);

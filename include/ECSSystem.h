@@ -13,6 +13,7 @@ namespace Engine
     {
         componentManager->RegisterComponent<T>();
     }
+
     //Component data is default initialized, when using this AddComponent overload
     template<typename T>
     T& ECSSystem::AddComponent(Entity entity)
@@ -24,6 +25,7 @@ namespace Engine
         systemManager->EntitySignatureChanged(entity, signature);
         return component;
     }
+
     template<typename T>
     void ECSSystem::AddComponent(Entity entity, T component)
     {
@@ -33,6 +35,7 @@ namespace Engine
         entityManager->SetSignature(entity, signature);
         systemManager->EntitySignatureChanged(entity, signature);
     }
+
     template<typename T>
     void ECSSystem::RemoveComponent(Entity entity)
     {
@@ -42,6 +45,7 @@ namespace Engine
         systemManager->EntitySignatureChanged(entity, signature);
         componentManager->RemoveComponent<T>(entity);
     }
+
     template<typename T>
     T& ECSSystem::GetComponent(Entity entity)
     {
@@ -53,6 +57,7 @@ namespace Engine
     {
         return componentManager->HasComponent<T>(entity);
     }
+
     template<typename T>
     int ECSSystem::GetNumberOfComponents()
     {

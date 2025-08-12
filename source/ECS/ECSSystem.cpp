@@ -25,9 +25,9 @@ namespace Engine
         return entityManager->CreateEntity();
     }
 
-    void ECSSystem::AddComponent(Entity entity, void* component, ComponentType componentType)
+    void ECSSystem::AddComponentRuntime(Entity entity, ComponentType componentType)
     {
-        componentManager->AddComponent(entity, component, componentType);
+        componentManager->AddComponent(entity, componentType);
     
         auto signature = entityManager->GetSignature(entity);
         signature.set(componentType, true);
