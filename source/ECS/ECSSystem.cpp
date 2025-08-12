@@ -27,12 +27,23 @@ namespace Engine
 
     void ECSSystem::AddComponentRuntime(Entity entity, ComponentType componentType)
     {
-        componentManager->AddComponent(entity, componentType);
-    
+        componentManager->AddComponentRuntime(entity, componentType);
+
         auto signature = entityManager->GetSignature(entity);
         signature.set(componentType, true);
         entityManager->SetSignature(entity, signature);
-    
+
+        systemManager->EntitySignatureChanged(entity, signature);
+    }
+
+    void ECSSystem::AddComponentRuntime(Entity entity, void* component, ComponentType componentType)
+    {
+        componentManager->AddComponentRuntime(entity, component, componentType);
+
+        auto signature = entityManager->GetSignature(entity);
+        signature.set(componentType, true);
+        entityManager->SetSignature(entity, signature);
+
         systemManager->EntitySignatureChanged(entity, signature);
     }
 

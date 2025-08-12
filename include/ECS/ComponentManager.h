@@ -44,8 +44,8 @@ namespace Engine
             return std::static_pointer_cast<ComponentArray<T>>(typeToComponentArrays[typeName]);
         }
 
-        //This is only meant for the CopyEntity function
         void AddComponentRuntime(Entity entity, ComponentType componentType);
+        void AddComponentRuntime(Entity entity, void* component, ComponentType componentType);
         std::shared_ptr<IComponentArray> GetComponentArray(ComponentType componentType);
         void* GetComponent(Entity entity, ComponentType componentType);
         bool HasComponent(Entity entity, ComponentType componentType);
@@ -113,7 +113,7 @@ namespace Engine
             for(ComponentType dependency : dependencies[type])
             {
                 if(!HasComponent(entity, dependency))
-                    ecsSystem->AddComponent(entity, dependency);
+                    ecsSystem->AddComponentRuntime(entity, dependency);
             }
 
             GetComponentArray<T>()->AddComponent(entity, component);

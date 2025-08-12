@@ -5,13 +5,24 @@ namespace Engine
 {
     void ComponentManager::AddComponentRuntime(Entity entity, ComponentType componentType)
     {
-        for(ComponentType dependency : dependencies[componentType])
+        for (ComponentType dependency : dependencies[componentType])
         {
-            if(!HasComponent(entity, dependency))
+            if (!HasComponent(entity, dependency))
                 ecsSystem->AddComponent(entity, dependency);
         }
 
         GetComponentArray(componentType)->AddComponentRuntime(entity);
+    }
+
+    void ComponentManager::AddComponentRuntime(Entity entity, void* component, ComponentType componentType)
+    {
+        for (ComponentType dependency : dependencies[componentType])
+        {
+            if (!HasComponent(entity, dependency))
+                ecsSystem->AddComponent(entity, dependency);
+        }
+
+        GetComponentArray(componentType)->AddComponentRuntime(entity, component);
     }
 
     std::shared_ptr<IComponentArray> ComponentManager::GetComponentArray(ComponentType componentType)

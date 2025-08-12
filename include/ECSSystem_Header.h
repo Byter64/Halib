@@ -26,6 +26,7 @@ namespace Engine
 
         //You found a secret! Please do not use this function. It is for internal use only
         void AddComponentRuntime(Entity entity, ComponentType componentType);
+        void AddComponentRuntime(Entity entity, void* component, ComponentType componentType);
 
         //You found a secret! Please do not use this function. It is for internal use only
         void RemoveComponent(Entity entity, ComponentType componentType);

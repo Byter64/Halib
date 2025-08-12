@@ -8,6 +8,7 @@ namespace Engine
     {
     public:
         virtual void AddComponentRuntime(Entity entity) = 0;
+        virtual void AddComponentRuntime(Entity entity, void* component) = 0;
         virtual void* GetComponentRuntime(Entity entity) = 0;
         virtual bool HasComponent(Entity entity) = 0;
         virtual void RemoveComponent(Entity entity) = 0;

@@ -61,13 +61,21 @@ namespace Engine
             size++;
         }
 
-        //This is only meant for the CopyEntity function
         void AddComponentRuntime(Entity entity) override
         {
             size_t index = size;
             entityToIndex[entity.id] = index;
             indexToEntity[index] = entity.id;
             components[index] = T();
+            size++;
+        }
+
+        void AddComponentRuntime(Entity entity, void* component) override
+        {
+            size_t index = size;
+            entityToIndex[entity.id] = index;
+            indexToEntity[index] = entity.id;
+            components[index] = *(T*)component;
             size++;
         }
 
