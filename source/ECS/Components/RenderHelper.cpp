@@ -15,4 +15,15 @@ namespace Engine
 		else
 			type = NONE;
 	}
+
+	int RenderHelper::GetLayer() const
+	{
+		return layer;
+	}
+
+	void RenderHelper::SetLayer(int layer)
+	{
+		this->layer = layer;
+		Systems::renderSystem->ResortEntity(ecsSystem->GetEntity(*this));
+	}
 } // namespace Engine

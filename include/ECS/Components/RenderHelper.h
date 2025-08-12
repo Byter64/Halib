@@ -23,6 +23,12 @@ namespace Engine
 		};
 
 		Type type;
+		int layer;
 		void DetermineType();
+	public:
+		bool isActive = true;
+
+		int GetLayer() const;
+		void SetLayer(int layer);
 	};
 } // namespace Engine

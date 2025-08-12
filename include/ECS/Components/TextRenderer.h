@@ -25,6 +25,5 @@ namespace Engine
 
 		bool isActive = true;
 		bool useWordWrap = true;
-
 	};
 } // namespace Engine

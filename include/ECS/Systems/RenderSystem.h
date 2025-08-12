@@ -5,7 +5,7 @@
 #include "ECS/System.h"
 #include "ECSSystem.h"
 #include "ECS/Components/Transform.h"
-#include "ECS/Components/SpriteRenderer.h"
+#include "ECS/Components/RenderHelper.h"
 #include "ECS/Components/RectangleRenderer.h"
 #include "ECS/Components/TextRenderer.h"
 #include "ECS/Helpers/Color.h"
@@ -15,7 +15,7 @@ namespace Engine
 
     class RenderSystem : public System
     {
-        friend class SpriteRenderer;
+        friend class RenderHelper;
 
         void EntityAdded(Entity entity) override;
         void EntityRemoved(Entity entity) override;
