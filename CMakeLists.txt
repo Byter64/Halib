@@ -15,10 +15,10 @@ FetchContent_Declare(Hall
 )
 FetchContent_MakeAvailable(Hall)
 
-#FetchContent_Declare(freetype
-#URL https://download.savannah.gnu.org/releases/freetype/freetype-2.13.3.tar.gz
-#)
-#FetchContent_MakeAvailable(freetype)
+FetchContent_Declare(freetype
+URL https://download.savannah.gnu.org/releases/freetype/freetype-2.13.3.tar.gz
+)
+FetchContent_MakeAvailable(freetype)
 
 FetchContent_Declare(glm
 	GIT_REPOSITORY https://github.com/g-truc/glm
@@ -45,7 +45,9 @@ set(SOURCES
 	
 	"source/ECS/Helpers/Collision.cpp"
 	"source/ECS/Helpers/Color.cpp"
+	"source/ECS/Helpers/Font.cpp"
 	"source/ECS/Helpers/Image.cpp"
+	"source/ECS/Helpers/GlyphCache.cpp"
 	
 	"source/ECS/Systems/AnimationSystem.cpp"
 	"source/ECS/Systems/CollisionSystem.cpp"
@@ -72,7 +74,7 @@ set(INCLUDE_DIRS
 )
 
 set(LINK_LIBS
-	#freetype
+	freetype
 	glm::glm
 	
 )

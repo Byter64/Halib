@@ -4,6 +4,8 @@
 #include <sstream>
 #include <array>
 #include <stdexcept>
+#include <Hall/Hall.h>
+#include "ECS/Helpers/GlyphCache.h"
 
 namespace Engine
 {
@@ -67,6 +69,7 @@ Transform& transform = ecsSystem->GetComponent<Transform>(entity);
 	    	Hall::UpdateRaylibTexture((Hall::Color*)image->GetData(), image->GetWidth(), image->GetHeight());
 	    }
 #endif
+        Hall::SetColorTable(Hall::CTType::NONE);
         Hall::SetColorSource(Hall::MEMORY);
 	    Hall::SetImage((Hall::Color*)image->GetData(), image->GetWidth(), image->GetHeight());
 	    Hall::SetExcerpt(frameOffset.x, frameOffset.y, frameSize.x, frameSize.y);
@@ -93,6 +96,50 @@ Transform& transform = ecsSystem->GetComponent<Transform>(entity);
     	Hall::SetRectangle(position.x, position.y, size.x, size.y);
 
     	Hall::Draw();
+    }
+
+    void RenderSystem::RenderText(Entity entity)
+    {
+        TextRenderer& renderer = ecsSystem->GetComponent<TextRenderer>(entity);
+        Transform& transform = ecsSystem->GetComponent<Transform>(entity);
+        glm::ivec2 position = transform.GetGlobalTranslation();
+        position -= renderer.size / 2;
+
+        Hall::COLOR_TABLE_MEMORY[0] = 0;
+	    Hall::COLOR_TABLE_MEMORY[1] = renderer.color.GetHallColor();
+	    FT_Face face = renderer.font.GetFace();
+	    for(char c : renderer.text)
+	    {
+	    	unsigned int glyphIndex = FT_Get_Char_Index(face, c);
+	    	GlyphID glyphID{ face, glyphIndex, renderer.font.GetSize() };
+	    	FT_Load_Glyph(face, glyphIndex, FT_LOAD_DEFAULT);
+	    	if (!glyphCache.count(glyphID))
+	    	{
+	    		FT_Render_Glyph(face->glyph, FT_RENDER_MODE_MONO);
+
+	    		CacheEntry cacheEntry;
+
+	    		cacheEntry.indexContainers = GlyphToIndexContainer(face->glyph->bitmap);
+	    		cacheEntry.width = face->glyph->bitmap.width;
+	    		cacheEntry.height = face->glyph->bitmap.rows;
+	    		cacheEntry.offsetLeft = face->glyph->bitmap_left;
+	    		cacheEntry.offsetTop = face->glyph->bitmap_top;
+	    		glyphCache[glyphID] = cacheEntry;
+	    	}
+
+	    	CacheEntry cacheEntry = glyphCache[glyphID];
+	    	Hall::SetColorTable(Hall::BIT_1, 0);
+	    	Hall::SetColorSource(Hall::MEMORY);
+	    	Hall::SetImage(cacheEntry.indexContainers.get(), cacheEntry.width, cacheEntry.height);
+	    	Hall::SetExcerpt(0, 0, cacheEntry.width, cacheEntry.height);
+	    	Hall::SetScreenPosition(position.x - cacheEntry.offsetLeft, position.y - cacheEntry.offsetTop);
+	    	Hall::SetScale(1, 1);
+	    	Hall::SetFlip(false, false);
+	    	Hall::Draw();
+
+	    	position.x += face->glyph->advance.x / 64;
+	    	position.y += face->glyph->advance.y / 64;
+	    }
     }
 
     void RenderSystem::Clear(Color color)

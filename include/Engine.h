@@ -24,6 +24,7 @@
 #include "ECS/Components/Animation.h"
 #include "ECS/Helpers/Color.h"
 #include "ECS/Helpers/Image.h"
+#include "ECS/Helpers/Font.h"
 #include "ECS/Helpers/glmExtension.h"
 #include "ECS/Systems/TransformParentSystem.h"
 #include "ECS/Systems/RenderSystem.h"

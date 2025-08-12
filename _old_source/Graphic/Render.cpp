@@ -2,7 +2,7 @@
 #include <memory>
 #include <unordered_map>
 
-/*
+
 struct GlyphID
 {
 	FT_Face face;
@@ -14,7 +14,7 @@ struct GlyphID
 		return face == other.face && glyphIndex == other.glyphIndex && size == other.size;
 	}
 };
-*/
+
 struct CacheEntry
 {
 	std::shared_ptr<Hall::IndexContainer[]> indexContainers;
@@ -23,7 +23,7 @@ struct CacheEntry
 	char offsetLeft;
 	char offsetTop;
 };
-/*
+
 template<>
 struct std::hash<GlyphID>
 {
@@ -38,7 +38,7 @@ struct std::hash<GlyphID>
 	}
 };
 
-static std::unordered_map<GlyphID, CacheEntry> glyphCache;*/
+static std::unordered_map<GlyphID, CacheEntry> glyphCache;
 static Halib::Camera camera;
 static bool isVsyncEnabled = true;
 /*

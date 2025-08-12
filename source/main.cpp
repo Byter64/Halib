@@ -39,9 +39,18 @@ int main()
     return 0;
 }
 
+extern FT_Library freetypeLibrary;
 void GameMain()
 {
     Hall::Init();
+    int error = FT_Init_FreeType(&freetypeLibrary);
+	if(error)
+	{
+		printf("FreeType init failed\n");
+		printf("Text will not be available\n");
+		printf("Error code: %i\n", error);
+	}
+    
     Engine::CrashHandler::SetupCrashHandler();
 
     Engine::Systems::timeManager = std::make_shared<Engine::TimeManager>();

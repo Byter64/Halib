@@ -1,0 +1,18 @@
+{
+  "OutputFoldersPerTargetSystem": {
+    "Local Machine": [
+      "out\\build\\x64-Debug",
+      "out\\install\\x64-Debug"
+    ]
+  },
+  "ExpandedNodes": [
+    "",
+    "\\external\\StackWalker-master\\Main",
+    "\\include",
+    "\\include\\ECS",
+    "\\include\\ECS\\Helpers",
+    "\\source"
+  ],
+  "SelectedNode": "\\include\\ECS\\Helpers\\Font.h",
+  "PreviewInSolutionExplorer": false
+}
