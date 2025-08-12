@@ -3,10 +3,11 @@
 
 FT_Library freetypeLibrary;
 
-std::shared_ptr<Engine::Font> Engine::Font::LoadFont(const char* path, int face = 0)
+std::shared_ptr<Engine::Font> Engine::Font::LoadFont(const char* path, int face)
 {
-	this->path = path;
-	int error = FT_New_Face(freetypeLibrary, path, face, &this->face);
+	std::shared_ptr<Font> font = std::make_shared<Font>();
+	font->path = path;
+	int error = FT_New_Face(freetypeLibrary, path, face, &font->face);
 	if (error == FT_Err_Unknown_File_Format)
 	{
 		printf("ERROR: unkown file format for font: %s\n", path);
@@ -18,8 +19,10 @@ std::shared_ptr<Engine::Font> Engine::Font::LoadFont(const char* path, int face 
 	  printf("Errorcode: %i\n", error);
 	}
 
-	size = -1; //How the fuck does scaling work ?!?!?!?!
+	font->size = -1; //How the fuck does scaling work ?!?!?!?!
 	//I shoul probably read into dpi :(
+
+	return font;
 }
 
 void Engine::Font::SetSize(int targetPixelSize)

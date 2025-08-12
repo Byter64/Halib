@@ -62,5 +62,4 @@ namespace Engine
 			ids.pop_back();
 		}
 	}
-
 } // namespace Engine
