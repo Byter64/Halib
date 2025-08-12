@@ -14,6 +14,14 @@ public:
 		static const Color WHITE;
 
 		Color();
+
+		/// <summary>
+		/// Color values must be between 0 and 31
+		/// </summary>
+		/// <param name="red">A value between 0 and 31</param>
+		/// <param name="green">A value between 0 and 31</param>
+		/// <param name="blue">A value between 0 and 31</param>
+		/// <param name="alpha"></param>
 		Color(char red, char green, char blue, bool alpha = true);
 		Color(Hall::Color color);
 
