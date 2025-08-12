@@ -3,7 +3,7 @@
 
 FT_Library freetypeLibrary;
 
-Engine::Font::Font(const char* path, int face)
+std::shared_ptr<Engine::Font> Engine::Font::LoadFont(const char* path, int face = 0)
 {
 	this->path = path;
 	int error = FT_New_Face(freetypeLibrary, path, face, &this->face);
@@ -43,4 +43,9 @@ int Engine::Font::GetSize()
 FT_Face Engine::Font::GetFace() const
 {
 	return face;
+}
+
+Engine::Font::~Font()
+{
+	FT_Done_Face(face);
 }

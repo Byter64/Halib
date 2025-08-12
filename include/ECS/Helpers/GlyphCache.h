@@ -49,4 +49,5 @@ namespace Engine
 	std::shared_ptr<Hall::IndexContainer[]> GlyphToIndexContainer(FT_Bitmap& bitmap);
 	
 	extern std::unordered_map<GlyphID, CacheEntry> glyphCache;
+	void RemoveFromGlyphCache(FT_Face face);
 } // namespace Engine

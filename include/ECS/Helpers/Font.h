@@ -1,6 +1,7 @@
 #pragma once
 #include <ft2build.h>
 #include FT_FREETYPE_H
+#include <memory>
 
 namespace Engine
 {
@@ -12,9 +13,12 @@ namespace Engine
 		int size;
 
 public:
+		//Use LoadFont to create a new font
 		Font() = default;
-		//Font should be a shared pointer, so that the glyph cache can be emptied on destruction
-		Font(const char* path, int face = 0);
+		~Font();
+		
+		//Loads a font from file
+		std::shared_ptr<Font> LoadFont(const char* path, int face = 0);
 		
 		/// @brief Sets the size of the font. The result might not be exactly the given target size. See freetypes documentation for more
 		/// @param targetPixelSize

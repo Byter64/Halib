@@ -47,4 +47,20 @@ namespace Engine
 		return indexContainers;
 	}
 
+	void RemoveFromGlyphCache(FT_Face face)
+	{
+		std::vector<GlyphID> ids;
+		for (auto iter = glyphCache.begin(); iter != glyphCache.end(); iter++)
+		{
+			if (iter->first.face == face)
+				ids.push_back(iter->first);
+		}
+
+		while (!ids.empty())
+		{
+			glyphCache.erase(ids.back());
+			ids.pop_back();
+		}
+	}
+
 } // namespace Engine
