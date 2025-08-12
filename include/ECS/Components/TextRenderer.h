@@ -23,7 +23,7 @@ namespace Engine
 		Alignment vAlignment = TOP;
 		float fontSize = 1; //In pixels
 
-		//Add shit from Text.h and Halib Text here
+		bool isActive = true;
 		bool useWordWrap = true;
 
 	};

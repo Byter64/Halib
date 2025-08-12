@@ -83,6 +83,7 @@ namespace Engine
     {
         systemManager->AddSignature<T>(signature);
     }
+    
+    extern std::shared_ptr<ECSSystem> ecsSystem;
 } // Engine
 
-extern std::shared_ptr<Engine::ECSSystem> ecsSystem;

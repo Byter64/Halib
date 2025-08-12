@@ -12,6 +12,7 @@ namespace Engine
 		glm::ivec2 size;
 		glm::ivec2 offset; //pixel offset of the sprite within the image
 		Hall::CTType ctType = Hall::CTType::NONE;
+		bool isActive = true;
 
 		int GetLayer() const;
 		void SetLayer(int layer);

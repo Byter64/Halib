@@ -24,7 +24,5 @@ namespace Engine
 
 		Type type;
 		void DetermineType();
-	public:
-		bool isActive = true;
 	};
 } // namespace Engine

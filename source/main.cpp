@@ -79,7 +79,7 @@ void GameMain()
             Engine::Systems::collisionSystem->CheckCollisions();
         }
         sceneManager->Update();
-        ecsSystem->DeletePurgatory();
+        Engine::ecsSystem->DeletePurgatory();
 
         Engine::Systems::renderSystem->Render();
         //Engine::Systems::textRenderSystem->Render();
@@ -98,61 +98,61 @@ void GameMain()
 
     OnEndGame();
     std::cout << "Game Time: " << Engine::Systems::timeManager->GetTimeSinceStartupWithoutPauses() - gameTime1 << " s" << std::endl;
-    ecsSystem->Uninit();
+    Engine::ecsSystem->Uninit();
 }
 
 void InitializeECS()
 {
-    ecsSystem = std::make_shared<Engine::ECSSystem>();
-    ecsSystem->Init();
-    ecsSystem->RegisterComponent<Engine::Name>();
-    ecsSystem->RegisterComponent<Engine::Transform>();
-    ecsSystem->RegisterComponent<Engine::SpriteRenderer>();
-    ecsSystem->RegisterComponent<Engine::TextRenderer>();
-    ecsSystem->RegisterComponent<Engine::RectangleRenderer>();
-    ecsSystem->RegisterComponent<Engine::RenderHelper>();
-    ecsSystem->RegisterComponent<Engine::BoxCollider>();
-    ecsSystem->RegisterComponent<Engine::TilemapCollider>();
-    ecsSystem->RegisterComponent<Engine::Animator>();
-    ecsSystem->RegisterComponent<Engine::Animation>();
+    Engine::ecsSystem = std::make_shared<Engine::ECSSystem>();
+    Engine::ecsSystem->Init();
+    Engine::ecsSystem->RegisterComponent<Engine::Name>();
+    Engine::ecsSystem->RegisterComponent<Engine::Transform>();
+    Engine::ecsSystem->RegisterComponent<Engine::SpriteRenderer>();
+    Engine::ecsSystem->RegisterComponent<Engine::TextRenderer>();
+    Engine::ecsSystem->RegisterComponent<Engine::RectangleRenderer>();
+    Engine::ecsSystem->RegisterComponent<Engine::RenderHelper>();
+    Engine::ecsSystem->RegisterComponent<Engine::BoxCollider>();
+    Engine::ecsSystem->RegisterComponent<Engine::TilemapCollider>();
+    Engine::ecsSystem->RegisterComponent<Engine::Animator>();
+    Engine::ecsSystem->RegisterComponent<Engine::Animation>();
 
-    ecsSystem->RegisterDependency(ecsSystem->GetComponentType<Engine::RectangleRenderer>(), ecsSystem->GetComponentType<Engine::RenderHelper>());
-    ecsSystem->RegisterDependency(ecsSystem->GetComponentType<Engine::SpriteRenderer>(), ecsSystem->GetComponentType<Engine::RenderHelper>());
-    ecsSystem->RegisterDependency(ecsSystem->GetComponentType<Engine::TextRenderer>(), ecsSystem->GetComponentType<Engine::RenderHelper>());
+    Engine::ecsSystem->RegisterDependency(Engine::ecsSystem->GetComponentType<Engine::RectangleRenderer>(), Engine::ecsSystem->GetComponentType<Engine::RenderHelper>());
+    Engine::ecsSystem->RegisterDependency(Engine::ecsSystem->GetComponentType<Engine::SpriteRenderer>(), Engine::ecsSystem->GetComponentType<Engine::RenderHelper>());
+    Engine::ecsSystem->RegisterDependency(Engine::ecsSystem->GetComponentType<Engine::TextRenderer>(), Engine::ecsSystem->GetComponentType<Engine::RenderHelper>());
     
 
-    ecsSystem->RegisterSystem<Engine::TransformParentSystem>();
+    Engine::ecsSystem->RegisterSystem<Engine::TransformParentSystem>();
     Engine::Signature transformSignature;
-    transformSignature.set(ecsSystem->GetComponentType<Engine::Transform>());
-    ecsSystem->AddSystemSignature<Engine::TransformParentSystem>(transformSignature);
+    transformSignature.set(Engine::ecsSystem->GetComponentType<Engine::Transform>());
+    Engine::ecsSystem->AddSystemSignature<Engine::TransformParentSystem>(transformSignature);
 
-    Engine::Systems::renderSystem = ecsSystem->RegisterSystem<Engine::RenderSystem>();
+    Engine::Systems::renderSystem = Engine::ecsSystem->RegisterSystem<Engine::RenderSystem>();
     Engine::Signature renderSignature;
-    renderSignature.set(ecsSystem->GetComponentType<Engine::Transform>());
-    renderSignature.set(ecsSystem->GetComponentType<Engine::SpriteRenderer>());
-    ecsSystem->AddSystemSignature<Engine::RenderSystem>(renderSignature);
+    renderSignature.set(Engine::ecsSystem->GetComponentType<Engine::Transform>());
+    renderSignature.set(Engine::ecsSystem->GetComponentType<Engine::SpriteRenderer>());
+    Engine::ecsSystem->AddSystemSignature<Engine::RenderSystem>(renderSignature);
 
-    Engine::Systems::collisionSystem = ecsSystem->RegisterSystem<Engine::CollisionSystem>();
+    Engine::Systems::collisionSystem = Engine::ecsSystem->RegisterSystem<Engine::CollisionSystem>();
     Engine::Signature collisionSignature;
-    collisionSignature.set(ecsSystem->GetComponentType<Engine::Transform>());
-    collisionSignature.set(ecsSystem->GetComponentType<Engine::BoxCollider>());
-    ecsSystem->AddSystemSignature<Engine::CollisionSystem>(collisionSignature);
+    collisionSignature.set(Engine::ecsSystem->GetComponentType<Engine::Transform>());
+    collisionSignature.set(Engine::ecsSystem->GetComponentType<Engine::BoxCollider>());
+    Engine::ecsSystem->AddSystemSignature<Engine::CollisionSystem>(collisionSignature);
 
-    collisionSignature.set(ecsSystem->GetComponentType<Engine::BoxCollider>(), false);
-    collisionSignature.set(ecsSystem->GetComponentType<Engine::TilemapCollider>());
-    ecsSystem->AddSystemSignature<Engine::CollisionSystem>(collisionSignature);
+    collisionSignature.set(Engine::ecsSystem->GetComponentType<Engine::BoxCollider>(), false);
+    collisionSignature.set(Engine::ecsSystem->GetComponentType<Engine::TilemapCollider>());
+    Engine::ecsSystem->AddSystemSignature<Engine::CollisionSystem>(collisionSignature);
 
-    //Engine::Systems::textRenderSystem = ecsSystem->RegisterSystem<Engine::TextRenderSystem>();
+    //Engine::Systems::textRenderSystem = Engine::ecsSystem->RegisterSystem<Engine::TextRenderSystem>();
     //Engine::Signature textRenderSignature;
-    //textRenderSignature.set(ecsSystem->GetComponentType<Engine::Text>());
-    //ecsSystem->AddSystemSignature<Engine::TextRenderSystem>(textRenderSignature);
+    //textRenderSignature.set(Engine::ecsSystem->GetComponentType<Engine::Text>());
+    //Engine::ecsSystem->AddSystemSignature<Engine::TextRenderSystem>(textRenderSignature);
 
-    Engine::Systems::animationSystem = ecsSystem->RegisterSystem<Engine::AnimationSystem>();
+    Engine::Systems::animationSystem = Engine::ecsSystem->RegisterSystem<Engine::AnimationSystem>();
     Engine::Signature animationSignature;
-    animationSignature.set(ecsSystem->GetComponentType<Engine::Animator>());
-    animationSignature.set(ecsSystem->GetComponentType<Engine::Animation>());
-    animationSignature.set(ecsSystem->GetComponentType<Engine::SpriteRenderer>());
-    ecsSystem->AddSystemSignature<Engine::AnimationSystem>(animationSignature);
+    animationSignature.set(Engine::ecsSystem->GetComponentType<Engine::Animator>());
+    animationSignature.set(Engine::ecsSystem->GetComponentType<Engine::Animation>());
+    animationSignature.set(Engine::ecsSystem->GetComponentType<Engine::SpriteRenderer>());
+    Engine::ecsSystem->AddSystemSignature<Engine::AnimationSystem>(animationSignature);
 }
 
 void ShowRender()

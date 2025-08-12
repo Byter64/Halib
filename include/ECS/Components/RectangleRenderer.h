@@ -8,5 +8,6 @@ namespace Engine
 	{
 		glm::ivec2 size;
 		Color color;
+		bool isActive = true;
 	};
 } // namespace Engine

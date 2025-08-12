@@ -12,7 +12,7 @@
 namespace Engine
 {
 
-    extern std::shared_ptr<ECSSystem>& ecsSystem;
+    extern std::shared_ptr<ECSSystem> ecsSystem;
 
     class ComponentManager
     {

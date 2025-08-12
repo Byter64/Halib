@@ -3,7 +3,7 @@
 extern std::shared_ptr<Engine::ECSSystem> ecsSystem;
 namespace Engine::Systems
 {
-    std::shared_ptr<ECSSystem>& ecsSystem = ::ecsSystem;
+    std::shared_ptr<ECSSystem>& ecsSystem = Engine::ecsSystem;
     std::shared_ptr<RenderSystem> renderSystem;
     std::shared_ptr<CollisionSystem> collisionSystem;
     //std::shared_ptr<TextRenderSystem> textRenderSystem;

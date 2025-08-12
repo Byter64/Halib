@@ -5,7 +5,7 @@ namespace Engine
 	std::unordered_map<GlyphID, CacheEntry> glyphCache;
 
 
-	static std::shared_ptr<Hall::IndexContainer[]> GlyphToIndexContainer(FT_Bitmap& bitmap)
+	std::shared_ptr<Hall::IndexContainer[]> GlyphToIndexContainer(FT_Bitmap& bitmap)
 	{
 
 		std::shared_ptr<Hall::IndexContainer[]> indexContainers;

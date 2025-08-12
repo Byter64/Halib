@@ -1,9 +1,11 @@
 #include "ECSSystem.h"
 
-std::shared_ptr<Engine::ECSSystem> ecsSystem;
+
+std::shared_ptr<Engine::ECSSystem> Engine::ecsSystem;
 
 namespace Engine
 {
+
     void ECSSystem::Init()
     {
         entityManager = std::make_unique<EntityManager>();

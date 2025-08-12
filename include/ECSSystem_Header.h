@@ -93,6 +93,6 @@ namespace Engine
         void AddSystemSignature(Signature signature);
     };
 
+    extern std::shared_ptr<ECSSystem> ecsSystem;
 } // Engine
 
-extern std::shared_ptr<Engine::ECSSystem> ecsSystem;

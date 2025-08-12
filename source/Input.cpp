@@ -40,6 +40,7 @@ namespace Engine
 			case SELECT: return Hall::GetSelect(newState[controllerID]);
 			case LEFT_SHOULDER: return Hall::GetL(newState[controllerID]);
 			case RIGHT_SHOULDER: return Hall::GetR(newState[controllerID]);
+			default: return false;
 			}
 		}
 
@@ -59,6 +60,7 @@ namespace Engine
 			case SELECT: return Hall::GetSelect(pressedState[controllerID]);
 			case LEFT_SHOULDER: return Hall::GetL(pressedState[controllerID]);
 			case RIGHT_SHOULDER: return Hall::GetR(pressedState[controllerID]);
+			default: return false;
 			}
 		}
 
@@ -78,6 +80,7 @@ namespace Engine
 			case SELECT: return Hall::GetSelect(releasedState[controllerID]);
 			case LEFT_SHOULDER: return Hall::GetL(releasedState[controllerID]);
 			case RIGHT_SHOULDER: return Hall::GetR(releasedState[controllerID]);
+			default: return false;
 			}
 		}
 	} // namespace Input
