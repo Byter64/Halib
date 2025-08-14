@@ -4,7 +4,7 @@
 
 namespace Engine
 {
-	struct RectangleRenderer
+	struct Rectangle
 	{
 		glm::ivec2 size;
 		Color color;

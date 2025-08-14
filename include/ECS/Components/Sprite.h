@@ -6,7 +6,7 @@
 
 namespace Engine
 {
-	struct SpriteRenderer
+	struct Sprite
 	{
 		std::shared_ptr<Image> image;
 		glm::ivec2 size;
