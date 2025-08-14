@@ -17,15 +17,7 @@ namespace Engine
         errorDescription += "\n";
         errorDescription += "It has the following components:\n";
 
-        for(ComponentType i = 0; i < ecsSystem->GetNumberOfRegisteredComponents(); i++)
-        {
-            if(ecsSystem->HasComponent(entity, i))
-            {
-                errorDescription += std::to_string(i) + ": ";
-                errorDescription += ecsSystem->GetComponentTypeName(i);
-                errorDescription += "\n";
-            }
-        }
+        errorDescription += entity.ComponentsToString();
 
         if(ecsSystem->HasComponent<Transform>(entity))
         {

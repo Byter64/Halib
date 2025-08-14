@@ -3,6 +3,7 @@
 #include <bitset>
 #include "ComponentType.h"
 #include <iostream>
+#include <string>
 
 namespace Engine
 {
@@ -18,6 +19,8 @@ namespace Engine
         Entity() = default;
         Entity(int id);
         Entity(std::uint32_t id);
+
+        std::string ComponentsToString() const;
 
         Entity operator+(const Entity& other) const;
         Entity operator-(const Entity& other) const;

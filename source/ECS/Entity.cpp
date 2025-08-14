@@ -1,4 +1,5 @@
 #include "ECS/Entity.h"
+#include "Engine.h"
 
 namespace Engine
 {
@@ -99,5 +100,20 @@ namespace Engine
     std::ostream& operator<<(std::ostream& os, const Entity& entity)
     {
         return (os << entity.id);
+    }
+
+    std::string Entity::ComponentsToString() const
+    {
+        std::string text = "";
+        for (ComponentType i = 0; i < ecsSystem->GetNumberOfRegisteredComponents(); i++)
+        {
+            if (ecsSystem->HasComponent(*this, i))
+            {
+                text += std::to_string(i) + ": ";
+                text += ecsSystem->GetComponentTypeName(i);
+                text += "\n";
+            }
+        }
+        return text;
     }
 }
