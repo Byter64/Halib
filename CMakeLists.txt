@@ -39,7 +39,7 @@ set(SOURCES
 	"source/ECS/SystemManager.cpp"
 	
 	"source/ECS/Components/Transform.cpp"
-	"source/ECS/Components/RenderHelper.cpp"
+	"source/ECS/Components/Renderer.cpp"
 	
 	"source/ECS/Helpers/Collision.cpp"
 	"source/ECS/Helpers/Color.cpp"
@@ -50,7 +50,6 @@ set(SOURCES
 	"source/ECS/Systems/AnimationSystem.cpp"
 	"source/ECS/Systems/CollisionSystem.cpp"
 	"source/ECS/Systems/RenderSystem.cpp"
-	#"source/ECS/Systems/TextRenderSystem.cpp"
 	"source/ECS/Systems/TransformParentSystem.cpp"
  
 	"source/CrashHandler.cpp"
