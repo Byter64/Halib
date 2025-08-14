@@ -181,8 +181,6 @@ namespace Engine
     });
         sortedEntities.insert(iter, entity);
         ecsSystem->GetComponent<Renderer>(entity).DetermineType();
-        std::cout << "Hello, Mister" << std::endl;
-        std::cout << entity.ComponentsToString() << std::endl;
     }
     
     void RenderSystem::EntityRemoved(Entity entity)
