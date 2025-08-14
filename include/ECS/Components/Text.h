@@ -18,11 +18,11 @@ namespace Engine
 		glm::ivec2 size; //Size of the textbox
 		std::string text;
 		Color color;
-		Alignment hAlignment = LEFT;
-		Alignment vAlignment = TOP;
+		//Alignment hAlignment = LEFT; //Not supported yet
+		//Alignment vAlignment = TOP;  //not supported yet
 		float fontSize = 1; //In pixels
 
 		bool isActive = true;
-		bool useWordWrap = true;
+		//bool useWordWrap = true;  //Not supported yet
 	};
 } // namespace Engine
