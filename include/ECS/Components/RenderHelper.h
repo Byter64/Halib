@@ -24,6 +24,7 @@ namespace Engine
 
 		Type type;
 		int layer;
+		Type type = NONE;
 		void DetermineType();
 	public:
 		bool isActive = true;

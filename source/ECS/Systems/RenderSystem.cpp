@@ -174,8 +174,8 @@ Transform& transform = ecsSystem->GetComponent<Transform>(entity);
         auto iter = std::upper_bound(sortedEntities.begin(), sortedEntities.end(), entity,
         [](Entity entity, Entity other)
     {
-        SpriteRenderer& sr1 = ecsSystem->GetComponent<SpriteRenderer>(entity);
-        SpriteRenderer& sr2 = ecsSystem->GetComponent<SpriteRenderer>(other);
+        RenderHelper& sr1 = ecsSystem->GetComponent<RenderHelper>(entity);
+        RenderHelper& sr2 = ecsSystem->GetComponent<RenderHelper>(other);
 
         return sr1.GetLayer() < sr2.GetLayer();
     });

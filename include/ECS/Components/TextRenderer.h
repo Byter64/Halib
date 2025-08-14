@@ -15,7 +15,6 @@ namespace Engine
 		};
 
 		Font font;
-		glm::ivec2 position;
 		glm::ivec2 size; //Size of the textbox
 		std::string text;
 		Color color;

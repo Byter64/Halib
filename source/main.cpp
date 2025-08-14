@@ -129,7 +129,7 @@ void InitializeECS()
     Engine::Systems::renderSystem = Engine::ecsSystem->RegisterSystem<Engine::RenderSystem>();
     Engine::Signature renderSignature;
     renderSignature.set(Engine::ecsSystem->GetComponentType<Engine::Transform>());
-    renderSignature.set(Engine::ecsSystem->GetComponentType<Engine::SpriteRenderer>());
+    renderSignature.set(Engine::ecsSystem->GetComponentType<Engine::RenderHelper>());
     Engine::ecsSystem->AddSystemSignature<Engine::RenderSystem>(renderSignature);
 
     Engine::Systems::collisionSystem = Engine::ecsSystem->RegisterSystem<Engine::CollisionSystem>();
