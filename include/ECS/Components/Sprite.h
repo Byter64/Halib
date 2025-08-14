@@ -10,7 +10,7 @@ namespace Engine
 	{
 		std::shared_ptr<Image> image;
 		glm::ivec2 size;
-		glm::ivec2 offset; //pixel offset of the sprite within the image
+		glm::ivec2 offset = glm::ivec2(0, 0); //pixel offset of the sprite within the image
 		Hall::CTType ctType = Hall::CTType::NONE;
 		bool isActive = true;
 
