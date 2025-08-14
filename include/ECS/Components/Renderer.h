@@ -7,7 +7,7 @@ namespace Engine
 	class TextRenderer;
 	class RectangleRenderer;
 
-	struct RenderHelper
+	struct Renderer
 	{
 	private:
 		friend class RenderSystem;
@@ -22,9 +22,8 @@ namespace Engine
 			TEXT
 		};
 
-		Type type;
-		int layer;
 		Type type = NONE;
+		int layer;
 		void DetermineType();
 	public:
 		bool isActive = true;

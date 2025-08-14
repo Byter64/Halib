@@ -107,18 +107,18 @@ void InitializeECS()
     Engine::ecsSystem->Init();
     Engine::ecsSystem->RegisterComponent<Engine::Name>();
     Engine::ecsSystem->RegisterComponent<Engine::Transform>();
-    Engine::ecsSystem->RegisterComponent<Engine::SpriteRenderer>();
-    Engine::ecsSystem->RegisterComponent<Engine::TextRenderer>();
-    Engine::ecsSystem->RegisterComponent<Engine::RectangleRenderer>();
-    Engine::ecsSystem->RegisterComponent<Engine::RenderHelper>();
+    Engine::ecsSystem->RegisterComponent<Engine::Sprite>();
+    Engine::ecsSystem->RegisterComponent<Engine::Text>();
+    Engine::ecsSystem->RegisterComponent<Engine::Rectangle>();
+    Engine::ecsSystem->RegisterComponent<Engine::Renderer>();
     Engine::ecsSystem->RegisterComponent<Engine::BoxCollider>();
     Engine::ecsSystem->RegisterComponent<Engine::TilemapCollider>();
     Engine::ecsSystem->RegisterComponent<Engine::Animator>();
     Engine::ecsSystem->RegisterComponent<Engine::Animation>();
 
-    Engine::ecsSystem->RegisterDependency(Engine::ecsSystem->GetComponentType<Engine::RectangleRenderer>(), Engine::ecsSystem->GetComponentType<Engine::RenderHelper>());
-    Engine::ecsSystem->RegisterDependency(Engine::ecsSystem->GetComponentType<Engine::SpriteRenderer>(), Engine::ecsSystem->GetComponentType<Engine::RenderHelper>());
-    Engine::ecsSystem->RegisterDependency(Engine::ecsSystem->GetComponentType<Engine::TextRenderer>(), Engine::ecsSystem->GetComponentType<Engine::RenderHelper>());
+    Engine::ecsSystem->RegisterDependency(Engine::ecsSystem->GetComponentType<Engine::Rectangle>(), Engine::ecsSystem->GetComponentType<Engine::Renderer>());
+    Engine::ecsSystem->RegisterDependency(Engine::ecsSystem->GetComponentType<Engine::Sprite>(), Engine::ecsSystem->GetComponentType<Engine::Renderer>());
+    Engine::ecsSystem->RegisterDependency(Engine::ecsSystem->GetComponentType<Engine::Text>(), Engine::ecsSystem->GetComponentType<Engine::Renderer>());
     
 
     Engine::ecsSystem->RegisterSystem<Engine::TransformParentSystem>();
@@ -129,7 +129,7 @@ void InitializeECS()
     Engine::Systems::renderSystem = Engine::ecsSystem->RegisterSystem<Engine::RenderSystem>();
     Engine::Signature renderSignature;
     renderSignature.set(Engine::ecsSystem->GetComponentType<Engine::Transform>());
-    renderSignature.set(Engine::ecsSystem->GetComponentType<Engine::RenderHelper>());
+    renderSignature.set(Engine::ecsSystem->GetComponentType<Engine::Renderer>());
     Engine::ecsSystem->AddSystemSignature<Engine::RenderSystem>(renderSignature);
 
     Engine::Systems::collisionSystem = Engine::ecsSystem->RegisterSystem<Engine::CollisionSystem>();
@@ -151,7 +151,7 @@ void InitializeECS()
     Engine::Signature animationSignature;
     animationSignature.set(Engine::ecsSystem->GetComponentType<Engine::Animator>());
     animationSignature.set(Engine::ecsSystem->GetComponentType<Engine::Animation>());
-    animationSignature.set(Engine::ecsSystem->GetComponentType<Engine::SpriteRenderer>());
+    animationSignature.set(Engine::ecsSystem->GetComponentType<Engine::Sprite>());
     Engine::ecsSystem->AddSystemSignature<Engine::AnimationSystem>(animationSignature);
 }
 

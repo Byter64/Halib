@@ -33,15 +33,15 @@ namespace Engine
 
     void RenderSystem::Render(Entity entity)
     {
-        RenderHelper& helper = ecsSystem->GetComponent<RenderHelper>(entity);
+        Renderer& helper = ecsSystem->GetComponent<Renderer>(entity);
         switch (helper.type)
         {
-        case RenderHelper::SPRITE:
+        case Renderer::SPRITE:
             RenderSprite(entity);
             break;
-        case RenderHelper::TEXT:
+        case Renderer::TEXT:
             RenderText(entity);
-        case RenderHelper::RECTANGLE:
+        case Renderer::RECTANGLE:
             RenderRectangle(entity);
         default:
             break;
@@ -51,7 +51,7 @@ namespace Engine
     void RenderSystem::RenderSprite(Entity entity)
     {
 Transform& transform = ecsSystem->GetComponent<Transform>(entity);
-        SpriteRenderer& spriteRenderer = ecsSystem->GetComponent<SpriteRenderer>(entity);
+        Sprite& spriteRenderer = ecsSystem->GetComponent<Sprite>(entity);
         glm::ivec2 scale = transform.GetSpriteScale();
         glm::bvec2 flip = transform.GetSpriteFlip();
         glm::vec2 position = transform.GetGlobalTranslation();
@@ -82,7 +82,7 @@ Transform& transform = ecsSystem->GetComponent<Transform>(entity);
 
     void RenderSystem::RenderRectangle(Entity entity)
     {
-        RectangleRenderer& renderer = ecsSystem->GetComponent<RectangleRenderer>(entity);
+        Rectangle& renderer = ecsSystem->GetComponent<Rectangle>(entity);
         Transform& transform = ecsSystem->GetComponent<Transform>(entity);
         glm::ivec2 position = transform.GetGlobalTranslation();
         position -= renderer.size / 2;
@@ -100,7 +100,7 @@ Transform& transform = ecsSystem->GetComponent<Transform>(entity);
 
     void RenderSystem::RenderText(Entity entity)
     {
-        TextRenderer& renderer = ecsSystem->GetComponent<TextRenderer>(entity);
+        Text& renderer = ecsSystem->GetComponent<Text>(entity);
         Transform& transform = ecsSystem->GetComponent<Transform>(entity);
         glm::ivec2 position = transform.GetGlobalTranslation();
         position -= renderer.size / 2;
@@ -174,13 +174,13 @@ Transform& transform = ecsSystem->GetComponent<Transform>(entity);
         auto iter = std::upper_bound(sortedEntities.begin(), sortedEntities.end(), entity,
         [](Entity entity, Entity other)
     {
-        RenderHelper& sr1 = ecsSystem->GetComponent<RenderHelper>(entity);
-        RenderHelper& sr2 = ecsSystem->GetComponent<RenderHelper>(other);
+        Renderer& sr1 = ecsSystem->GetComponent<Renderer>(entity);
+        Renderer& sr2 = ecsSystem->GetComponent<Renderer>(other);
 
         return sr1.GetLayer() < sr2.GetLayer();
     });
         sortedEntities.insert(iter, entity);
-        ecsSystem->GetComponent<RenderHelper>(entity).DetermineType();
+        ecsSystem->GetComponent<Renderer>(entity).DetermineType();
     }
     
     void RenderSystem::EntityRemoved(Entity entity)

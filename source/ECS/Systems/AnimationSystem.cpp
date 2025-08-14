@@ -19,7 +19,7 @@ namespace Engine
         {
             Animator &animator = ecsSystem->GetComponent<Animator>(entity);
             Animation &animation = ecsSystem->GetComponent<Animation>(entity);
-            SpriteRenderer &spriteRenderer = ecsSystem->GetComponent<SpriteRenderer>(entity);
+            Sprite &spriteRenderer = ecsSystem->GetComponent<Sprite>(entity);
 
             if(!animator.isPlaying) return;
 

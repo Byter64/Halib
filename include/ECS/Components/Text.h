@@ -1,44 +1,28 @@
 #pragma once
-#define GLT_IMPLEMENTATION
-#define GLT_MANUAL_VIEWPORT
-#include "glad/glad.h"
-#include "../glText/gltext.h"
 #include "glm/glm.hpp"
-#include <memory>
 #include <string>
+#include "ECS/Helpers/Color.h"
+#include "ECS/Helpers/Font.h"
 
 namespace Engine
 {
-    class TextRenderSystem;
-    struct Text
-    {
-        friend class TextRenderSystem;
+	struct Text
+	{
+		enum Alignment : char
+		{
+			LEFT, CENTER, RIGHT,
+			TOP = 0, BOTTOM = 2
+		};
 
-        enum Alignment {
-            Left = GLT_LEFT,
-            Top = GLT_TOP,
-            Center = GLT_CENTER,
-            Bottom = GLT_BOTTOM,
-            Right = GLT_RIGHT
-        };
+		Font font;
+		glm::ivec2 size; //Size of the textbox
+		std::string text;
+		Color color;
+		Alignment hAlignment = LEFT;
+		Alignment vAlignment = TOP;
+		float fontSize = 1; //In pixels
 
-        float scale;
-        glm::vec2 position{};
-        Alignment horizontalAlignment = Left;
-        Alignment verticalAlignment = Top;
-    private:
-        std::unique_ptr<GLTtext> text;
-        std::string string;
-    public:
-        Text();
-        explicit Text(std::string string);
-        Text (Text& other);
-
-        Text& operator=(Text& other);
-        Text& operator=(Text&& other) = default;
-
-        void SetText(std::string string);
-        std::string& GetText();
-    };
-
-} // Engine
+		bool isActive = true;
+		bool useWordWrap = true;
+	};
+} // namespace Engine
