@@ -50,7 +50,7 @@ namespace Engine
 
     void RenderSystem::RenderSprite(Entity entity)
     {
-Transform& transform = ecsSystem->GetComponent<Transform>(entity);
+        Transform& transform = ecsSystem->GetComponent<Transform>(entity);
         Sprite& spriteRenderer = ecsSystem->GetComponent<Sprite>(entity);
         glm::ivec2 scale = transform.GetSpriteScale();
         glm::bvec2 flip = transform.GetSpriteFlip();
@@ -181,6 +181,8 @@ Transform& transform = ecsSystem->GetComponent<Transform>(entity);
     });
         sortedEntities.insert(iter, entity);
         ecsSystem->GetComponent<Renderer>(entity).DetermineType();
+        std::cout << "Hello, Mister" << std::endl;
+        std::cout << entity.ComponentsToString() << std::endl;
     }
     
     void RenderSystem::EntityRemoved(Entity entity)

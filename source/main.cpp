@@ -130,7 +130,17 @@ void InitializeECS()
     Engine::Signature renderSignature;
     renderSignature.set(Engine::ecsSystem->GetComponentType<Engine::Transform>());
     renderSignature.set(Engine::ecsSystem->GetComponentType<Engine::Renderer>());
+    renderSignature.set(Engine::ecsSystem->GetComponentType<Engine::Sprite>());
     Engine::ecsSystem->AddSystemSignature<Engine::RenderSystem>(renderSignature);
+    
+    renderSignature.reset(Engine::ecsSystem->GetComponentType<Engine::Sprite>());
+    renderSignature.set(Engine::ecsSystem->GetComponentType<Engine::Text>());
+    Engine::ecsSystem->AddSystemSignature<Engine::RenderSystem>(renderSignature);
+
+    renderSignature.reset(Engine::ecsSystem->GetComponentType<Engine::Text>());
+    renderSignature.set(Engine::ecsSystem->GetComponentType<Engine::Rectangle>());
+    Engine::ecsSystem->AddSystemSignature<Engine::RenderSystem>(renderSignature);
+
 
     Engine::Systems::collisionSystem = Engine::ecsSystem->RegisterSystem<Engine::CollisionSystem>();
     Engine::Signature collisionSignature;
@@ -141,11 +151,6 @@ void InitializeECS()
     collisionSignature.set(Engine::ecsSystem->GetComponentType<Engine::BoxCollider>(), false);
     collisionSignature.set(Engine::ecsSystem->GetComponentType<Engine::TilemapCollider>());
     Engine::ecsSystem->AddSystemSignature<Engine::CollisionSystem>(collisionSignature);
-
-    //Engine::Systems::textRenderSystem = Engine::ecsSystem->RegisterSystem<Engine::TextRenderSystem>();
-    //Engine::Signature textRenderSignature;
-    //textRenderSignature.set(Engine::ecsSystem->GetComponentType<Engine::Text>());
-    //Engine::ecsSystem->AddSystemSignature<Engine::TextRenderSystem>(textRenderSignature);
 
     Engine::Systems::animationSystem = Engine::ecsSystem->RegisterSystem<Engine::AnimationSystem>();
     Engine::Signature animationSignature;
