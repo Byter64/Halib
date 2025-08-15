@@ -41,6 +41,7 @@ namespace Engine
             break;
         case Renderer::TEXT:
             RenderText(entity);
+            break;
         case Renderer::RECTANGLE:
             RenderRectangle(entity);
         default:
@@ -107,11 +108,11 @@ namespace Engine
 
         Hall::COLOR_TABLE_MEMORY[0] = 0;
 	    Hall::COLOR_TABLE_MEMORY[1] = renderer.color.GetHallColor();
-	    FT_Face face = renderer.font.GetFace();
+	    FT_Face face = renderer.font->GetFace();
 	    for(char c : renderer.text)
 	    {
 	    	unsigned int glyphIndex = FT_Get_Char_Index(face, c);
-	    	GlyphID glyphID{ face, glyphIndex, renderer.font.GetSize() };
+	    	GlyphID glyphID{ face, glyphIndex, renderer.font->GetSize() };
 	    	FT_Load_Glyph(face, glyphIndex, FT_LOAD_DEFAULT);
 	    	if (!glyphCache.count(glyphID))
 	    	{

@@ -14,7 +14,7 @@ namespace Engine
 			TOP = 0, BOTTOM = 2
 		};
 
-		Font font;
+		std::shared_ptr<Font> font;
 		glm::ivec2 size; //Size of the textbox
 		std::string text;
 		Color color;
