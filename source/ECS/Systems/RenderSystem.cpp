@@ -190,8 +190,11 @@ namespace Engine
         while(iter != sortedEntities.end() && *iter != entity)
             iter++;
         
-        while((iter + 1) != sortedEntities.end())
+        while ((iter + 1) != sortedEntities.end())
+        {
             *iter = *(iter + 1);
+            iter++; 
+        }
 
         sortedEntities.resize(sortedEntities.size() - 1);
     }
